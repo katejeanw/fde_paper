@@ -1,0 +1,70 @@
+\begin{thebibliography}{10}
+
+\bibitem{Bini}
+{\sc Dario Bini and Fabio Di~Benedetto}, {\em A new preconditioner for the
+  parallel solution of positive definite toeplitz systems}, Association for
+  Computing Machinery,  (1990), p.~220–223.
+
+\bibitem{stable}
+{\sc James~R. Bunch}, {\em Stability of methods for solving toeplitz systems of
+  equations}, SIAM Journal on Scientific and Statistical Computing, 6 (1985),
+  pp.~349--364.
+
+\bibitem{precond_review}
+{\sc Raymond~H. Chan and Michael~K. Ng}, {\em Conjugate gradient methods for
+  toeplitz systems}, SIAM Review, 38 (1996), pp.~427--482.
+
+\bibitem{Chan_Strang}
+{\sc Raymond~H. Chan and Gilbert Strang}, {\em Toeplitz equations by conjugate
+  gradients with circulant preconditioner}, SIAM Journal on Scientific and
+  Statistical Computing, 10 (1989), pp.~104--119.
+
+\bibitem{Chan_Yeung}
+{\sc Raymond~H. Chan and Man-Chung Yeung}, {\em Circulant preconditioners
+  constructed from kernels}, SIAM Journal on Numerical Analysis, 29 (1992),
+  pp.~1093--1103.
+
+\bibitem{schrod}
+{\sc Chao Chen, Xi~Yang, and Fei-Yan Zhang}, {\em Sine-transform-based fast
+  solvers for riesz fractional nonlinear schrödinger equations with attractive
+  nonlinearities}, Applied Mathematics and Computation, 510 (2026), p.~129674.
+
+\bibitem{JZ}
+{\sc Bangti Jin and Zhi Zhou}, {\em A {Finite} {Element} {Method} with
+  {Singularity} {Reconstruction} for {Fractional} {Boundary} {Value}
+  {Problems}}, ESAIM: Mathematical Modelling and Numerical Analysis, 49 (2015),
+  pp.~1261--1283.
+
+\bibitem{Kailath}
+{\sc Thomas Kailath and Vadim Olshevsky}, {\em Displacement structure approach
+  to discrete-trigonometric-transform based preconditioners of g.strang type
+  and of t.chan type}, SIAM Journal on Matrix Analysis and Applications, 26
+  (2006), pp.~706--734.
+
+\bibitem{hierarch}
+{\sc Xianjuan Li, Zhiping Mao, Nan Wang, Fangying Song, Hong Wang, and
+  George~Em Karniadakis}, {\em A fast solver for spectral elements applied to
+  fractional differential equations using hierarchical matrix approximation},
+  Computer Methods in Applied Mechanics and Engineering, 366 (2020).
+
+\bibitem{AFEM}
+{\sc Ricardo Nochetto, Kunibert Siebert, and Andreas Veeser}, {\em Theory of
+  adaptive finite element methods: An introduction}, in Multiscale, Nonlinear
+  and Adaptive Approximation, 2009, pp.~409--542.
+
+\bibitem{MINRES_super}
+{\sc Valeria Simoncini and Daniel Szyld}, {\em On the superlinear convergence
+  of minres},  (2013).
+
+\bibitem{superfast}
+{\sc Hong Wang and Ning Du}, {\em A superfast-preconditioned iterative method
+  for steady-state space-fractional diffusion equations}, Journal of
+  Computational Physics, 240 (2013), pp.~49--57.
+
+\bibitem{Xiaozhe}
+{\sc Xuan Zhao, Xiaozhe Hu, Wei Cai, and George~Em Karniadakis}, {\em Adaptive
+  finite element method for fractional differential equations using
+  hierarchical matrices}, Computer Methods in Applied Mechanics and
+  Engineering, 325 (2017), pp.~56--76.
+
+\end{thebibliography}

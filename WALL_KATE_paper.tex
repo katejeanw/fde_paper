@@ -1,4 +1,4 @@
-\documentclass[review]{siamart251216}
+\documentclass[]{article}
 
 % 1. Preamble and packages
 \usepackage{amsfonts, amsmath, amssymb, amsbsy}
@@ -39,6 +39,8 @@
 \newcommand{\offd}{{A_E}}
 \newcommand{\off}{{E}}
 \newcommand{\setoff}{{W}}
+\newcommand{\precond}{{ M }}
+\newcommand{\Schur}{{ B }}
 \newcommand{\Hank}{{ H }}
 \newcommand{\Toe}{{ L }}
 \newcommand{\toe}{{ \ell }}
@@ -82,17 +84,20 @@
   Misha Kilmer
 }
 
-% ---------------------------------------------
-% ---------------------------------------------
-\author{\TheName\thanks{\TheAddress}}
-\title{{\TheTitle}\thanks{\TheFunding}}
-\headers{\TheShortTitle}{\TheName}
-\ifpdf%
-\hypersetup{%
-  pdftitle={\TheTitle},
-  pdfauthor={\TheName}
-}
-\fi
+%% ---------------------------------------------
+%% ---------------------------------------------
+%\author{\TheName\thanks{\TheAddress}}
+%\title{{\TheTitle}\thanks{\TheFunding}}
+%\headers{\TheShortTitle}{\TheName}
+%\ifpdf%
+%\hypersetup{%
+%  pdftitle={\TheTitle},
+%  pdfauthor={\TheName}
+%}
+%\fi
+
+\author{Kate Wall}
+\title{A Discrete-Sine-Transform based Preconditioner for Adaptive Meshes}
 
 \begin{document}
 
@@ -125,9 +130,11 @@ In this paper we consider fractional differential equations \\ (FDEs) of the for
 \end{equation}
 where $D^{\alpha}_x$ is the Riesz fractional derivative of order $1 < \alpha < 2$ and $f \in L^2([a,b])$. 
 
-Many numerical solvers for FDEs discretize the domain on a uniform mesh; the uniform mesh results in a linear system with a Toeplitz matrix. Still FDEs present unique difficulties in numerical methods due to the non-locality of the operator resulting in a dense stiffness matrix. Additionally, as part of the fractional derivative the singular kernel, $k(x,s) = |x-s|^{1-\alpha}$, is integrated, resulting in end-point singularities which make Galerkin finite-element methods sub-optimal \cite{hierarch,superfast}. To address this, Jin and Zhou developed a reconstruction technique that isolates the singularity to improve FEM convergence \cite{JZ}. Alternatively, Wang and Du developed a Toeplitz preconditioner that reduces iteration cost to $\bigOh(n \log n)$ using the preconditioned conjugate gradient squared method \cite{superfast}. 
+\todo[inline]{FDE applications... HOWEVER, (next paragraph)}
 
-The above methods, however, require uniform meshes. An optimal mesh would have the $L^{\infty}$ error equally distributed on each interval, but a uniform mesh does not, in general, satisfy this condition. Indeed, the singularities of FDEs force higher error in the intervals near the boundary. Alternatively, to achieve desired accuracy across the whole domain we use an adaptive mesh and adaptive finite-element method (AFEM) \cite{AFEM, Xiaozhe}. The usual AFEM algorithm iterates through the process 
+FDEs present unique difficulties in numerical methods due to the non-locality of the operator resulting in a dense stiffness matrix. Additionally, as part of the fractional derivative the singular kernel, $k(x,s) = |x-s|^{1-\alpha}$, is integrated, resulting in end-point singularities which make Galerkin finite-element methods sub-optimal \cite{hierarch,superfast}. To address this, Jin and Zhou developed a reconstruction technique that isolates the singularity to improve FEM convergence \cite{JZ}. Alternatively, Wang and Du developed a Toeplitz preconditioner that reduces iteration cost to $\bigOh(n \log n)$ using the preconditioned conjugate gradient squared method \cite{superfast}. 
+
+The above methods require uniform meshes. On a uniform mesh the FEM discretization results in a stiffness matrix that is Toeplitz. All methods on a uniform mesh leverage this structure for efficient linear solves. However, these methods fail to address high error near singularities, and instead the size of the mesh must grow. An optimal mesh would have the $L^{\infty}$ error equally distributed on each interval, but a uniform mesh does not, in general, satisfy this condition. Indeed, the singularities of FDEs force higher error in the intervals near the boundary and thus require very fine meshes to achieve uniform error below a given threshold. Alternatively, to achieve desired accuracy across the whole domain we use an adaptive mesh and adaptive finite-element method (AFEM) \cite{AFEM, Xiaozhe}. The usual AFEM algorithm iterates through the process 
 \begin{equation} \label{AFEM}
 	\texttt{SOLVE} \rightarrow \texttt{ESTIMATE} \rightarrow \texttt{MARK} \rightarrow \texttt{REFINE},
 \end{equation} 
@@ -151,9 +158,9 @@ Our aim is to build a preconditioner for the stiffness matrix, $\A$, from an AFE
 
 \section{Background}
 \subsection{Properties of Structured Matrices} \label{sec:matrix_props}
-There has long been interest in solving Toeplitz linear systems efficiently. A matrix $A$ is called Toeplitz if $a_{ij} = a_{i-j}$. Arbitrary $n \times n$ matrices have up to $n^2$ entries and are solved directly in $\bigOh(n^3)$ FLOPS. Since a Toeplitz matrix has at most $2n-1$ unique entries, we expect to solve Toeplitz systems with $\bigOh (n^2)$ FLOPS, (see for example Levinson's algorithm, Trench's algorithm). Even with these improvements, however, fast Toeplitz algorithms are unstable in general and infeasible for large systems that arise in application \cite{stable}. Instead we turn to iterative Krylov and multigrid methods \cite{schrod, hierarch, Xiaozhe}. For these methods we take advantage of Toeplitz structure by using structured preconditioners. 
+There has long been interest in solving Toeplitz linear systems efficiently. A matrix $A$ is called Toeplitz if $a_{ij} = a_{i-j}$. Arbitrary $n \times n$ matrices have up to $n^2$ entries and are solved directly in $\bigOh(n^3)$ FLOPS. Since a Toeplitz matrix has at most $2n-1$ unique entries, we expect to solve Toeplitz systems with $\bigOh (n^2)$ FLOPS, (see for example Levinson's algorithm, Trench's algorithm). Even with these improvements, however, fast Toeplitz algorithms are unstable in general and infeasible for large systems that arise in application \cite{stable}. Infinite or periodic Toeplitz matrices can be solved via a transformation to Fourier space and a discrete convolution in TODO time. On the other hand, finite Toeplitz systems are much more difficult to solve due to the boundaries of the mesh or matrix. To solve these systems, we turn to iterative Krylov and multigrid methods \cite{schrod, hierarch, Xiaozhe}. For these methods we take advantage of Toeplitz structure by using structured preconditioners. 
 
-Toeplitz matrices commonly arise in partial differential equations discretization, FDEs, signal processing, and control theory. Often the Toeplitz matrices are also symmetric positive definite (SPD). Given an SPD Toeplitz system $\Toe x = b$, the idea introduced by Strang and Chan \cite{Chan_Strang} is to use certain circulant preconditioners $C$ so that $C^{-1}Tx = C^{-1}b$ is solved in fewer iterations. 
+Toeplitz matrices commonly arise in partial differential equations discretization, FDEs, signal processing, and control theory. In application,  Toeplitz matrices are often symmetric positive definite (SPD) or symmetric positive semidefinite (SPSD). Given an SPD Toeplitz system $\Toe x = b$, the idea introduced by Strang in TODO (A proposal for Topelitz Matrix Calcs 1986)  is to use a  circulant preconditioner, $C$, so that $C^{-1}Tx = C^{-1}b$ is solved in fewer iterations. 
 A circulant matrix is a Toeplitz matrix, that additionally has the ``wrap-around'' property where the last entry of each row is the first entry of the subsequent row:
 \begin{equ}[H]
 	\begin{equation} 
@@ -173,10 +180,9 @@ A circulant matrix is a Toeplitz matrix, that additionally has the ``wrap-around
 	\end{equation}
 	\caption{$\Toe$ is a Toeplitz matrix and $C$ is circulant.}
 \end{equ}
-% Classical results on the eigenvalue distribution of Toeplitz matrices indicate that we cannot expect, in general, any clustering, and that the convergence of the method will be slow.
-%% Toeplitz matrices and generating functions 
+
 As will be discussed in Section (\ref{stiffness}), the stiffness matrix resulting from AFEM applied to (\ref{FDE}) is not Toeplitz, but does contain SPD Toeplitz blocks. 
-Toeplitz matrices have many special properties, but we focus on their connection to functions in the Wiener class. 
+Toeplitz matrices have many special properties, here we focus on their connection to functions in the Wiener class. 
 \begin{definition}[\cite{Chan_Strang}]
 	Given a singly infinite, symmetric Toeplitz matrix $\Toe$ we define the finite subsection $\Toe_m$ to be the $m \times m$ principle submatrix. That is, 
 	\begin{equation*}
@@ -186,7 +192,7 @@ Toeplitz matrices have many special properties, but we focus on their connection
 			\toe_2 & \toe_1 & \toe_0 & \ddots  \\
 			& \ddots & \ddots & \ddots  \\
 		\end{pmatrix}
-				\Toe_m = \begin{pmatrix}
+		\Toe_m = \begin{pmatrix}
 			\toe_0 & \toe_1 & \cdots & \toe_{m-1} \\
 			\toe_1 & \toe_0 & \cdots & \toe_{m-2} \\
 			\vdots & \vdots & \ddots & \vdots \\
@@ -196,7 +202,13 @@ Toeplitz matrices have many special properties, but we focus on their connection
 	Assume $\sum_{k=-\infty}^{\infty} |\toe_k| <\infty$, then the matrices induce functions $\toef(z) = \sum_{k=-\infty}^{\infty} \toe_k z^k$ and $\toef_m(z) = \sum_{k=-(m-1)}^{m-1} \toe_k z^k$ are real, positive, and in the Wiener class for $|z| = 1$.
 \end{definition}
 
-Previous work on Toeplitz systems offers many options for circulant preconditioners, (see \cite{precond_review}). Although their construction differs, they are all diagonalized by the discrete Fourier transform matrix and are thus efficiently applied via the fast Fourier transform (FFT). The spectrum of the preconditioned systems are asymptotically the same \cite{precond_review}. In this paper the preconditioner we construct is based on the $\ptau$ matrix class, introduced in \cite{Bini}. 
+% Classical results on the eigenvalue distribution of Toeplitz matrices indicate that we cannot expect, in general, any clustering, and that the convergence of the method will be slow.
+%% Toeplitz matrices and generating functions 
+
+Previous work on Toeplitz systems offers many options for circulant preconditioners, (see \cite{precond_review}). Strang and R. Chan first proposed to construct a circulant $C$ by copying the central diagonals of $L$ into the required wrap-around entries. Assuming for simplicity $n = 2m$, then the first column of $C$ would be $\ell_0, \dots, \ell_m, \dots, \ell_0$ \cite{Chan_Strang}. Alternatively, Tony Chan constructed a circulant preconditioner, $C$, by averaging the diagonals of $L$. He shows this to be optimal in the sense that $||C-L||_F$ is minimal. TODO CITE
+
+Although their construction differs, they are all diagonalized by some trigonometric transform matrix and are thus efficiently applied via the fast Fourier transform (FFT). The spectrum of the preconditioned systems are asymptotically the same \cite{precond_review}. In this paper the preconditioner we construct is based on the $\ptau$ matrix class, introduced in \cite{Bini}. 
+ 
 
 The $\ptau$ preconditioner is not itself circulant, but is diagonalized by the type-I discrete sine transform (DST) matrix. Kailath and Olshevsky used a displacement operator kernel framework to unify the circulant preconditioners, $\ptau$, and other preconditioners diagonalized by other discrete trigonometric matrices. Together these form a class of discrete-trigonometric-based preconditioners. Though our construction could be generalized to circulant preconditioners, we use $\ptau$ because it does not require complex arithmetic needed for the FFT. Following \cite{Bini}, given a symmetric Toeplitz matrix $\Toe$ we cab build a Hankel correction matrix, $H$, where 
 \begin{equation} \label{Hank}
@@ -241,9 +253,9 @@ The following lemma summarizes properties of $\ptau$.
 % discrete convolution for exact solution and the boundary problem 
 
 \subsection{AFEM stiffness matrix} \label{stiffness}
-Again, let $\A$ be the stiffness matrix resulting from AFEM applied to (\ref{FDE}). During the $\texttt{MARK}$ module of AFEM (\ref{AFEM}), it is often the case that adjacent elements have similar error estimates, and are either both marked or both not marked for refinement. As a result, after several refinements there are still subsections of the domain that have been refined to the same level. We refer to these subdomains as \emph{locally uniform}.  Since uniform meshes give rise to SPD Toeplitz systems, wherever there are adjacent elements of the same size we find a corresponding Toeplitz block on the main diagonal of our stiffness matrix, $\A$. The size of this block depends on how many adjacent elements are the same size. In practice we have observed that the boundary of the domain almost always requires the greatest level of refinement. In general we have larger Toeplitz blocks from locally uniform subdomains in the middle of the matrix, and smaller blocks---or indeed $1 \times 1$ blocks---near the boundary. We use $\A_D$ to denote the block diagonal with Toeplitz blocks part of $\A$. 
+Again, let $\A$ be the stiffness matrix resulting from AFEM applied to (\ref{FDE}). During the $\texttt{MARK}$ module of AFEM (\ref{AFEM}), it is often the case that adjacent elements have similar error estimates, and are either both marked or both not marked for refinement. As a result, after several refinements there are still subsections of the domain that have been refined to the same level. We refer to these subdomains as \emph{locally uniform}.  Since uniform meshes give rise to SPD Toeplitz systems, wherever there are adjacent elements of the same size we find a corresponding Toeplitz block on the main diagonal of our stiffness matrix, $\A$. The size of this block depends on how many adjacent elements are the same size. In practice we have observed the greatest level of refinement is required near the boundary of the domain. In general we have larger Toeplitz blocks from locally uniform subdomains in the middle of the matrix, and smaller blocks---or indeed $1 \times 1$ blocks---near the boundary. These $1 \times 1$ blocks, along with their corresponding rows and columns, can be viewed as additional boundaries imposed onto the system. As mentioned earlier, it is the boundaries of a Toeplitz system that necessitate more computation while solving, so we can anticipate that wise handling of these $1 \times 1$ block disruptions to the Toeplitz structure will be the key to making a good preconditioner. We use $\A_D$ to denote the block diagonal with Toeplitz blocks part of $\A$. 
 
-As mentioned previously, the fractional derivative results in a dense matrix, but we observe off-diagonal decay, as elements that are physically separated in the domain have weaker interaction. The rate of decay depends on the fractional order $\alpha$. Blocks that are most distant from the diagonal contain less information and we assume they have small-norm. We denote these blocks as $\A_F$. We call the blocks that are either directly below or to the right of the Toeplitz blocks ``blocks adjacent to the diagonal", together they are denoted $\offd$. 
+The fractional derivative results in a dense matrix, but we observe off-diagonal decay, as elements that are physically separated in the domain have weaker interaction. The rate of decay depends on the fractional order $\alpha$. Blocks that are most distant from the diagonal contain less information and we assume they have small-norm. We denote these blocks as $\A_F$. We call the blocks that are either directly below or to the right of the Toeplitz blocks ``blocks adjacent to the diagonal", together they are denoted $\offd$. 
 These blocks are not in general small-norm, but due to the weaker interaction, are well-suited for low-rank approximation, (see \cite{Xiaozhe} for more details).  
 These assumptions are made precise in section \ref{proof} and numerically validated in section \ref{validate}. 
 Using this notation, we write our stiffness matrix as the sum of the Toeplitz blocks, blocks adjacent to the diagonal, and blocks further removed from the diagonal, $\A = \A_D + \offd + \A_F$ (see Figure (\ref{fig:A_split})). 
@@ -260,7 +272,7 @@ Using this notation, we write our stiffness matrix as the sum of the Toeplitz bl
 \end{figure}
 % brief proof uniform mesh gives toeplitz?
 % If the mesh is not fine enough to give the desired accuracy, one approach is to increase the number of elements, $n$. While this approach preserves uniformity, it usually requires recomputing the stiffness matrix entirely. Alternatively, if the level of refinement gives sufficiently small error for some parts of the domain, we can leave those unchanged and only refine in areas of larger error. This approach allows us to take advantage of computations that have already been performed, but the mesh is no longer uniform. 
-\todo{good spot to mention Toeplitz compression RNLA solvers?} 
+\todo[inline]{good spot to mention Toeplitz compression RNLA solvers?} 
 
 \section{Adaptive \texorpdfstring{$\ptau$}{tau} Preconditioner} \label{precond} 
 In this section we set forth the properties we require from a preconditioner, how we use $\ptau$ in building the adaptive $\ptau$ preconditioner, which we call $\Tau$, and how to build and apply $\Tau$ efficiently.A good preconditioner for an iterative method must in general decrease the total number of iterations, without increasing the cost of a single iteration. We borrow Kailath's \cite{Kailath} criteria for preconditioners, similar criteria is well-established in the literature (for example \cite{Bini}). 
@@ -311,9 +323,11 @@ The DST blocks in the outside matrices can be applied via the fast sine transfor
 % notation table ?
 % 1x1 blocks consideration 
 % Story: we know how this works on one block, what about block diagonal, what about with things happening outside of block diagonal? 
-In this section we prove that the spectral clustering in criteria (\ref{crit3}) holds for $\Tau$. Proofs for clustering of discrete-trigonometric-transform based preconditioned problems in this area tend to follow a similar structure. First it is shown that the preconditioned system having a spectrum clustered around 1 is equivalent to the clustering of a related system around 0. This related system is then split into the sum of a low-rank term and a small-norm term. The small-norm term has spectrum clustered around 0, forcing the clustering of the entire system around 0 with the number of outliers bounded by the rank of the low-rank term.
+In this section we prove that the spectral clustering in criteria (\ref{crit3}) holds for $\Tau$.  Proofs for clustering of discrete-trigonometric-transform based preconditioned problems in this area tend to follow a similar structure which we also follow: we show the preconditioned matrix can be written as the identity matrix plus a small-norm matrix and a low-rank matrix, 
+$$ \Tau^{-1}A = I + A_{SN} + A_{LR}.$$ 
+The small-norm term has spectrum clustered around 0, forcing the clustering of the entire system around 1 with the number of outliers bounded by the rank of the low-rank term.
 
-We present our version of the spectral clustering proof for the case of $\ptau$ acting on a single Toeplitz block. This result is then used to help prove the clustering of the adaptive preconditioner on the adaptive grid, $\Tau^{-1} \A$. We now state and prove a result that will be useful to us throughout this section. 
+We present our version of the spectral clustering proof for the case of $\ptau$ acting on a single Toeplitz block. We then expand this result to prove the clustering of the block matrix applied to our the Toeplitz blocks and corresponding off diagonal blocks contained in the $A_{22}$ block after permuting. Finally, we show how our handling of the $1 \times 1$ blocks preserves the spectral clustering. 
 
 %\begin{theorem}[Min-max Theorem]
 %	Let $A \in \R^{n \times n}$ be symmetric with ordered spectrum $\lambda_1 \geq \cdots \geq \lambda_n$. Then 
@@ -438,7 +452,89 @@ In practice the block size, $m_i$, is determined by the AFEM algorithm, which in
 %		\item The eigenvalues of $\Tau^{-1} \A$ are clustered around 1. 
 %	\end{enumerate}
 %\end{lemma}
+\subsection{preconditioner LU}
+Using Schur complement's, we can obtain a block-LU decomposition for our permuted stiffness matrix. It will be notationally convenient to define the Schur complement matrix $\Schur :=  A_{22} - A_{21}A_{11}^{-1}A_{12}$. 
+\begin{equation} \label{LU}
+	\A = LU = \begin{pmatrix}
+		I & 0 \\ A_{21}A_{11}^{-1} & I
+	\end{pmatrix} 
+	\begin{pmatrix}
+		A_{11} & A_{12} \\ 0 & \Schur
+	\end{pmatrix}
+\end{equation}
+It is straightforward to verify the inverses of the two factor matrices are,
+\begin{align*}
+	L^{-1} &= \begin{pmatrix}
+		I & 0 \\ -A_{21}A_{11}^{-1} & I
+	\end{pmatrix} \\
+	U^{-1} &= \begin{pmatrix}
+		A_{11}^{-1} & -A_{11}^{-1}A_{12}\Schur^{-1} \\ 0 & \Schur^{-1}
+	\end{pmatrix}
+\end{align*}
 
+Recalling that the size of $A_{11}$ is the number of $1 \times 1$ blocks, which is smaller and slower-growing than the dimension $n$, we can compute $A_{11}^{-1}$ directly, without adding to our overall cost. We can invert $\Schur$ using the Sherman-Woodbury-Morris formula, $\Schur^{-1} = A_{22}^{-1} + A_{22}^{-1}A_{21}(A_{11}-A_{12}A_{22}^{-1}A_{21})^{-1}A_{12}A_{22}^{-1}$. Notice, however, it requires the prohibitively expensive inversion of $A_{22}$. We know $\Tau^{-1}$ is not only fast to compute, but also a good spectral approximation to $A_{22}^{-1}$. Let $\hat{\Schur}$ denote $\Tau - A_{21} A_{11}^-1 A_{12}$. Now we can define 
+\begin{equation*}
+	\hat{U} := \begin{pmatrix}
+		A_{11} & A_{12} \\ 0 & \hat{\Schur}
+	\end{pmatrix}, \ 
+	\hat{U}^{-1} :=  \begin{pmatrix}
+		A_{11}^{-1} & -A_{11}^{-1}A_{12} \hat{\Schur}^{-1} \\ 0 & \hat{\Schur}^{-1}
+	\end{pmatrix}.
+\end{equation*} 
+Finally, our preconditioner is given by 
+\begin{align*}
+\precond^{-1} := \hat{U}^{-1} L^{-1} &= \begin{pmatrix}
+	A_{11}^{-1} & -A_{11}^{-1}A_{12} \hat{\Schur}^{-1} \\ 0 & \hat{\Schur}^{-1}
+\end{pmatrix} \begin{pmatrix}
+I & 0 \\ -A_{21}A_{11}^{-1} & I
+\end{pmatrix} \\
+&= \begin{pmatrix}
+	A_{11}^{-1}  + A_{11}^{-1} A_{12}\hat{\Schur}^{-1}A_{21}A_{11}^{-1} & -A_{11}^{-1} A_{12} \hat{\Schur}^{-1} \\ -\hat{\Schur}^{-1}A_{21}A_{11}^{-1} & \hat{\Schur}^{-1} 
+\end{pmatrix}.
+\end{align*}
+
+\subsection{final clustering}
+
+Theorem about clustering
+
+Assumption $\Tau^{-1}A_{22} = I + \varepsilon + N$, $N$ is low-rank IE outliers
+
+implies $\Tau - A_{22} = \Tau \Tau^{-1} (\Tau - A_{22}) = \Tau (I - I - \varepsilon - N) = \Tau (- \varepsilon - N)$. 
+
+\begin{align*}
+	M^{-1} A &= \begin{pmatrix}
+		A_{11}^{-1}  + A_{11}^{-1} A_{12}\hat{\Schur}^{-1}A_{21}A_{11}^{-1} & -A_{11}^{-1} A_{12} \hat{\Schur}^{-1} \\ -\hat{\Schur}^{-1}A_{21}A_{11}^{-1} & \hat{\Schur}^{-1} 
+	\end{pmatrix} \begin{pmatrix}
+	A_{11} & A_{12} \\ A_{21} & A_{22}
+ 	\end{pmatrix} \\
+ 	&= \begin{pmatrix}
+ 		I + A_{11}^{-1} A_{12}\hat{\Schur}^{-1}A_{21} -  A_{11}^{-1} A_{12}\hat{\Schur}^{-1}A_{21} & A_{11}^{-1}A_{12}+A_{11}^{-1}A_{12} \hat{\Schur}^{-1} A_{21}A_{11}^{-1}A_{12} - A_{11}^{-1}A_{12}\hat{\Schur}^{-1}A_{22} \\ 
+ 		-\hat{\Schur}^{-1}A_{21} + \hat{\Schur}^{-1}A_{21} & -\hat{\Schur}^{-1}A_{21}A_{11}^{-1}A_{12} + \hat{\Schur}^{-1}A_{22}
+ 	\end{pmatrix} \\
+ 	&= \begin{pmatrix}
+ 		I & A_{11}^{-1}A_{12}\hat{\Schur}^{-1}(\Tau - A_{22}) \\ 
+ 		0 & \hat{\Schur}^{-1}(A_{22}-A_{21}A_{11}^{-1}A_{12})
+ 	\end{pmatrix}
+\end{align*}
+
+Examining term in $12$ spot:
+\begin{align*}
+	A_{11}^{-1}A_{12}\hat{\Schur}^{-1}(\Tau - A_{22}) &= 	A_{11}^{-1}A_{12} (\Tau^{-1} + \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}) (\Tau - A_{22}) \\
+	&= 	A_{11}^{-1}A_{12} (I + \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12})\Tau^{-1}(\Tau - A_{22})  \\
+	&= A_{11}^{-1}A_{12} (I + \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}) (- \varepsilon - N)
+\end{align*}
+
+Examining term in $22$ spot (basically following proof steps of SMW):
+\begin{align*}
+	\hat{\Schur}^{-1}(A_{22}-A_{21}A_{11}^{-1}A_{12}) &= (\Tau^{-1} + \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}) (A_{22}-A_{21}A_{11}^{-1}A_{12}) \\
+	&= \Tau^{-1}A_{22} + \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}A_{22} - \Tau^{-1}A_{21}A_{11}^{-1}A_{12} - \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}A_{21}A_{11}^{-1}A_{12} \\
+	&= I + \varepsilon + N \left[   \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}  (I + \varepsilon + N)  - \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}A_{21}A_{11}^{-1}A_{12}  \right] \\
+	&= I + \varepsilon +\Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12} (\varepsilon + N) + \left[ \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1} - \Tau^{-1}A_{21}A_{11}^{-1} - \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}A_{21}A_{11}^{-1} \right] A_{12}  \\
+	&= I + \varepsilon +\Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12} (\varepsilon + N) + \left[ -\Tau^{-1}A_{21}A_{11}^{-1} + (\Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1})(I - A_{12}\Tau^{-1}A_{21}A_{11}^{-1})   \right] A_{12} \\
+	&= I + \varepsilon +\Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12} (\varepsilon + N) + \left[ -\Tau^{-1}A_{21}A_{11}^{-1} + (\Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1})(A_{11} - A_{12}\Tau^{-1}A_{21})A_{11}^{-1}   \right] A_{12} \\
+	&= I + \varepsilon +\Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12} (\varepsilon + N) + \left[ -\Tau^{-1}A_{21}A_{11}^{-1}+ \Tau^{-1}A_{21}A_{11}^{-1}   \right]A_{12} \\
+	&= I + \varepsilon +\Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12} (\varepsilon + N).
+\end{align*}
 
 \section{Numerical Results}
 \subsection{Validating Assumptions}\label{validate}

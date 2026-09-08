@@ -41,7 +41,7 @@
 \pgfsyspdfmark {pgfid2}{20088094}{22948436}
 \citation{Kailath}
 \citation{Bini}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Illustration of the stiffness matrix splitting: $A_D$ is block diagonal with Toeplitz blocks, blocks in ${A_E}$ are assumed to be well-approximated by low-rank matrices, finally ${A }_F$ is assumed to be small-norm due to weak interaction between elements. \relax }}{6}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Illustration of the stiffness matrix splitting: ${{ T }_D}$ is block diagonal with Toeplitz blocks, blocks in ${{ T }_E}$ are assumed to be well-approximated by low-rank matrices, finally ${{ T }_F}$ is assumed to be small-norm due to weak interaction between elements. \relax }}{6}{}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:A_split}{{1}{6}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}The Adaptive Preconditioner}{6}{}\protected@file@percent }
@@ -54,14 +54,14 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Constructing our Preconditioner}{7}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}LU Decomposition of ${ \tilde  {A} }$}{7}{}\protected@file@percent }
 \newlabel{LU}{{5}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Approximating ${ \tilde  {A} }_{22}^{-1}$}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Approximating ${ T }^{-1}$}{7}{}\protected@file@percent }
 \newlabel{diag}{{6}{7}}
-\@writefile{tdo}{\contentsline {todo}{This establishes Criteria (1\hbox {}) and (2\hbox {}) for $\mathcal  {T}$. }{8}{}\protected@file@percent }
-\pgfsyspdfmark {pgfid3}{20088094}{41684901}
+\@writefile{tdo}{\contentsline {todo}{This establishes Criteria (1\hbox {}) and (2\hbox {}) for ${ \Phi }$. }{7}{}\protected@file@percent }
+\pgfsyspdfmark {pgfid3}{20088094}{43319660}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Defining the Adaptive Preconditioner, ${ M }^{-1}$}{8}{}\protected@file@percent }
 \newlabel{precond_def}{{3.2.3}{8}}
 \@writefile{tdo}{\contentsline {todo}{1 and 2}{8}{}\protected@file@percent }
-\pgfsyspdfmark {pgfid4}{20088094}{26869107}
+\pgfsyspdfmark {pgfid4}{20088094}{28150164}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Theoretical Results}{8}{}\protected@file@percent }
 \newlabel{eig_lemma}{{2}{8}}
 \citation{Bini}
@@ -81,8 +81,6 @@
 \citation{Chan_Strang}
 \citation{Chan_Yeung}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}final clustering}{12}{}\protected@file@percent }
-\@writefile{tdo}{\contentsline {todo}{removed tilde for visual cleanliness}{12}{}\protected@file@percent }
-\pgfsyspdfmark {pgfid6}{20088094}{28779320}
 \citation{Xiaozhe}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Numerical Results}{13}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Validating Assumptions}{13}{}\protected@file@percent }
@@ -91,11 +89,11 @@
 \citation{MINRES_super}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces  The approximation rank needed for the error to be less than $\varepsilon $ for varying fractional indices $\alpha $. Table entries are displayed as $\texttt  {median (max)}$. \relax }}{14}{}\protected@file@percent }
 \newlabel{table:validate_rk}{{1}{14}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces The norm of $||A_F||_2$ and $||A_F||_2 / ||A||_2$ across values of $\alpha $. \relax }}{14}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces The norm of $||{{ T }_F}||_2$ and $||{{ T }_F}||_2 / ||A||_2$ across values of $\alpha $. \relax }}{14}{}\protected@file@percent }
 \newlabel{table:validate_norm}{{2}{14}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Eigenvalue clustering before and after preconditioning. Each column represent a different matrix size. The first row shows the spectrum before preconditioning, the second shows the spectrum, on a smaller interval, after preconditioning.\relax }}{14}{}\protected@file@percent }
 \newlabel{fig:eigen_clusters}{{2}{14}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Comparing the residual vector norm across PCG iterations. The blue line uses a Jacobi preconditioner and the orange line uses the $\mathcal  {T}$ preconditioner. \relax }}{15}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Comparing the residual vector norm across PCG iterations. The blue line uses a Jacobi preconditioner and the orange line uses the ${ \Phi }$ preconditioner. \relax }}{15}{}\protected@file@percent }
 \newlabel{fig:conv}{{3}{15}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{15}{}\protected@file@percent }
 \bibstyle{siamplain}

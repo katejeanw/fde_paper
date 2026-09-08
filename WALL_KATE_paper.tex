@@ -42,11 +42,24 @@
 \newcommand{\f}{{\vec  f }}
 \newcommand{\zero}{{\vec  0 }}
 \newcommand{\A}{{A }}
+\newcommand{\SN}{{T^{SN} }}
+\newcommand{\LR}{{T^{LR}}}
 \newcommand{\perm}{{ \tilde{A} }}
-\newcommand{\offd}{{A_E}}
+
 \newcommand{\off}{{E}}
 \newcommand{\setoff}{{W}}
+\newcommand{\lilpre}{{ \varphi }}
+\newcommand{\bigpre}{{ \Phi }}
 \newcommand{\precond}{{ M }}
+\newcommand{\upleft}{{ V }}
+\newcommand{\upright}{{ W }}
+\newcommand{\lowright}{{ T }}
+
+\newcommand{\toediag}{{\lowright_D}}
+\newcommand{\offd}{{\lowright_E}}
+\newcommand{\offoff}{{\lowright_F}}
+
+
 \newcommand{\Schur}{{ B }}
 \newcommand{\Hank}{{ H }}
 \newcommand{\Toe}{{ L }}
@@ -54,7 +67,7 @@
 \newcommand{\toef}{{ \tilde{\toe}}}
 \newcommand{\DST}{{ S }}
 \newcommand{\Tau}{\mathcal{T}}
-\newcommand{\ptau}{{\bm{\tau}}}
+
 
 
 
@@ -215,10 +228,10 @@ Toeplitz matrices have many special properties, here we focus on their connectio
 
 Previous work on Toeplitz systems offers many options for circulant preconditioners, (see \cite{precond_review}). Strang and R. Chan first proposed to construct a circulant $C$ by copying the central diagonals of $L$ into the required wrap-around entries. Assuming for simplicity $n = 2m$, then the first column of $C$ would be $\ell_0, \dots, \ell_m, \dots, \ell_0$ \cite{Chan_Strang}. Alternatively, Tony Chan constructed a circulant preconditioner, $C$, by averaging the diagonals of $L$. He shows this to be optimal in the sense that $||C-L||_F$ is minimal. TODO CITE
 
-Although their construction differs, they are all diagonalized by some trigonometric transform matrix and are thus efficiently applied via the fast Fourier transform (FFT). The spectrum of the preconditioned systems are asymptotically the same \cite{precond_review}. In this paper the preconditioner we construct is based on the $\ptau$ matrix class, introduced in \cite{Bini}. 
+Although their construction differs, they are all diagonalized by some trigonometric transform matrix and are thus efficiently applied via the fast Fourier transform (FFT). The spectrum of the preconditioned systems are asymptotically the same \cite{precond_review}. In this paper the preconditioner we construct is based on the $\lilpre$ matrix class, introduced in \cite{Bini}. 
  
 
-The $\ptau$ preconditioner is not itself circulant, but is diagonalized by the type-I discrete sine transform (DST) matrix. Kailath and Olshevsky used a displacement operator kernel framework to unify the circulant preconditioners, $\ptau$, and other preconditioners diagonalized by other discrete trigonometric matrices. Together these form a class of discrete-trigonometric-based preconditioners. Though our construction could be generalized to circulant preconditioners, we use $\ptau$ because it does not require complex arithmetic needed for the FFT. 
+The $\lilpre$ preconditioner is not itself circulant, but is diagonalized by the type-I discrete sine transform (DST) matrix. Kailath and Olshevsky used a displacement operator kernel framework to unify the circulant preconditioners, $\lilpre$, and other preconditioners diagonalized by other discrete trigonometric matrices. Together these form a class of discrete-trigonometric-based preconditioners. Though our construction could be generalized to circulant preconditioners, we use $\lilpre$ because it does not require complex arithmetic needed for the FFT. 
 
 \begin{definition} \label{tau_def}
 Following \cite{Bini}, given a symmetric Toeplitz matrix $\Toe$ we build a Hankel correction matrix, $H$, where 
@@ -242,20 +255,20 @@ Following \cite{Bini}, given a symmetric Toeplitz matrix $\Toe$ we build a Hanke
 		0 & 0 & \toe_{n-1} & \cdots & \toe_4 & \toe_3 & \toe_2
 	\end{pmatrix}. 
 	\end{align*}. 
-	We can additionally define $\ptau := \Toe - H. $
+	We can additionally define $\lilpre := \Toe - H. $
 \end{definition}
 
 Both $\Toe$ and $\Hank$ are symmetric, so they are completely represented by at most $n$ unique values: the diagonals of $\Toe: \toe_0, \toe_1, \dots, \toe_{n-1}$, and the anti-diagonals of $\Hank: \toe_2, \toe_3, \dots, \toe_{n-1},0,0 $. 
 	
-The following lemma summarizes properties of $\ptau$.
+The following lemma summarizes properties of $\lilpre$.
 \begin{lemma}[see \cite{Bini}] \label{lemma:tau}
-	Let $\Toe$ be a Toeplitz matrix and $\Hank$ the corresponding Hankel correction as in Definition (\ref{tau_def}). Then $\ptau = \Toe - \Hank$ has the following properties: 
+	Let $\Toe$ be a Toeplitz matrix and $\Hank$ the corresponding Hankel correction as in Definition (\ref{tau_def}). Then $\lilpre = \Toe - \Hank$ has the following properties: 
 \begin{enumerate}
-	\item $\ptau$ is diagonalized by the DST, $S$. We write $\ptau = S \Lambda S^{-1} = S \Lambda S$.  
-	\item $\ptau$ can be applied in $\bigOh(n \log n)$ FLOPS.
-	\item Let $\Toe_1$ be the first column of $\Toe$. Then, the $k$-th eigenvalue of $\ptau$ is proportional to the $k$-th entry of $S\Toe_1$. Specifically, 
-	\begin{equation} \label{eigs} \lambda_k(\ptau) = c_k [S\Toe_1]_k, \ \text{where } c_k := \sqrt{\frac{n+1}{2}} \frac{1}{\sin(\frac{\pi k }{n+1})}.\end{equation}
-	\item Each eigenvalue of $\ptau$ is written as the truncated function $\toef_m$ evaluated somewhere on the unit circle, $\lambda_k(\ptau) = \toef_m(z_k)$, where $|z_k| = 1$.
+	\item $\lilpre$ is diagonalized by the DST, $S$. We write $\lilpre = S \Lambda S^{-1} = S \Lambda S$.  
+	\item $\lilpre$ can be applied in $\bigOh(n \log n)$ FLOPS.
+	\item Let $\Toe_1$ be the first column of $\Toe$. Then, the $k$-th eigenvalue of $\lilpre$ is proportional to the $k$-th entry of $S\Toe_1$. Specifically, 
+	\begin{equation} \label{eigs} \lambda_k(\lilpre) = c_k [S\Toe_1]_k, \ \text{where } c_k := \sqrt{\frac{n+1}{2}} \frac{1}{\sin(\frac{\pi k }{n+1})}.\end{equation}
+	\item Each eigenvalue of $\lilpre$ is written as the truncated function $\toef_m$ evaluated somewhere on the unit circle, $\lambda_k(\lilpre) = \toef_m(z_k)$, where $|z_k| = 1$.
 \end{enumerate}
 \end{lemma}
 % These preconditioner can also be thought of as coming from the kernel of a displacement operator. This framework is useful for generating yet other circulant preconditioners, (see \cite{Kailath}). 
@@ -267,16 +280,17 @@ The following lemma summarizes properties of $\ptau$.
 \subsection{AFEM stiffness matrix} \label{stiffness}
 Again, let $\A$ be the stiffness matrix resulting from AFEM applied to (\ref{FDE}). During the $\texttt{MARK}$ module of AFEM (\ref{AFEM}), it is often the case that adjacent elements have similar error estimates, and are either both marked or both not marked for refinement. As a result, after several refinements there are still subsections of the domain that have been refined to the same level. We refer to these subdomains as \emph{locally uniform}.  Since uniform meshes give rise to SPD Toeplitz systems, wherever there are adjacent elements of the same size we find a corresponding Toeplitz block on the main diagonal of our stiffness matrix, $\A$. The size of this block depends on how many adjacent elements are the same size. In practice we have observed the greatest level of refinement is required near the boundary of the domain. In general we have larger Toeplitz blocks from locally uniform subdomains in the middle of the matrix, and smaller blocks---or indeed $1 \times 1$ blocks---near the boundary. 
 
-These $1 \times 1$ blocks, along with their corresponding rows and columns, can be viewed as additional boundaries imposed onto the system. As mentioned earlier, it is the boundaries of a Toeplitz system that necessitate more computation while solving, so we can anticipate that wise handling of these $1 \times 1$ block disruptions to the Toeplitz structure will be the key to making a good preconditioner. In order to better handle these $1 \times 1$ blocks, we solve the a permuted system, $\perm$, shifting the rows and columns associated with these blocks to the upper left corner of the matrix. This constitutes the $\perm_{11}, \perm_{12}$, and the $\perm_{21}$ blocks in \todo[inline]{figure}. Let $k$ denote the size of $\perm_{11}$, that is the number of $1 \times 1$ blocks. It is natural to ask, and will indeed be important in constructing a preconditioner, how big $k$ is relative to $n = \text{size}(\A)$? It is difficult to get an exact handle on this theoretically, since it depends on how AFEM routines are implemented. However, in our numerical experiments we found that $k \approx \log(n)$ (see sec TODO), and $k$ never grew faster than $n$. 
+These $1 \times 1$ blocks, along with their corresponding rows and columns, can be viewed as additional boundaries imposed onto the system. As mentioned earlier, it is the boundaries of a Toeplitz system that necessitate more computation while solving, so we can anticipate that wise handling of these $1 \times 1$ block disruptions to the Toeplitz structure will be the key to making a good preconditioner. In order to better handle these $1 \times 1$ blocks, we solve the a permuted system, $\perm$, shifting the rows and columns associated with these blocks to the upper left corner of the matrix. This constitutes the $\perm_{11}, \perm_{12}$, and the $\perm_{21}$ blocks in  \todo[inline]{figure}.
+Going forward we denote $\perm_{11}, \perm_{12},  \perm_{21}$, and $\perm_{22}$ as $\upleft, \upright, \upright^{\top}$ and $\lowright$ respectively. 
+ Let $k$ denote the size of $\upleft$, that is the number of $1 \times 1$ blocks. It is natural to ask, and will indeed be important in constructing a preconditioner, how big $k$ is relative to $n = \text{size}(\A)$? It is difficult to get an exact handle on this theoretically, since it depends on how AFEM routines are implemented. However, in our numerical experiments we found that $k \approx \log(n)$ (see sec TODO), and $k$ never grew faster than $n$. 
 
 
-We wish to further break down the structure of $\perm_{22}$. Due to the permutation, $\perm_{22}$ has Toeplitz blocks of size at least 2 along its diagonal. We use $\A_D$ to denote the block diagonal with Toeplitz blocks. 
+We wish to further break down the structure of $\lowright$. Due to the permutation, $\lowright$ has Toeplitz blocks of size at least 2 along its diagonal. We use $\toediag$ to denote the block diagonal with Toeplitz blocks. 
 
-
-The fractional derivative results in a dense matrix, but we observe off-diagonal decay, as elements that are physically separated in the domain have weaker interaction. The rate of decay depends on the fractional order $\alpha$. Blocks that are most distant from the diagonal contain less information and we assume they have small-norm. We denote these blocks in $\perm_{22}$ as $\A_F$. We call the blocks that are either directly below or to the right of the Toeplitz blocks ``blocks adjacent to the diagonal", together they are denoted $\offd$. 
+The fractional derivative results in a dense matrix, but we observe off-diagonal decay, as elements that are physically separated in the domain have weaker interaction. The rate of decay depends on the fractional order $\alpha$. Blocks that are most distant from the diagonal contain less information and we assume they have small-norm. We denote these blocks in $\lowright$ as $\offoff$. We call the blocks that are either directly below or to the right of the Toeplitz blocks ``blocks adjacent to the diagonal", together they are denoted $\offd$. 
 These blocks are not in general small-norm, but due to the weaker interaction, are well-suited for low-rank approximation, (see \cite{Xiaozhe} for more details).  
 These assumptions are made precise in section \ref{proof} and numerically validated in section \ref{validate}. 
-Using this notation, we write our stiffness matrix as the sum of the Toeplitz blocks, blocks adjacent to the diagonal, and blocks further removed from the diagonal, $\perm_{22} = \A_D + \offd + \A_F$ (see Figure (\ref{fig:A_split})). 
+Using this notation, we write our stiffness matrix as the sum of the Toeplitz blocks, blocks adjacent to the diagonal, and blocks further removed from the diagonal, $\lowright = \toediag + \offd + \offoff$ (see Figure (\ref{fig:A_split})). 
 
 \begin{figure}[h]
 	\begin{equation*}
@@ -285,7 +299,7 @@ Using this notation, we write our stiffness matrix as the sum of the Toeplitz bl
 		\adjincludegraphics[valign=c,width=.22\textwidth]{figures/AE.png} \ + \
 		\adjincludegraphics[valign=c,width=.22\textwidth]{figures/AF.png} 
 	\end{equation*}
-	\caption{Illustration of the stiffness matrix splitting: $A_D$ is block diagonal with Toeplitz blocks, blocks in $\offd$ are assumed to be well-approximated by low-rank matrices, finally $\A_F$ is assumed to be small-norm due to weak interaction between elements.  }
+	\caption{Illustration of the stiffness matrix splitting: $\toediag$ is block diagonal with Toeplitz blocks, blocks in $\offd$ are assumed to be well-approximated by low-rank matrices, finally $\offoff$ is assumed to be small-norm due to weak interaction between elements.  }
 	\label{fig:A_split}
 \end{figure}
 % brief proof uniform mesh gives toeplitz?
@@ -293,11 +307,11 @@ Using this notation, we write our stiffness matrix as the sum of the Toeplitz bl
 %\todo[inline]{good spot to mention Toeplitz compression RNLA solvers?} 
 
 
-To build $\Tau$, assume the stiffness matrix has $k$ Toeplitz blocks $\Toe_1, \Toe_2, \dots, \Toe_k$ of respective sizes $m_1, m_2, \dots, m_k$. Assume additionally these are ordered as they appear along the main diagonal. Each block has a corresponding singly infinite matrix with a corresponding generating function, $\toe_1(z), \toe_2(z), \dots \toe_k(z)$. Assume that for all $1 \leq i \leq k, \toe_i(z)  \sum_{j=-\infty}^{\infty} |t_j| <\infty$ and $\toe_i(z) > 0$ for $z$ on the unit circle. 
+To build $\bigpre$, assume the stiffness matrix has $k$ Toeplitz blocks $\Toe_1, \Toe_2, \dots, \Toe_k$ of respective sizes $m_1, m_2, \dots, m_k$. Assume additionally these are ordered as they appear along the main diagonal. Each block has a corresponding singly infinite matrix with a corresponding generating function, $\toe_1(z), \toe_2(z), \dots \toe_k(z)$. Assume that for all $1 \leq i \leq k, \toe_i(z)  \sum_{j=-\infty}^{\infty} |t_j| <\infty$ and $\toe_i(z) > 0$ for $z$ on the unit circle. 
 % Common assumptions for proof on one block 
 
 \section{The Adaptive Preconditioner} \label{precond} 
-In this section we set forth the properties we require from a preconditioner. Using $\ptau$ for its efficient inversion and good approximation of Toeplitz blocks, we construct our preconditioner, $\precond$, as an approximation to the LU decomposition of the permuted stiffness matrix.  
+In this section we set forth the properties we require from a preconditioner. Using $\lilpre$ for its efficient inversion and good approximation of Toeplitz blocks, we construct our preconditioner, $\precond$, as an approximation to the LU decomposition of the permuted stiffness matrix.  
 
 \subsection{Preconditioner Requirements} \label{sec: criteria}
 A good preconditioner for an iterative method must in general decrease the total number of iterations, without increasing the cost of a single iteration. We borrow Kailath's \cite{Kailath} criteria for preconditioners, similar criteria is well-established in the literature (for example \cite{Bini}). 
@@ -310,32 +324,32 @@ A good preconditioner for an iterative method must in general decrease the total
 
 \subsection{Constructing our Preconditioner}
 \subsubsection{LU Decomposition of $\perm$}
-To construct our preconditioner we must consider the permuted $1 \times 1$ blocks in $\perm_{11}$ and the structured pieces of $\perm_{22}$. 
-Using the Schur complement, we can obtain a block-LU decomposition for our permuted stiffness matrix. It will be notationally convenient to define the Schur complement matrix $\Schur :=  \perm_{22} - \perm_{21} \perm_{11}^{-1} \perm_{12}$. 
+To construct our preconditioner we must consider the permuted $1 \times 1$ blocks in $\upleft$ and the structured pieces of $\lowright$. 
+Using the Schur complement, we can obtain a block-LU decomposition for our permuted stiffness matrix. It will be notationally convenient to define the Schur complement matrix $\Schur :=  \lowright - \upright^{\top} \upleft^{-1} \upright$. 
 \begin{equation} \label{LU}
 	\perm = LU = \begin{pmatrix}
-		I & 0 \\ \perm_{21} \perm_{11}^{-1} & I
+		I & 0 \\ \upright^{\top} \upleft^{-1} & I
 	\end{pmatrix} 
 	\begin{pmatrix}
-		\perm_{11} & \perm_{12} \\ 0 & \Schur
+		\upleft & \upright \\ 0 & \Schur
 	\end{pmatrix}
 \end{equation}
 It is straightforward to verify the inverses of the two factor matrices are,
 \begin{align*}
 	L^{-1} &= \begin{pmatrix}
-		I & 0 \\ -\perm_{21} \perm_{11}^{-1} & I
+		I & 0 \\ -\upright^{\top} \upleft^{-1} & I
 	\end{pmatrix} \\
 	U^{-1} &= \begin{pmatrix}
-		\perm_{11}^{-1} & -\perm_{11}^{-1} \perm_{12}\Schur^{-1} \\ 0 & \Schur^{-1}
+		\upleft^{-1} & -\upleft^{-1} \upright\Schur^{-1} \\ 0 & \Schur^{-1}
 	\end{pmatrix}
 \end{align*}
 
-Recalling that $k = \text{size}(\perm_{11})$ is much smaller and slower-growing than $n$, inverting $\perm_{11}$ will not contribute to our overall costs. Next, we can invert $\Schur$ using the Sherman-Woodbury-Morris formula, $\Schur^{-1} = \perm_{22}^{-1} + \perm_{22}^{-1}\perm_{21}(\perm_{11}-\perm_{12}\perm_{22}^{-1}\perm_{21})^{-1}\perm_{12}\perm_{22}^{-1}$. Notice, however, it requires the prohibitively expensive inversion of $\perm_{22}$. Here, we must leverage the Toeplitz blocks to build an adequate approximation to $\perm_{22}^{-1}$. 
+Recalling that $k = \text{size}(\upleft)$ is much smaller and slower-growing than $n$, inverting $\upleft$ will not contribute to our overall costs. Next, we can invert $\Schur$ using the Sherman-Woodbury-Morris formula, $\Schur^{-1} = \lowright^{-1} + \lowright^{-1}\upright^{\top}(\upleft-\upright\lowright^{-1}\upright^{\top})^{-1}\upright\lowright^{-1}$. Notice, however, it requires the prohibitively expensive inversion of $\lowright$. Here, we must leverage the Toeplitz blocks to build an adequate approximation to $\lowright^{-1}$. 
 
-\subsubsection{Approximating  $\perm_{22}^{-1}$}
-Let the Toeplitz blocks in $A_D$ be $\Toe_1, \Toe_2, \dots, \Toe_p$, with respective sizes $m_1, m_2, \dots, m_p$. Then for each $\Toe_i$ we construct $\tau_i$ as in Definition (\ref{tau_def}). Stacking these blocks we build a block $\tau$ matrix as $\Tau := \text{diag}(\tau_1, \tau_2, \dots, \tau_p)$. By application of Lemma \ref{lemma:tau} on each $\tau_i$, we can  apply $\Tau^{-1}$ implicitly in $\bigOh \left( \sum_{j=1}^k m_j \log(m_j) \right) \leq \bigOh \left( k m \log ( m) \right) $,  where $m:= \max_j m_j$. Let $S_{m_i}$ denote the type-I DST matrix of size $m_i$.  Using Equation (\ref{eigs}) to calculate the eigenvalues of $\ptau_i$, we write $\ptau_i =  S_{m_i} \Lambda_i S_{m_i}$. 
+\subsubsection{Approximating  $\lowright^{-1}$}
+Let the Toeplitz blocks in $\toediag$ be $\Toe_1, \Toe_2, \dots, \Toe_p$, with respective sizes $m_1, m_2, \dots, m_p$. Then for each $\Toe_i$ we construct $\lilpre_i$ as in Definition (\ref{tau_def}). Stacking these blocks we build a block $\lilpre$ matrix as $\bigpre := \text{diag}(\lilpre_1, \lilpre_2, \dots, \lilpre_p)$. By application of Lemma \ref{lemma:tau} on each $\lilpre_i$, we can  apply $\\bigpre^{-1}$ implicitly in $\bigOh \left( \sum_{j=1}^k m_j \log(m_j) \right) \leq \bigOh \left( k m \log ( m) \right) $,  where $m:= \max_j m_j$. Let $S_{m_i}$ denote the type-I DST matrix of size $m_i$.  Using Equation (\ref{eigs}) to calculate the eigenvalues of $\lilpre_i$, we write $\lilpre_i =  S_{m_i} \Lambda_i S_{m_i}$. 
 \begin{equation} \label{diag}
-	\Tau^{-1} = 
+	\bigpre^{-1} = 
 	\begingroup % keep the change local
 	\setlength\arraycolsep{3.5pt}
 	\begin{pmatrix}
@@ -349,28 +363,28 @@ Let the Toeplitz blocks in $A_D$ be $\Toe_1, \Toe_2, \dots, \Toe_p$, with respec
 	\end{pmatrix}.
 	\endgroup
 \end{equation}
-The DST blocks in the outside matrices can be applied via the fast sine transform (FST) to do matrix multiplication in $\bigOh(m \log m)$ FLOPS. The eigenvalue matrix is diagonal and inverted in $m$ operations, and can be multiplied against a Toeplitz matrix embedded in a $2m \times 2m$ circulant matrix in $ \bigOh(m \log m)$ FLOPS. Moreover, both the FST and block arithmetic are highly parallelizable for more efficient implementation. \todo[inline]{This establishes Criteria (\ref{crit1}) and (\ref{crit2}) for $\Tau$. }
+The DST blocks in the outside matrices can be applied via the fast sine transform (FST) to do matrix multiplication in $\bigOh(m \log m)$ FLOPS. The eigenvalue matrix is diagonal and inverted in $m$ operations, and can be multiplied against a Toeplitz matrix embedded in a $2m \times 2m$ circulant matrix in $ \bigOh(m \log m)$ FLOPS. Moreover, both the FST and block arithmetic are highly parallelizable for more efficient implementation. \todo[inline]{This establishes Criteria (\ref{crit1}) and (\ref{crit2}) for $\bigpre$. }
 
-Therefore $\Tau^{-1}$ is fast to compute, and in the next section we will show it is a good spectral approximation to $\perm_{22}^{-1}$. 
+Therefore $\bigpre^{-1}$ is fast to compute, and in the next section we will show it is a good spectral approximation to $\lowright^{-1}$. 
 \subsubsection{Defining the Adaptive Preconditioner, $\precond^{-1}$} \label{precond_def}
-Let $\hat{\Schur} = \Tau - \perm_{21} \perm_{11}^{-1}\perm_{12}$. Then define 
+Let $\hat{\Schur} = \bigpre - \upright^{\top} \upleft^{-1}\upright$. Then define 
 \begin{equation*}
 	\hat{U} := \begin{pmatrix}
-		\perm_{11} & \perm_{12} \\ 0 & \hat{\Schur}
+		\upleft & \upright \\ 0 & \hat{\Schur}
 	\end{pmatrix}, \ 
 	\hat{U}^{-1} =  \begin{pmatrix}
-		\perm_{11}^{-1} & -\perm_{11}^{-1}\perm_{12} \hat{\Schur}^{-1} \\ 0 & \hat{\Schur}^{-1}
+		\upleft^{-1} & -\upleft^{-1}\upright \hat{\Schur}^{-1} \\ 0 & \hat{\Schur}^{-1}
 	\end{pmatrix}.
 \end{equation*} 
 Our preconditioner is given by 
 \begin{align*}
 	\precond^{-1} := \hat{U}^{-1} L^{-1} &= \begin{pmatrix}
-		\perm_{11}^{-1} & -\perm_{11}^{-1}\perm_{12} \hat{\Schur}^{-1} \\ 0 & \hat{\Schur}^{-1}
+		\upleft^{-1} & -\upleft^{-1}\upright \hat{\Schur}^{-1} \\ 0 & \hat{\Schur}^{-1}
 	\end{pmatrix} \begin{pmatrix}
-		I & 0 \\ -\perm_{21}\perm_{11}^{-1} & I
+		I & 0 \\ -\upright^{\top}\upleft^{-1} & I
 	\end{pmatrix} \\
 	&= \begin{pmatrix}
-		\perm_{11}^{-1}  + \perm_{11}^{-1} \perm_{12}\hat{\Schur}^{-1}\perm_{21}\perm_{11}^{-1} & -\perm_{11}^{-1} \perm_{12} \hat{\Schur}^{-1} \\ -\hat{\Schur}^{-1}\perm_{21}\perm_{11}^{-1} & \hat{\Schur}^{-1} 
+		\upleft^{-1}  + \upleft^{-1} \upright\hat{\Schur}^{-1}\upright^{\top}\upleft^{-1} & -\upleft^{-1} \upright \hat{\Schur}^{-1} \\ -\hat{\Schur}^{-1}\upright^{\top}\upleft^{-1} & \hat{\Schur}^{-1} 
 	\end{pmatrix}.
 \end{align*}
 
@@ -392,7 +406,7 @@ Returning to the criteria set forth in Section (\ref{sec: criteria}), \todo[inli
 How tightly the eigenvalues cluster around 1 determines the speed of convergence. In this section we prove that the spectral clustering in criteria (\ref{crit3}) holds for $\precond$.  Proofs for clustering of discrete-trigonometric-transform based preconditioned problems in this area tend to follow a similar structure: show the preconditioned matrix can be written as the sum of the identity matrix, a small-norm matrix, and a low-rank matrix.  
 The small-norm term has spectrum clustered around 0, forcing the clustering of the entire system around 1, with the number of outliers bounded by the rank of the low-rank term.
 
-We build up to the clustering of the final preconditioned system in several steps. First, we briefly present our version of the spectral clustering proof for the case of $\ptau$ acting on a single Toeplitz block. Then we expand this result to prove the clustering of $\Tau^{-1}\perm_{22}$; that is the block $\Tau$ matrix applied to the Toeplitz blocks and corresponding off diagonal blocks of $\A_{22}$. Finally, we show how our handling of the $1 \times 1$ blocks preserves the spectral clustering of the whole system, $\precond^{-1} \perm$. 
+We build up to the clustering of the final preconditioned system in several steps. First, we briefly present our version of the spectral clustering proof for the case of $\lilpre$ acting on a single Toeplitz block. Then we expand this result to prove the clustering of $\bigpre^{-1}\lowright$; that is the block $\bigpre$ matrix applied to the Toeplitz blocks and corresponding off diagonal blocks of $\A_{22}$. Finally, we show how our handling of the $1 \times 1$ blocks preserves the spectral clustering of the whole system, $\precond^{-1} \perm$. 
 
 %\begin{theorem}[Min-max Theorem]
 %	Let $A \in \R^{n \times n}$ be symmetric with ordered spectrum $\lambda_1 \geq \cdots \geq \lambda_n$. Then 
@@ -436,37 +450,37 @@ Proofs demonstrating the eigenvalue clustering of a circulant or trigonometric-b
 
 \begin{lemma}[Eigenvalue Clustering on a Toeplitz Block, \cite{Bini, Kailath}] \label{block}
 	Let $\Toe$, $\Toe_m$, $\toef$, and $\toef_m$ be as above, and 
-	define $\ptau$ as in \ref{tau_def}. Then for $m$ large enough, the spectrum of $\ptau^{-1} \Toe$ is clustered around 1. 
+	define $\lilpre$ as in \ref{tau_def}. Then for $m$ large enough, the spectrum of $\lilpre^{-1} \Toe$ is clustered around 1. 
 \end{lemma}
 \begin{proof}
-Since $\ptau = \Toe - \Hank$, 
-$\ptau^{-1} \Toe = \ptau^{-1}(\ptau + \Hank) =  I + \ptau^{-1} \Hank $, it suffices to show that the eigenvalues of $\ptau^{-1} \Hank$ are clustered around 0. 
+Since $\lilpre = \Toe - \Hank$, 
+$\lilpre^{-1} \Toe = \lilpre^{-1}(\lilpre + \Hank) =  I + \lilpre^{-1} \Hank $, it suffices to show that the eigenvalues of $\lilpre^{-1} \Hank$ are clustered around 0. 
 
 We split the Hankel matrix into a low-rank and small-norm piece,  $\Hank = \Hank^{LR} + \Hank^{SN}$. Where $\Hank^{LR}$ contains the anti-diagonals $\toe_2, \dots, \toe_N$ with $s := \text{rank}(\Hank^{LR}) \ll m$. The small-norm descriptor is justified for $\Hank^{SN} = \Hank - \Hank^{LR}$, a Hermitian $m \times m$ matrix with at most two copies of $\toe_{N}, \dots, \toe_{m-1}$ in each row and column. Thus $||\Hank^{SN}||_2 = \sqrt{||\Hank^{SN}||_1 ||\Hank^{SN}||_{\infty}} = ||\Hank^{SN}||_1 < 2 \varepsilon$. Hence by Weyl's Inequality, the eigenvalues of $\Hank$ are clustered within $2 \varepsilon$ of zero with at most  $s$ outliers. 
 
 Now by Lemma (\ref{eig_lemma}),
 \begin{equation}  \label{eq:gen_bound}
-	\lambda_k ( \ptau^{-1} \Hank  ) \leq \lambda_k (\Hank)  \frac{1}{\lambda_{\min}(\ptau )}  = \lambda_k (\Hank)  \frac{1}{\toef_m(z_{\min})} \leq \lambda_k (\Hank)  \frac{1}{\varepsilon}.
+	\lambda_k ( \lilpre^{-1} \Hank  ) \leq \lambda_k (\Hank)  \frac{1}{\lambda_{\min}(\lilpre )}  = \lambda_k (\Hank)  \frac{1}{\toef_m(z_{\min})} \leq \lambda_k (\Hank)  \frac{1}{\varepsilon}.
 \end{equation}
-Thus, the clustering of the spectrum of $\Hank$ around 0 implies the same for $\ptau^{-1} \Hank$. 
+Thus, the clustering of the spectrum of $\Hank$ around 0 implies the same for $\lilpre^{-1} \Hank$. 
 \end{proof}
-Equation (\ref{eq:gen_bound}) shows that the bigger $\lambda_{\min}(\ptau)$, the stronger the bound. We can calculate this eigenvalue exactly using Lemma (\ref{lemma:tau}), and equation (\ref{eigs}). It can also be bounded in terms independent of $\ptau$, using the generating function $\toef(z)$, as above. 
+Equation (\ref{eq:gen_bound}) shows that the bigger $\lambda_{\min}(\lilpre)$, the stronger the bound. We can calculate this eigenvalue exactly using Lemma (\ref{lemma:tau}), and equation (\ref{eigs}). It can also be bounded in terms independent of $\lilpre$, using the generating function $\toef(z)$, as above. 
 
 \subsection{Spectral Clustering of the Block System} \label{proof}
-We now prove the spectral clustering of $\Tau^{-1} \A_{22} = \Tau^{-1}(\A_D + \offd + \A_F)$.
-It is easy to generalize the lemmas above to the block diagonal $\Tau^{-1}$ acting only on the Toeplitz blocks, $\A_D$. The work in this section is in showing that $\Tau^{-1}(\offd  + \A_F)$ can also be split small-norm and low-rank pieces. 
+We now prove the spectral clustering of $\bigpre^{-1} \lowright = \bigpre^{-1}(\toediag + \offd + \offoff)$.
+It is easy to generalize the lemmas above to the block diagonal $\bigpre^{-1}$ acting only on the Toeplitz blocks, $\toediag$. The work in this section is in showing that $\bigpre^{-1}(\offd  + \offoff)$ can also be split small-norm and low-rank pieces. 
 \begin{lemma} \label{lemma: block}
-	Let $\A$ be the stiffness matrix as described in Section (\ref{stiffness}) and $\Tau$ as described in Section (\ref{precond}). Then the spectrum of $\Tau^{-1} \A_{22}$ is clustered around 1. 
+	Let $\A$ be the stiffness matrix as described in Section (\ref{stiffness}) and $\bigpre$ as described in Section (\ref{precond}). Then the spectrum of $\bigpre^{-1} \lowright$ is clustered around 1. 
 \end{lemma}
 
 \begin{proof}
-% First notice that $\Tau^{-1} \Hank$ is block diagonal and the spectrum of each block can be characterized using the former proof on each block. 
+% First notice that $\bigpre^{-1} \Hank$ is block diagonal and the spectrum of each block can be characterized using the former proof on each block. 
 
-Recall that the $\A_{22}$ block of the permuted stiffness matrix is dense with Toeplitz blocks on the diagonal (denoted $\A_D$), low-rank blocks adjacent to the diagonal (denoted $\offd$), and small-norm blocks elsewhere (denoted $\A_F$), so that $\A_{22} = \A_D + \offd + \A_F$. Let $\Hank$ be the block diagonal Hankel Correction matrix, observing then that $ \A_D = \Tau + \Hank$ we see that $\A_{22} = \Tau + \Hank + \offd + \A_F$. Our approach is to split $\Hank + \offd + \A_F$ into a small-norm term $A^{SN}$ and a low-rank term $\A^{LR}$. Then
+Recall that the $\lowright$ block of the permuted stiffness matrix is dense with Toeplitz blocks on the diagonal (denoted $\toediag$), low-rank blocks adjacent to the diagonal (denoted $\offd$), and small-norm blocks elsewhere (denoted $\offoff$), so that $\lowright = \toediag + \offd + \offoff$. Let $\Hank$ be the block diagonal Hankel correction matrix, observing then that $ \toediag = \bigpre + \Hank$ we see that $\lowright = \bigpre + \Hank + \offd + \offoff$. Our approach is to split $\Hank + \offd + \offoff$ into a small-norm term $\SN$ and a low-rank term $\LR$. Then
 \begin{equation}
-		\Tau^{-1} \A_{22} = \Tau^{-1}(\Tau + \A^{SN} + \A^{LR} ) = I + \Tau^{-1}\A^{SN}  + \Tau^{-1}\A^{LR}.
+		\bigpre^{-1} \lowright = \bigpre^{-1}(\bigpre + \SN + \LR ) = I + \bigpre^{-1}\SN  + \bigpre^{-1}\LR.
 \end{equation}
-Then it will suffice to show that the spectrum of $\Tau^{-1}\A^{SN}$ is clustered around 0 and that $\Tau^{-1}\A^{LR}$ contributes a bounded number of eigenvalue outliers. 
+Then it will suffice to show that the spectrum of $\bigpre^{-1}\SN$ is clustered around 0 and that $\bigpre^{-1}\LR$ contributes a bounded number of eigenvalue outliers. 
 
 Splitting $\Hank$ is done via application of the splitting in the proof of Lemma (\ref{lemma: block}) to each block. As before, we have $\varepsilon > 0$ and choose $N_i$ smaller than each $m_i$ so that for every Toeplitz block the truncated function satisfies $a_{m_i} (z) > \varepsilon$ on the unit circle and $\sum_{i = N_i}^{\infty} |a_i| < \varepsilon$. 
 Then $\Hank = \Hank^{LR} + \Hank ^{SN}$,  by separating into $\Hank^{LR}$ the anti-diagonals from block $i$ with coefficients $a_0, \dots, a_{N_i}$ and into $\Hank^{SN}$ the anti-diagonals comprising of $a_{N_i+1}, \dots a_{m_i}$ for each block. We note two important bounds: $||\Hank^{SN}||_2 < \varepsilon$ and $\text{rank}(\Hank^{LR}) \leq 2 p (N-1) $ where $p$ is the number of Toeplitz blocks and $N := \max_i N_i$. 
@@ -511,52 +525,52 @@ Recall that each block, $\off_i$, is well-approximated as a low-rank matrix. So 
 Observe that $||\offd^{SN}||_2 \leq 2 \varepsilon$ and  $\text{rank}(\offd^{LR}) \leq (p-1)r$ where $r := \max_i r_i$. 
 
 
-Finally, we make the splitting $\A_{22} = \Tau + \A^{SN} + \A^{LR}$, where
+Finally, we make the splitting $\lowright = \bigpre + \SN + \LR$, where
 \begin{equation*}
-	\A^{SN} = \Hank^{SN}+ \offd^{SN} +A_F, \quad
-	\A^{LR} = \Hank^{LR} + \offd^{LR}. 
+	\SN = \Hank^{SN}+ \offd^{SN} +A_F, \quad
+	\LR = \Hank^{LR} + \offd^{LR}. 
 \end{equation*}
 
-So $\Tau^{-1} \A_{22}  = I + \Tau^{-1}\A^{SN}  + \Tau^{-1}\A^{LR}.$ Now $s := \text{rank}(\Tau^{-1}\A^{LR}) \leq \text{rank}(\A^{LR}) \leq 2p(N-1) + (p-1)r$ bounds the number of outlier eigenvalues. It remains to show $ \Tau^{-1}\A^{SN} $ is indeed small norm.
+So $\bigpre^{-1} \lowright  = I + \bigpre^{-1}\SN  + \bigpre^{-1}\LR.$ Now $s := \text{rank}(\bigpre^{-1}\LR) \leq \text{rank}(\LR) \leq 2p(N-1) + (p-1)r$ bounds the number of outlier eigenvalues. It remains to show $ \bigpre^{-1}\SN $ is indeed small norm.
 \begin{align*}
-	|| \Tau^{-1}\A^{SN}||_2 &\leq ||\Tau^{-1} \Hank^{SN}||_2 + ||\Tau^{-1} \offd^{SN}||_2 +||\Tau^{-1} \A_F ||_2.
+	|| \bigpre^{-1}\SN||_2 &\leq ||\bigpre^{-1} \Hank^{SN}||_2 + ||\bigpre^{-1} \offd^{SN}||_2 +||\bigpre^{-1} \offoff ||_2.
 \end{align*}
-Since the block multiplication $\Tau^{-1} \Hank^{SN}$ is each $\ptau$ acting on its corresponding Hankel correction, it is bounded by Lemma (\ref{block}). 
+Since the block multiplication $\bigpre^{-1} \Hank^{SN}$ is each $\lilpre$ acting on its corresponding Hankel correction, it is bounded by Lemma (\ref{block}). 
 Next, 
 \begin{equation*}
-	||\Tau^{-1} \A_F||_2 \leq ||\Tau^{-1}||_2 ||\A_F||_2 =\sigma_{\max}(\Tau^{-1}) \sigma_{\max}(\A_F) = \frac{ \sigma_{\max}(\A_F)}{\lambda_{\min}(\Tau)}.
+	||\bigpre^{-1} \offoff||_2 \leq ||\bigpre^{-1}||_2 ||\offoff||_2 =\sigma_{\max}(\bigpre^{-1}) \sigma_{\max}(\offoff) = \frac{ \sigma_{\max}(\offoff)}{\lambda_{\min}(\bigpre)}.
 \end{equation*}
-Since $\A_F$ are small-norm this value is small. 
-Using Lemma (\ref{eig_lemma}) we bound $||\Tau^{-1} \offd^{SN}||_2$:
+Since $\offoff$ are small-norm this value is small. 
+Using Lemma (\ref{eig_lemma}) we bound $||\bigpre^{-1} \offd^{SN}||_2$:
 \begin{equation} \label{eq:gen_bound_ad}
-	\lambda_k ( \Tau^{-1} \offd^{SN}) \leq  \frac{\lambda_k(\offd^{SN}) }{\lambda_{\min}(\Tau)} 
+	\lambda_k ( \bigpre^{-1} \offd^{SN}) \leq  \frac{\lambda_k(\offd^{SN}) }{\lambda_{\min}(\bigpre)} 
 	= \lambda_k (  \offd^{SN}) \min_{i} \left( \toef_i (z_{\min}) \right) \leq 
 	 \lambda_k (  \offd^{SN}) \frac{1}{\varepsilon}.
 \end{equation}
-% \todo[inline]{Where to stop with $\lambda_{\min}\Tau$? can take it to generating function or bound on gen func or expression for eigs (like above) or leave as is} 
+% \todo[inline]{Where to stop with $\lambda_{\min}\bigpre$? can take it to generating function or bound on gen func or expression for eigs (like above) or leave as is} 
 To finish the proof, we utilize the fact that the matrices are SPD and relate the $k$-th eigenvalue of the preconditioned matrices to their 2-norm, 
 \begin{align*}
-	|| \Tau^{-1}\A^{SN}||_2 &\leq ||\Tau^{-1} \Hank^{SN}||_2 + ||\Tau^{-1} \offd^{SN} ||_2 +||\Tau^{-1} \A_F ||_2 \\
-	&= \lambda_{\max}(\Tau^{-1} \Hank^{SN}) + \lambda_{\max}(\Tau^{-1} \offd^{SN}) + \lambda_{\max}(\Tau^{-1} \A_F) \\
-	&\leq \frac{1}{\lambda_{\min}(\Tau)} \left( \lambda_{\max}(\Hank^{SN}) +  \lambda_{\max}(\offd^{SN}) + \lambda_{\max}(\A_F) \right). 
+	|| \bigpre^{-1}\SN||_2 &\leq ||\bigpre^{-1} \Hank^{SN}||_2 + ||\bigpre^{-1} \offd^{SN} ||_2 +||\bigpre^{-1} \offoff ||_2 \\
+	&= \lambda_{\max}(\bigpre^{-1} \Hank^{SN}) + \lambda_{\max}(\bigpre^{-1} \offd^{SN}) + \lambda_{\max}(\bigpre^{-1} \offoff) \\
+	&\leq \frac{1}{\lambda_{\min}(\bigpre)} \left( \lambda_{\max}(\Hank^{SN}) +  \lambda_{\max}(\offd^{SN}) + \lambda_{\max}(\offoff) \right). 
 \end{align*}
 %Since $\offd^{SN}$ made of blocks that have form $\sum_{i=r_{\offd}+1}^{n_{\offd}} \sigma_i \u_i \v_i*$ what can we say about $\lambda_k$?  
 \end{proof}
 
-The strength of this bound depends on $\lambda_{\min} (\Tau)$, but can be written independently of $\Tau$ in terms of the generating functions as in Equation (\ref{eq:gen_bound_ad}). This dependence is the same for the single block case, and appears in similar proofs for discrete-trigonometric preconditioners (see for example \cite{Kailath}). 
+The strength of this bound depends on $\lambda_{\min} (\bigpre)$, but can be written independently of $\bigpre$ in terms of the generating functions as in Equation (\ref{eq:gen_bound_ad}). This dependence is the same for the single block case, and appears in similar proofs for discrete-trigonometric preconditioners (see for example \cite{Kailath}). 
 
 In practice the block size, $m_i$, is determined by the AFEM algorithm, which in turn dictates the actual size $\varepsilon$ and hence the strength of clustering. Thus bigger Toeplitz blocks in $\A$ result in tighter eigenvalue clustering.
  
-Notice that extending the proof from one Toeplitz block to the adaptive stiffness matrix relies only on being able to split the block into a small-norm and a low-rank piece. Thus, nothing about this proof is overly-specific to $\ptau$ and the methods could easily be extended to the other types of circulant preconditioners in \cite{Chan_89, Chan_Strang, Chan_Yeung}. 
+Notice that extending the proof from one Toeplitz block to the adaptive stiffness matrix relies only on being able to split the block into a small-norm and a low-rank piece. Thus, nothing about this proof is overly-specific to $\lilpre$ and the methods could easily be extended to the other types of circulant preconditioners in \cite{Chan_89, Chan_Strang, Chan_Yeung}. 
 
-% \todo[inline]{Lemma: summarize properties of $\Tau$ like we did for $\ptau$}
+% \todo[inline]{Lemma: summarize properties of $\bigpre$ like we did for $\lilpre$}
 %\begin{lemma}
-%	The adaptive preconditioner $\Tau \in \R^{m \times m}$ has the following properties:
+%	The adaptive preconditioner $\bigpre \in \R^{m \times m}$ has the following properties:
 %	\begin{enumerate}
-%		%	\item $\ptau$ is a circulant matrix.
-%		\item $\Tau$ is block diagonalized by the type-I discrete sine transform (DST) blocks, see Equation (\ref{diag}).  
-%		\item $\Tau$ can be applied in $m \log m$ time.
-%		\item The eigenvalues of $\Tau^{-1} \A$ are clustered around 1. 
+%		%	\item $\lilpre$ is a circulant matrix.
+%		\item $\bigpre$ is block diagonalized by the type-I discrete sine transform (DST) blocks, see Equation (\ref{diag}).  
+%		\item $\bigpre$ can be applied in $m \log m$ time.
+%		\item The eigenvalues of $\bigpre^{-1} \A$ are clustered around 1. 
 %	\end{enumerate}
 %\end{lemma}
 
@@ -564,58 +578,57 @@ Notice that extending the proof from one Toeplitz block to the adaptive stiffnes
 \subsection{final clustering}
 \begin{theorem}
 	Following the established notation, 
-	assume $\Tau^{-1} A^{SN} < \varepsilon$ and define $s := \text{rank}(\Tau^{-1}A^{LR})$. Then the spectrum of $M^{-1}A$ is clustered around 1, with at most $s$ outliers. 
+	assume $\bigpre^{-1} \SN < \varepsilon$ and define $s := \text{rank}(\bigpre^{-1}\LR)$. Then the spectrum of $\precond^{-1}A$ is clustered around 1, with at most $s$ outliers. 
 \end{theorem}
 
-%Assumption $\Tau^{-1}A_{22} = I + \varepsilon + N$, $N$ is low-rank 
+%Assumption $\bigpre^{-1}\lowright = I + \varepsilon + N$, $N$ is low-rank 
 \begin{proof}
 Let $\Schur$ and $\hat{\Schur}$ be defined as in Section (\ref{precond_def}). By matrix multiplication and some simplification we get that the preconditioned system has the form:
 
-\todo[inline]{removed tilde for visual cleanliness}
 \begin{align*}
-	M^{-1} A &= \begin{pmatrix}
-		A_{11}^{-1}  + A_{11}^{-1} A_{12}\hat{\Schur}^{-1}A_{21}A_{11}^{-1} & -A_{11}^{-1} A_{12} \hat{\Schur}^{-1} \\ -\hat{\Schur}^{-1}A_{21}A_{11}^{-1} & \hat{\Schur}^{-1} 
+	\precond^{-1} \perm &= \begin{pmatrix}
+		\upleft^{-1}  + \upleft^{-1} \upright\hat{\Schur}^{-1}\upright^{\top}\upleft^{-1} & -\upleft^{-1} \upright \hat{\Schur}^{-1} \\ -\hat{\Schur}^{-1}\upright^{\top}\upleft^{-1} & \hat{\Schur}^{-1} 
 	\end{pmatrix} \begin{pmatrix}
-	A_{11} & A_{12} \\ A_{21} & A_{22}
+	\upleft & \upright \\ \upright^{\top} & \lowright
  	\end{pmatrix} \\
 % 	&= \begin{pmatrix}
-% 		I + A_{11}^{-1} A_{12}\hat{\Schur}^{-1}A_{21} -  A_{11}^{-1} A_{12}\hat{\Schur}^{-1}A_{21} & A_{11}^{-1}A_{12}+A_{11}^{-1}A_{12} \hat{\Schur}^{-1} A_{21}A_{11}^{-1}A_{12} - A_{11}^{-1}A_{12}\hat{\Schur}^{-1}A_{22} \\ 
-% 		-\hat{\Schur}^{-1}A_{21} + \hat{\Schur}^{-1}A_{21} & -\hat{\Schur}^{-1}A_{21}A_{11}^{-1}A_{12} + \hat{\Schur}^{-1}A_{22}
+% 		I + \upleft^{-1} \upright\hat{\Schur}^{-1}\upright^{\top} -  \upleft^{-1} \upright\hat{\Schur}^{-1}\upright^{\top} & \upleft^{-1}\upright+\upleft^{-1}\upright \hat{\Schur}^{-1} \upright^{\top}\upleft^{-1}\upright - \upleft^{-1}\upright\hat{\Schur}^{-1}\lowright \\ 
+% 		-\hat{\Schur}^{-1}\upright^{\top} + \hat{\Schur}^{-1}\upright^{\top} & -\hat{\Schur}^{-1}\upright^{\top}\upleft^{-1}\upright + \hat{\Schur}^{-1}\lowright
 % 	\end{pmatrix} \\
  	&= \begin{pmatrix}
- 		I & A_{11}^{-1}A_{12}\hat{\Schur}^{-1}(\Tau - A_{22}) \\ 
- 		0 & \hat{\Schur}^{-1}(A_{22}-A_{21}A_{11}^{-1}A_{12})
+ 		I & \upleft^{-1}\upright\hat{\Schur}^{-1}(\bigpre - \lowright) \\ 
+ 		0 & \hat{\Schur}^{-1}(\lowright-\upright^{\top}\upleft^{-1}\upright)
  	\end{pmatrix}.
 \end{align*}
-Since this is an upper-triangular system with a $k \times k$ identity block on the diagonal, we know that 1 is an eigenvalue of the preconditioned system, with algebraic multiplicity at least $k$, and the remaining $n-k$ eigenvalues are the spectrum of $\hat{\Schur}^{-1}(A_{22}-A_{21}A_{11}^{-1}A_{12})$. 
+Since this is an upper-triangular system with a $k \times k$ identity block on the diagonal, we know that 1 is an eigenvalue of the preconditioned system, with algebraic multiplicity at least $k$, and the remaining $n-k$ eigenvalues are the spectrum of $\hat{\Schur}^{-1}(\lowright-\upright^{\top}\upleft^{-1}\upright)$. 
 
-We examine this matrix block more closely. By the Sherman-Morrison-Woodbury formula $\hat{\Schur}^{-1} = (\Tau - \tilde{A_{21}}\tilde{A_{11}}^{-1}\tilde{A_{12}} )^{-1} = (\Tau^{-1} + \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}$, which we apply against $A_{22}-A_{21}A_{11}^{-1}A_{12}$ to get 
+We examine this matrix block more closely. By the Sherman-Morrison-Woodbury formula $\hat{\Schur}^{-1} = (\bigpre - \tilde{\upright^{\top}}\tilde{\upleft}^{-1}\tilde{\upright} )^{-1} = (\bigpre^{-1} + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}$, which we apply against $\lowright-\upright^{\top}\upleft^{-1}\upright$ to get 
 \begin{align*}
-\hat{\Schur}^{-1}(A_{22}-A_{21}A_{11}^{-1}A_{12}) &= \Tau^{-1}A_{22} + \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}A_{22}\\ &\ - \Tau^{-1}A_{21}A_{11}^{-1}A_{12}  - \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}A_{21}A_{11}^{-1}A_{12}. 		
+\hat{\Schur}^{-1}(\lowright-\upright^{\top}\upleft^{-1}\upright) &= \bigpre^{-1}\lowright + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}\lowright\\ &\ - \bigpre^{-1}\upright^{\top}\upleft^{-1}\upright  - \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}\upright^{\top}\upleft^{-1}\upright. 		
 \end{align*}
-We previously showed $\Tau^{-1}A_{22} = I + \Tau^{-1} A^{SN} + \Tau^{-1} A^{LR}$, so now
+We previously showed $\bigpre^{-1}\lowright = I + \bigpre^{-1} \SN + \bigpre^{-1} \LR$, so now
 \begin{align*}
-	\hat{\Schur}^{-1}(A_{22}-A_{21}A_{11}^{-1}A_{12}) &=  I + \varepsilon + N+  \big[   \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}  (I + \varepsilon + N)\\
-	&\ - \Tau^{-1}A_{21}A_{11}^{-1}A_{12}   -\Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}A_{21}A_{11}^{-1}A_{12}  \big].
+	\hat{\Schur}^{-1}(\lowright-\upright^{\top}\upleft^{-1}\upright) &=  I +  \bigpre^{-1} \SN + \bigpre^{-1} \LR +  \big[   \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright  (I + \bigpre^{-1} \SN + \bigpre^{-1} \LR) \\
+	&\ - \bigpre^{-1}\upright^{\top}\upleft^{-1}\upright   -\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1} \upright \bigpre^{-1}\upright^{\top}\upleft^{-1}\upright  \big].
 \end{align*}
 
-We set aside the terms $I + \varepsilon + N + ( \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12})(\varepsilon + N)$, and show the remaining terms cancel out. 
+We set aside the terms $I + \bigpre^{-1} \SN + \bigpre^{-1} \LR + ( \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)( \bigpre^{-1} \SN + \bigpre^{-1} \LR)$, and show the remaining terms cancel out. 
 
 \begin{align*}
-	& \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12} - \Tau^{-1}A_{21}A_{11}^{-1} A_{12} - \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12}\Tau^{-1}A_{21}A_{11}^{-1}A_{12} \\ 
-	&=  [ - \Tau^{-1}A_{21}A_{11}^{-1}  + \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1} (I - A_{12}\Tau^{-1}A_{21}A_{11}^{-1})]A_{12} \\
-	&= [ - \Tau^{-1}A_{21}A_{11}^{-1}  + \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1} (A_{11} - A_{12}\Tau^{-1}A_{21})A_{11}^{-1}]A_{12} \\
-	&= [ - \Tau^{-1}A_{21}A_{11}^{-1}  + \Tau^{-1}A_{21}A_{11}^{-1}]A_{12} \\
+	& \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright - \bigpre^{-1}\upright^{\top}\upleft^{-1} \upright - \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}\upright^{\top}\upleft^{-1}\upright \\ 
+	&=  [ - \bigpre^{-1}\upright^{\top}\upleft^{-1}  + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1} (I - \upright\bigpre^{-1}\upright^{\top}\upleft^{-1})]\upright \\
+	&= [ - \bigpre^{-1}\upright^{\top}\upleft^{-1}  + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1} (\upleft - \upright\bigpre^{-1}\upright^{\top})\upleft^{-1}]\upright \\
+	&= [ - \bigpre^{-1}\upright^{\top}\upleft^{-1}  + \bigpre^{-1}\upright^{\top}\upleft^{-1}]\upright \\
 	&= 0.
 \end{align*} 
 
 	
-So the clustering depends on the spectrum of $I + \Tau^{-1} A^{SN} + \Tau^{-1} A^{LR} + ( \Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12})(\Tau^{-1} A^{SN} + \Tau^{-1} A^{LR})$. Most of the non-identity terms here are easily characterized using the previous results as either low-rank or small-norm. However, we must assume $(\Tau^{-1}A_{21}(A_{11}-A_{12}\Tau^{-1}A_{21})^{-1}A_{12})\Tau^{-1} A^{SN}$ is small-norm. Numerical validation of this assumption is found in Section TODO. 
+So the clustering depends on the spectrum of $I + \bigpre^{-1} \SN + \bigpre^{-1} \LR + ( \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)(\bigpre^{-1} \SN + \bigpre^{-1} \LR)$. Most of the non-identity terms here are easily characterized using the previous results as either low-rank or small-norm. However, we must assume $(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} \SN$ is small-norm. Numerical validation of this assumption is found in Section TODO. 
 \end{proof}
 
 \section{Numerical Results}
 \subsection{Validating Assumptions}\label{validate}
-In order to prove the spectral clustering, we made two assumptions about the structure of $\A$: the blocks adjacent to the diagonal are well-approximated by low-rank matrices and the other off-diagonal blocks are small-norm. Table (\ref{table:validate_rk}) displays the  maximum and average (median) rank needed to achieve an approximation under $\varepsilon$ on each block. Table (\ref{table:validate_norm}) shows the norm and relative norm of $A_F$. Both tables include results for $\alpha = 1.3, 1.5, 1.9$, after 7 levels of refinement, but similar trends were seen across all fractional orders and refinement levels. In the case of $1 \times 1$ Toeplitz blocks we found that including the entry to the right and underneath in $\offd$ was not sufficient to capture all the low-rank information. Instead, the corresponding block in $\offd$ was extended to dimensions $5 \times 5$ such that the original entry is the center of that block. In terms of spectral clustering, this could increase the number of outliers, but better characterizes the size of the cluster. 
+In order to prove the spectral clustering, we made two assumptions about the structure of $\A$: the blocks adjacent to the diagonal are well-approximated by low-rank matrices and the other off-diagonal blocks are small-norm. Table (\ref{table:validate_rk}) displays the  maximum and average (median) rank needed to achieve an approximation under $\varepsilon$ on each block. Table (\ref{table:validate_norm}) shows the norm and relative norm of $\offoff$. Both tables include results for $\alpha = 1.3, 1.5, 1.9$, after 7 levels of refinement, but similar trends were seen across all fractional orders and refinement levels. In the case of $1 \times 1$ Toeplitz blocks we found that including the entry to the right and underneath in $\offd$ was not sufficient to capture all the low-rank information. Instead, the corresponding block in $\offd$ was extended to dimensions $5 \times 5$ such that the original entry is the center of that block. In terms of spectral clustering, this could increase the number of outliers, but better characterizes the size of the cluster. 
 
 \begin{table}[h]
 		\centering
@@ -633,10 +646,10 @@ In order to prove the spectral clustering, we made two assumptions about the str
 	\hline
 	\diaghead{\theadfont longer te}{}{$\alpha$}&
 	\thead{$1.3$}&\thead{$1.5$}&\thead{$1.9$}\\ \hline
-	$||A_F||_2$ &0.6138 &1.528 &4.479 \\ \hline
-	$\frac{||A_F||_2}{||A||_2}$ & $4.893 \times 10^{-2}$ &$2.368 \times 10^{-2}$ & $2.533 \times 10^{-3} $\\ \hline
+	$||\offoff||_2$ &0.6138 &1.528 &4.479 \\ \hline
+	$\frac{||\offoff||_2}{||A||_2}$ & $4.893 \times 10^{-2}$ &$2.368 \times 10^{-2}$ & $2.533 \times 10^{-3} $\\ \hline
 \end{tabular}
-		\caption{The norm of $||A_F||_2$ and $||A_F||_2 / ||A||_2$ across values of $\alpha$. }
+		\caption{The norm of $||\offoff||_2$ and $||\offoff||_2 / ||A||_2$ across values of $\alpha$. }
 		\label{table:validate_norm}
 \end{table}
 
@@ -649,17 +662,17 @@ In order to prove the spectral clustering, we made two assumptions about the str
 \end{figure}
 Example results of the spectrum before and after preconditioning are in Figure (\ref{fig:eigen_clusters}). These tests are for the problem (\ref{FDE}) with $\alpha = 1.7$ and exact solution $u(x) = 10x^2 (1-x^2)$ on $[0,1]$ (see \cite{Xiaozhe} example 6.1 for more details). The three matrix sizes are $n = 31, 71, 2795$ and reflect 0, 3, and 11 levels of refinement respectively. Note that zero levels of refinement is a uniform mesh. 
 
-The left-most column represents a matrix that consists of a single Toeplitz block, so the preconditioner reduces to the case of $\ptau$. In this case the clustering of the spectrum around 1 is very strong. In the $n = 71$ case, the biggest Toeplitz blocks are size $11$, and there are two such blocks. The eigenvalue clustering around 1 is still observable, but the size of the cluster has grown. Finally for $n=2795$, the preconditioner reduces the spectral radius by several orders of magnitude. The spectrum is concentrated around 1, but the distribution of eigenvalues between 0 and 2 is more uniform. For this matrix, the biggest Toeplitz block is size $939$ and there are two other blocks just bigger than $200$. On the other hand, there are $245$ $1 \times 1$ blocks. For all cases, the strength of the clustering is explained by the amount of smaller Toeplitz blocks in $\A$. Notice that although the proof allows for eigenvalue outliers beyond the cluster, in practice everything remains within the interval $(0,2)$. 
+The left-most column represents a matrix that consists of a single Toeplitz block, so the preconditioner reduces to the case of $\lilpre$. In this case the clustering of the spectrum around 1 is very strong. In the $n = 71$ case, the biggest Toeplitz blocks are size $11$, and there are two such blocks. The eigenvalue clustering around 1 is still observable, but the size of the cluster has grown. Finally for $n=2795$, the preconditioner reduces the spectral radius by several orders of magnitude. The spectrum is concentrated around 1, but the distribution of eigenvalues between 0 and 2 is more uniform. For this matrix, the biggest Toeplitz block is size $939$ and there are two other blocks just bigger than $200$. On the other hand, there are $245$ $1 \times 1$ blocks. For all cases, the strength of the clustering is explained by the amount of smaller Toeplitz blocks in $\A$. Notice that although the proof allows for eigenvalue outliers beyond the cluster, in practice everything remains within the interval $(0,2)$. 
 
 % todo would love to be able to show error for PDE for the three different matrices
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width= .95 \textwidth]{figures/conv.png}
-	\caption{Comparing the residual vector norm across PCG iterations. The blue line uses a Jacobi preconditioner and the orange line uses the $\Tau$ preconditioner. }
+	\caption{Comparing the residual vector norm across PCG iterations. The blue line uses a Jacobi preconditioner and the orange line uses the $\bigpre$ preconditioner. }
 	\label{fig:conv}
 \end{figure}
-Next, we see how the clustered spectrum translates to accelerated convergence. In Figure (\ref{fig:conv}) the same matrices are used for preconditioned conjugate gradient (PCG), comparing the adaptive $\ptau$ preconditioner and a Jacobi preconditioner with a tolerance of $10^{-8}$. For the two smaller matrices, the preconditioner clearly accelerates the point of superlinear convergence \cite{MINRES_super}. For the final matrix, the Jacobi-preconditioned system fails to converge within the maximum of $600$ iterations, but with the $\Tau$ preconditioner converges in about $300$ iterations. 
+Next, we see how the clustered spectrum translates to accelerated convergence. In Figure (\ref{fig:conv}) the same matrices are used for preconditioned conjugate gradient (PCG), comparing the adaptive $\lilpre$ preconditioner and a Jacobi preconditioner with a tolerance of $10^{-8}$. For the two smaller matrices, the preconditioner clearly accelerates the point of superlinear convergence \cite{MINRES_super}. For the final matrix, the Jacobi-preconditioned system fails to converge within the maximum of $600$ iterations, but with the $\bigpre$ preconditioner converges in about $300$ iterations. 
 % todo ? behavior for different $\alpha$ 
 
 

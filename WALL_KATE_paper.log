@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.17)  8 SEP 2026 12:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.17)  8 SEP 2026 13:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -689,20 +689,20 @@ File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
 (./WALL_KATE_paper.aux)
 \openout1 = `WALL_KATE_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
 
 (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -723,12 +723,12 @@ Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 Package newfloat Info: `float' package detected.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 111
+LaTeX Font Info:    Trying to load font information for U+msa on input line 124
 .
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 111
+LaTeX Font Info:    Trying to load font information for U+msb on input line 124
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -736,7 +736,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Overfull \hbox (8.44576pt too wide) in paragraph at lines 209--211
+Overfull \hbox (8.44576pt too wide) in paragraph at lines 222--224
 \OT1/cmr/m/it/10 Assume $[][] \OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 `[]\OMS/cmsy/m
 /n/10 j \OML/cmm/m/it/10 < \OMS/cmsy/m/n/10 1$\OT1/cmr/m/it/10 , then the ma-tr
 i-ces in-duce func-tions $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z\OT1/cmr/m/n/10 
@@ -744,39 +744,39 @@ i-ces in-duce func-tions $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z\OT1/cmr/m/n/10
  []
 
 
-Overfull \hbox (0.8062pt too wide) in paragraph at lines 218--219
+Overfull \hbox (0.8062pt too wide) in paragraph at lines 231--232
 []\OT1/cmr/m/n/10 Although their con-struc-tion dif-fers, they are all di-ag-o-
 nal-ized by some trigono-
  []
 
 [3] [4] [5]
-<figures/A.png, id=61, 344.487pt x 371.7087pt>
+<figures/A.png, id=60, 344.487pt x 371.7087pt>
 File: figures/A.png Graphic file (type png)
 <use figures/A.png>
-Package pdftex.def Info: figures/A.png  used on input line 283.
+Package pdftex.def Info: figures/A.png  used on input line 297.
 (pdftex.def)             Requested size: 344.48615pt x 371.70778pt.
-<figures/AD.png, id=62, 344.487pt x 376.2858pt>
+<figures/AD.png, id=61, 344.487pt x 376.2858pt>
 File: figures/AD.png Graphic file (type png)
 <use figures/AD.png>
-Package pdftex.def Info: figures/AD.png  used on input line 284.
+Package pdftex.def Info: figures/AD.png  used on input line 298.
 (pdftex.def)             Requested size: 344.48615pt x 376.28487pt.
-<figures/AE.png, id=63, 344.487pt x 376.2858pt>
+<figures/AE.png, id=62, 344.487pt x 376.2858pt>
 File: figures/AE.png Graphic file (type png)
 <use figures/AE.png>
-Package pdftex.def Info: figures/AE.png  used on input line 285.
+Package pdftex.def Info: figures/AE.png  used on input line 299.
 (pdftex.def)             Requested size: 344.48615pt x 376.28487pt.
-<figures/AF.png, id=64, 344.487pt x 376.2858pt>
+<figures/AF.png, id=63, 344.487pt x 376.2858pt>
 File: figures/AF.png Graphic file (type png)
 <use figures/AF.png>
-Package pdftex.def Info: figures/AF.png  used on input line 286.
+Package pdftex.def Info: figures/AF.png  used on input line 300.
 (pdftex.def)             Requested size: 344.48615pt x 376.28487pt.
 
-Overfull \hbox (0.81311pt too wide) detected at line 287
+Overfull \hbox (0.81311pt too wide) detected at line 301
 []  \OT1/cmr/m/n/10 =  []  +  []  +  []
  []
 
 
-Overfull \hbox (6.14458pt too wide) in paragraph at lines 305--306
+Overfull \hbox (6.14458pt too wide) in paragraph at lines 319--320
 []\OT1/cmr/m/n/10 Complexity of con-struct-ing and ap-ply-ing $\OML/cmm/m/it/10
  M \OMS/cmsy/m/n/10 2 \U/msb/m/n/10 R[]$ \OT1/cmr/m/n/10 should be $\OMS/cmsy/m
 /n/10 O\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 m [] m\OT1/cmr/m/n/10 )$.
@@ -784,71 +784,84 @@ Overfull \hbox (6.14458pt too wide) in paragraph at lines 305--306
 
 [6 <./figures/A.png (PNG copy)> <./figures/AD.png (PNG copy)> <./figures/AE.png
  (PNG copy)> <./figures/AF.png (PNG copy)>]
-Overfull \hbox (19.03333pt too wide) in paragraph at lines 336--337
-\OT1/cmr/m/n/10 Let the Toeplitz blocks in $\OML/cmm/m/it/10 A[]$ \OT1/cmr/m/n/
-10 be $\OML/cmm/m/it/10 L[]; L[]; [] ; L[]$\OT1/cmr/m/n/10 , with re-spec-tive 
-sizes $\OML/cmm/m/it/10 m[]; m[]; [] ; m[]$\OT1/cmr/m/n/10 .
+Overfull \hbox (17.37706pt too wide) in paragraph at lines 350--351
+\OT1/cmr/m/n/10 Let the Toeplitz blocks in $[]$ be $\OML/cmm/m/it/10 L[]; L[]; 
+[] ; L[]$\OT1/cmr/m/n/10 , with re-spec-tive sizes $\OML/cmm/m/it/10 m[]; m[]; 
+[] ; m[]$\OT1/cmr/m/n/10 .
  []
 
 
-Overfull \hbox (5.09982pt too wide) detected at line 351
-\OMS/cmsy/m/n/10 T[] \OT1/cmr/m/n/10 = [] [] [] \OML/cmm/m/it/10 :
+Overfull \hbox (4.33394pt too wide) detected at line 365
+\OT1/cmr/m/n/10 ^^H[] = [] [] [] \OML/cmm/m/it/10 :
  []
 
 [7] [8] [9] [10]
-Overfull \hbox (13.1427pt too wide) in paragraph at lines 520--521
-[]\OT1/cmr/m/n/10 So $\OMS/cmsy/m/n/10 T[]\OML/cmm/m/it/10 A[] \OT1/cmr/m/n/10 
-= \OML/cmm/m/it/10 I \OT1/cmr/m/n/10 + \OMS/cmsy/m/n/10 T[]\OML/cmm/m/it/10 A[]
- \OT1/cmr/m/n/10 + \OMS/cmsy/m/n/10 T[]\OML/cmm/m/it/10 A[]:$ \OT1/cmr/m/n/10 N
-ow $\OML/cmm/m/it/10 s \OT1/cmr/m/n/10 := [](\OMS/cmsy/m/n/10 T[]\OML/cmm/m/it/
-10 A[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^T []\OT1/cmr/m/n/10 (\OML/cmm/m/it/1
-0 A[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^T
+Overfull \hbox (0.27008pt too wide) in paragraph at lines 534--535
+[]\OT1/cmr/m/n/10 So $^^H[]\OML/cmm/m/it/10 T \OT1/cmr/m/n/10 = \OML/cmm/m/it/1
+0 I \OT1/cmr/m/n/10 + ^^H[][] + ^^H[][]\OML/cmm/m/it/10 :$ \OT1/cmr/m/n/10 Now 
+$\OML/cmm/m/it/10 s \OT1/cmr/m/n/10 := [](^^H[][]) \OMS/cmsy/m/n/10 ^^T []\OT1/
+cmr/m/n/10 ([]) \OMS/cmsy/m/n/10 ^^T
  []
 
 [11]
 
-LaTeX Warning: Citation `Chan_89' on page 12 undefined on input line 550.
+LaTeX Warning: Citation `Chan_89' on page 12 undefined on input line 564.
 
 
-Overfull \hbox (76.38718pt too wide) detected at line 595
+Overfull \hbox (42.33736pt too wide) in paragraph at lines 605--606
+\OT1/cmr/m/n/10 Woodbury for-mula $[] = (^^H \OMS/cmsy/m/n/10 ^^@ [][][]\OT1/cm
+r/m/n/10 )[] = (^^H[] + ^^H[]\OML/cmm/m/it/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it
+/10 V \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 W\OT1/cmr/m/n/10 ^^H[]\OML/cmm/m/it
+/10 W[]\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 W\OT1/cmr/m/n/10 ^^H[]$,
+ []
+
+
+Overfull \hbox (39.02802pt too wide) detected at line 608
 []
  []
 
 
-Overfull \hbox (80.55386pt too wide) detected at line 600
+Overfull \hbox (127.1674pt too wide) detected at line 613
 []
  []
 
 
-Overfull \hbox (113.34616pt too wide) detected at line 610
+Overfull \hbox (55.84758pt too wide) in paragraph at lines 615--616
+[]\OT1/cmr/m/n/10 We set aside the terms $\OML/cmm/m/it/10 I \OT1/cmr/m/n/10 + 
+^^H[][] + ^^H[][] + (^^H[]\OML/cmm/m/it/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10
+ V \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 W\OT1/cmr/m/n/10 ^^H[]\OML/cmm/m/it/10
+ W[]\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 W\OT1/cmr/m/n/10 )(^^H[][] +
+ []
+
+
+Overfull \hbox (72.86142pt too wide) detected at line 623
 []
  []
 
 [12]
-Overfull \hbox (65.38925pt too wide) in paragraph at lines 613--614
-\OT1/cmr/m/n/10 low-rank or small-norm. How-ever, we must as-sume $(\OMS/cmsy/m
-/n/10 T[]\OML/cmm/m/it/10 A[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 A[] \OMS/cmsy/m/
-n/10 ^^@ \OML/cmm/m/it/10 A[]\OMS/cmsy/m/n/10 T[]\OML/cmm/m/it/10 A[]\OT1/cmr/m
-/n/10 )[]\OML/cmm/m/it/10 A[]\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 T[]\OML/cmm/m/it
-/10 A[]$
+Overfull \hbox (7.82397pt too wide) in paragraph at lines 626--627
+\OT1/cmr/m/n/10 or small-norm. How-ever, we must as-sume $(^^H[]\OML/cmm/m/it/1
+0 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 V \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 
+W\OT1/cmr/m/n/10 ^^H[]\OML/cmm/m/it/10 W[]\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 W
+\OT1/cmr/m/n/10 )^^H[][]$
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/eig_comp.png, id=91, 1393.205pt x 618.31pt>
+<figures/eig_comp.png, id=90, 1393.205pt x 618.31pt>
 File: figures/eig_comp.png Graphic file (type png)
 <use figures/eig_comp.png>
-Package pdftex.def Info: figures/eig_comp.png  used on input line 646.
+Package pdftex.def Info: figures/eig_comp.png  used on input line 659.
 (pdftex.def)             Requested size: 310.4979pt x 137.7929pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [13]
-<figures/conv.png, id=96, 1447.4075pt x 333.245pt>
+<figures/conv.png, id=95, 1447.4075pt x 333.245pt>
 File: figures/conv.png Graphic file (type png)
 <use figures/conv.png>
-Package pdftex.def Info: figures/conv.png  used on input line 658.
+Package pdftex.def Info: figures/conv.png  used on input line 671.
 (pdftex.def)             Requested size: 327.74895pt x 75.45995pt.
 
 
@@ -861,13 +874,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 17137 strings out of 478994
- 331873 string characters out of 5858183
- 612834 words of memory out of 5000000
- 34244 multiletter control sequences out of 15000+600000
+ 17143 strings out of 478994
+ 331878 string characters out of 5858183
+ 611845 words of memory out of 5000000
+ 34250 multiletter control sequences out of 15000+600000
  418660 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,29n,117p,1226b,914s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 102i,29n,117p,1213b,857s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
@@ -877,7 +890,6 @@ sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
 r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/
 local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
 cal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loca
-l/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/loca
 l/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
 texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/te
 xlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texl
@@ -892,10 +904,10 @@ ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2021/texmf-di
 st/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr/local/texlive/2021/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on WALL_KATE_paper.pdf (17 pages, 433759 bytes).
+Output written on WALL_KATE_paper.pdf (17 pages, 427299 bytes).
 PDF statistics:
- 189 PDF objects out of 1000 (max. 8388607)
- 122 compressed objects within 2 object streams
+ 185 PDF objects out of 1000 (max. 8388607)
+ 119 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  139 words of extra memory for PDF output out of 10000 (max. 10000000)
 

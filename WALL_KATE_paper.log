@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.17)  23 JUL 2026 15:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.17)  8 SEP 2026 12:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -93,12 +93,24 @@ LaTeX Info: Redefining \] on input line 2924.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks21
+\thm@bodyfont=\toks22
+\thm@headfont=\toks23
+\thm@notefont=\toks24
+\thm@headpunct=\toks25
+\thm@preskip=\skip52
+\thm@postskip=\skip53
+\thm@headsep=\skip54
+\dth@everypar=\toks26
+)
 (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks21
+\KV@toks@=\toks27
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
@@ -171,8 +183,8 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 \c@ALC@line=\count266
 \c@ALC@rem=\count267
 \c@ALC@depth=\count268
-\ALC@tlm=\skip52
-\algorithmicindent=\skip53
+\ALC@tlm=\skip55
+\algorithmicindent=\skip56
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
@@ -211,8 +223,8 @@ Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
 
 (/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 (/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks22
-\XKV@tempa@toks=\toks23
+\XKV@toks=\toks28
+\XKV@tempa@toks=\toks29
 )
 \XKV@depth=\count273
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
@@ -239,7 +251,7 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
 (/usr/local/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
 x
-\pgfutil@everybye=\toks24
+\pgfutil@everybye=\toks30
 \pgfutil@tempdima=\dimen163
 \pgfutil@tempdimb=\dimen164
 
@@ -258,12 +270,12 @@ Package: pgf 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/local/texlive/2021/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/local/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks25
-\pgfkeys@temptoks=\toks26
+\pgfkeys@pathtoks=\toks31
+\pgfkeys@temptoks=\toks32
 
 (/usr/local/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.c
 ode.tex
-\pgfkeys@tmptoks=\toks27
+\pgfkeys@tmptoks=\toks33
 ))
 \pgf@x=\dimen165
 \pgf@y=\dimen166
@@ -281,9 +293,9 @@ ode.tex
 \c@pgf@countb=\count275
 \c@pgf@countc=\count276
 \c@pgf@countd=\count277
-\t@pgf@toka=\toks28
-\t@pgf@tokb=\toks29
-\t@pgf@tokc=\toks30
+\t@pgf@toka=\toks34
+\t@pgf@tokb=\toks35
+\t@pgf@tokc=\toks36
 \pgf@sys@id@count=\count278
 
 (/usr/local/texlive/2021/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
@@ -318,9 +330,9 @@ Package: pgfcore 2020/12/27 v3.1.8b (3.1.8b)
 \pgfmath@dimen=\dimen175
 \pgfmath@count=\count281
 \pgfmath@box=\box50
-\pgfmath@toks=\toks31
-\pgfmath@stack@operand=\toks32
-\pgfmath@stack@operation=\toks33
+\pgfmath@toks=\toks37
+\pgfmath@stack@operand=\toks38
+\pgfmath@stack@operation=\toks39
 )
 (/usr/local/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
 tex
@@ -472,8 +484,8 @@ Package: pgffor 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/local/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
 \pgffor@iter=\dimen258
 \pgffor@skip=\dimen259
-\pgffor@stack=\toks34
-\pgffor@toks=\toks35
+\pgffor@stack=\toks40
+\pgffor@toks=\toks41
 ))
 (/usr/local/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
 e.tex
@@ -536,12 +548,12 @@ Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Bcount=\count296
 \calc@Adimen=\dimen269
 \calc@Bdimen=\dimen270
-\calc@Askip=\skip54
-\calc@Bskip=\skip55
+\calc@Askip=\skip57
+\calc@Bskip=\skip58
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count297
-\calc@Cskip=\skip56
+\calc@Cskip=\skip59
 )
 \c@@todonotes@numberoftodonotes=\count298
 )
@@ -565,9 +577,9 @@ Package caption Info: Standard document class detected.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count301
-\float@exts=\toks36
+\float@exts=\toks42
 \float@box=\box60
-\@float@everytoks=\toks37
+\@float@everytoks=\toks43
 \@floatcapt=\box61
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/adjustbox/adjustbox.sty
@@ -615,9 +627,9 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 ))
 (/usr/local/texlive/2021/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip57
+\multirow@colwidth=\skip60
 \multirow@cntb=\count304
-\multirow@dima=\skip58
+\multirow@dima=\skip61
 \bigstrutjot=\dimen292
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/makecell/makecell.sty
@@ -628,475 +640,234 @@ Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
 \col@sep=\dimen293
 \ar@mcellbox=\box64
 \extrarowheight=\dimen294
-\NC@list=\toks38
-\extratabsurround=\skip59
-\backup@length=\skip60
+\NC@list=\toks44
+\extratabsurround=\skip62
+\backup@length=\skip63
 \ar@cellbox=\box65
 )
 \rotheadsize=\dimen295
 \c@nlinenum=\count305
-\TeXr@lab=\toks39
+\TeXr@lab=\toks45
 )
 (/usr/local/texlive/2021/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 \c@KVtest=\count306
-\sf@farskip=\skip61
+\sf@farskip=\skip64
 \sf@captopadj=\dimen296
-\sf@capskip=\skip62
-\sf@nearskip=\skip63
+\sf@capskip=\skip65
+\sf@nearskip=\skip66
 \c@subfigure=\count307
 \c@subfigure@save=\count308
 \c@lofdepth=\count309
 \c@subtable=\count310
 \c@subtable@save=\count311
 \c@lotdepth=\count312
-\sf@top=\skip64
-\sf@bottom=\skip65
+\sf@top=\skip67
+\sf@bottom=\skip68
 )
+\c@lemma=\count313
+\c@rmk=\count314
+\c@theorem=\count315
+\c@cor=\count316
+\c@definition=\count317
 Package caption Info: Option `declare type' requires the `newfloat' package on 
-input line 25.
+input line 31.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newfloat/newfloat.sty
 Package: newfloat 2019/09/02 v1.1l Defining new floating environments (AR)
 )
-Package newfloat Info: New float `equ' with options `' on input line 25.
-\c@equ=\count313
-Package newfloat Info: float type `equ'=4 on input line 25.
-\c@loequdepth=\count314
+Package newfloat Info: New float `equ' with options `' on input line 31.
+\c@equ=\count318
+Package newfloat Info: float type `equ'=4 on input line 31.
+\c@loequdepth=\count319
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count315
+\l__color_backend_stack_int=\count320
 \l__pdf_internal_box=\box66
 )
 (./WALL_KATE_paper.aux)
 \openout1 = `WALL_KATE_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
 
 (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count316
+\scratchcounter=\count321
 \scratchdimen=\dimen297
 \scratchbox=\box67
-\nofMPsegments=\count317
-\nofMParguments=\count318
-\everyMPshowfont=\toks40
-\MPscratchCnt=\count319
+\nofMPsegments=\count322
+\nofMParguments=\count323
+\everyMPshowfont=\toks46
+\MPscratchCnt=\count324
 \MPscratchDim=\dimen298
-\MPnumerator=\count320
-\makeMPintoPDFobject=\count321
-\everyMPtoPDFconversion=\toks41
+\MPnumerator=\count325
+\makeMPintoPDFobject=\count326
+\everyMPtoPDFconversion=\toks47
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 Package newfloat Info: `float' package detected.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 104
+LaTeX Font Info:    Trying to load font information for U+msa on input line 111
 .
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 104
+LaTeX Font Info:    Trying to load font information for U+msb on input line 111
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+) [1
 
-! LaTeX Error: Environment keywords undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.119 \begin{keywords}
-                      
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: \begin{document} ended by \end{keywords}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.122 \end{keywords}
-                    
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[1
-
-{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2]
-
-! LaTeX Error: Environment definition undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.186 \begin{definition}
-                        [\cite{Chan_Strang}]
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: \begin{document} ended by \end{definition}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.203 \end{definition}
-                      
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-Overfull \hbox (7.92062pt too wide) in paragraph at lines 201--204
-\OT1/cmr/m/n/10 Assume $[][] \OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 `[]\OMS/cmsy/m/
-n/10 j \OML/cmm/m/it/10 < \OMS/cmsy/m/n/10 1$\OT1/cmr/m/n/10 , then the ma-tri-
-ces in-duce func-tions $[](\OML/cmm/m/it/10 z\OT1/cmr/m/n/10 ) = [][] \OML/cmm/
-m/it/10 `[]z[]$
+{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Overfull \hbox (8.44576pt too wide) in paragraph at lines 209--211
+\OT1/cmr/m/it/10 Assume $[][] \OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 `[]\OMS/cmsy/m
+/n/10 j \OML/cmm/m/it/10 < \OMS/cmsy/m/n/10 1$\OT1/cmr/m/it/10 , then the ma-tr
+i-ces in-duce func-tions $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z\OT1/cmr/m/n/10 
+) = [][] \OML/cmm/m/it/10 `[]z[]$
  []
 
-[3]
-Overfull \hbox (0.8062pt too wide) in paragraph at lines 210--211
+
+Overfull \hbox (0.8062pt too wide) in paragraph at lines 218--219
 []\OT1/cmr/m/n/10 Although their con-struc-tion dif-fers, they are all di-ag-o-
 nal-ized by some trigono-
  []
 
-
-Overfull \hbox (12.76924pt too wide) detected at line 235
-\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = [] \OML/cmm/m/it/10 H \OT1/cmr/m/n/10 = []
- \OML/cmm/m/it/10 :
- []
-
-
-! LaTeX Error: Environment lemma undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.239 \begin{lemma}
-                   [see \cite{Bini}] \label{lemma:tau}
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: \begin{document} ended by \end{lemma}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.248 \end{lemma}
-                 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[4]
-<figures/A.png, id=56, 344.487pt x 371.7087pt>
+[3] [4] [5]
+<figures/A.png, id=61, 344.487pt x 371.7087pt>
 File: figures/A.png Graphic file (type png)
 <use figures/A.png>
-Package pdftex.def Info: figures/A.png  used on input line 265.
+Package pdftex.def Info: figures/A.png  used on input line 283.
 (pdftex.def)             Requested size: 344.48615pt x 371.70778pt.
-<figures/AD.png, id=57, 344.487pt x 376.2858pt>
+<figures/AD.png, id=62, 344.487pt x 376.2858pt>
 File: figures/AD.png Graphic file (type png)
 <use figures/AD.png>
-Package pdftex.def Info: figures/AD.png  used on input line 266.
+Package pdftex.def Info: figures/AD.png  used on input line 284.
 (pdftex.def)             Requested size: 344.48615pt x 376.28487pt.
-<figures/AE.png, id=58, 344.487pt x 376.2858pt>
+<figures/AE.png, id=63, 344.487pt x 376.2858pt>
 File: figures/AE.png Graphic file (type png)
 <use figures/AE.png>
-Package pdftex.def Info: figures/AE.png  used on input line 267.
+Package pdftex.def Info: figures/AE.png  used on input line 285.
 (pdftex.def)             Requested size: 344.48615pt x 376.28487pt.
-<figures/AF.png, id=59, 344.487pt x 376.2858pt>
+<figures/AF.png, id=64, 344.487pt x 376.2858pt>
 File: figures/AF.png Graphic file (type png)
 <use figures/AF.png>
-Package pdftex.def Info: figures/AF.png  used on input line 268.
+Package pdftex.def Info: figures/AF.png  used on input line 286.
 (pdftex.def)             Requested size: 344.48615pt x 376.28487pt.
 
-Overfull \hbox (0.81311pt too wide) detected at line 269
+Overfull \hbox (0.81311pt too wide) detected at line 287
 []  \OT1/cmr/m/n/10 =  []  +  []  +  []
  []
 
-! Undefined control sequence.
-<argument> Adaptive \texorpdfstring 
-                                    {$\ptau $}{tau} Preconditioner
-l.277 ...orpdfstring{$\ptau$}{tau} Preconditioner}
-                                                   \label{precond}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
-! Undefined control sequence.
-<argument> ...sname }\fi Adaptive \texorpdfstring 
-                                                  {$\ptau $}{tau} Preconditi...
-l.277 ...orpdfstring{$\ptau$}{tau} Preconditioner}
-                                                   \label{precond}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+Overfull \hbox (6.14458pt too wide) in paragraph at lines 305--306
+[]\OT1/cmr/m/n/10 Complexity of con-struct-ing and ap-ply-ing $\OML/cmm/m/it/10
+ M \OMS/cmsy/m/n/10 2 \U/msb/m/n/10 R[]$ \OT1/cmr/m/n/10 should be $\OMS/cmsy/m
+/n/10 O\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 m [] m\OT1/cmr/m/n/10 )$.
+ []
 
-[5 <./figures/A.png (PNG copy)> <./figures/AD.png (PNG copy)> <./figures/AE.png
+[6 <./figures/A.png (PNG copy)> <./figures/AD.png (PNG copy)> <./figures/AE.png
  (PNG copy)> <./figures/AF.png (PNG copy)>]
-Overfull \hbox (3.34103pt too wide) in paragraph at lines 280--281
-[]\OT1/cmr/m/n/10 Complexity of con-struct-ing and ap-ply-ing $\OMS/cmsy/m/n/10
- T 2 \U/msb/m/n/10 R[]$ \OT1/cmr/m/n/10 should be $\OMS/cmsy/m/n/10 O\OT1/cmr/m
-/n/10 (\OML/cmm/m/it/10 m [] m\OT1/cmr/m/n/10 )$.
+Overfull \hbox (19.03333pt too wide) in paragraph at lines 336--337
+\OT1/cmr/m/n/10 Let the Toeplitz blocks in $\OML/cmm/m/it/10 A[]$ \OT1/cmr/m/n/
+10 be $\OML/cmm/m/it/10 L[]; L[]; [] ; L[]$\OT1/cmr/m/n/10 , with re-spec-tive 
+sizes $\OML/cmm/m/it/10 m[]; m[]; [] ; m[]$\OT1/cmr/m/n/10 .
  []
 
 
-Overfull \hbox (5.09982pt too wide) detected at line 317
+Overfull \hbox (5.09982pt too wide) detected at line 351
 \OMS/cmsy/m/n/10 T[] \OT1/cmr/m/n/10 = [] [] [] \OML/cmm/m/it/10 :
  []
 
-[6]
-
-! LaTeX Error: Environment lemma undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.343 \begin{lemma}
-                    \label{eig_lemma}
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: \begin{document} ended by \end{lemma}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.345 \end{lemma}
-                 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: Environment proof undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.346 \begin{proof}
-                   
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: \begin{document} ended by \end{proof}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.354 \end{proof}
-                 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: Environment lemma undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.358 \begin{lemma}
-                   [Eigenvalue Clustering on a Toeplitz Block, \cite{Bini, K...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: \begin{document} ended by \end{lemma}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.360 \end{lemma}
-                 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: Environment proof undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.361 \begin{proof}
-                   
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[7]
-
-! LaTeX Error: \begin{document} ended by \end{proof}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.375 \end{proof}
-                 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: Environment theorem undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.379 \begin{theorem}
-                     
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: \begin{document} ended by \end{theorem}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.381 \end{theorem}
-                   
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: Environment proof undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.383 \begin{proof}
-                   
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[8]
-Overfull \hbox (5.53032pt too wide) in paragraph at lines 392--395
-[] \OT1/cmr/m/n/10 + [] \OML/cmm/m/it/10 :$ \OT1/cmr/m/n/10 Here $\OT1/cmr/bx/n
-/10 u$ \OT1/cmr/m/n/10 and $\OT1/cmr/bx/n/10 v$ \OT1/cmr/m/n/10 are length
- []
-
-[9]
-
-LaTeX Warning: Reference `lemma:weyl' on page 10 undefined on input line 418.
-
-
-! LaTeX Error: \begin{document} ended by \end{proof}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.437 \end{proof}
-                 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[10]
-Overfull \hbox (120.58397pt too wide) detected at line 518
-[]
- []
-
-
-Overfull \hbox (48.98813pt too wide) detected at line 525
-[]
- []
-
-
-Overfull \hbox (438.0549pt too wide) detected at line 537
-[]
+[7] [8] [9] [10]
+Overfull \hbox (13.1427pt too wide) in paragraph at lines 520--521
+[]\OT1/cmr/m/n/10 So $\OMS/cmsy/m/n/10 T[]\OML/cmm/m/it/10 A[] \OT1/cmr/m/n/10 
+= \OML/cmm/m/it/10 I \OT1/cmr/m/n/10 + \OMS/cmsy/m/n/10 T[]\OML/cmm/m/it/10 A[]
+ \OT1/cmr/m/n/10 + \OMS/cmsy/m/n/10 T[]\OML/cmm/m/it/10 A[]:$ \OT1/cmr/m/n/10 N
+ow $\OML/cmm/m/it/10 s \OT1/cmr/m/n/10 := [](\OMS/cmsy/m/n/10 T[]\OML/cmm/m/it/
+10 A[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^T []\OT1/cmr/m/n/10 (\OML/cmm/m/it/1
+0 A[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^T
  []
 
 [11]
-<figures/eig_comp.png, id=88, 1393.205pt x 618.31pt>
+
+LaTeX Warning: Citation `Chan_89' on page 12 undefined on input line 550.
+
+
+Overfull \hbox (76.38718pt too wide) detected at line 595
+[]
+ []
+
+
+Overfull \hbox (80.55386pt too wide) detected at line 600
+[]
+ []
+
+
+Overfull \hbox (113.34616pt too wide) detected at line 610
+[]
+ []
+
+[12]
+Overfull \hbox (65.38925pt too wide) in paragraph at lines 613--614
+\OT1/cmr/m/n/10 low-rank or small-norm. How-ever, we must as-sume $(\OMS/cmsy/m
+/n/10 T[]\OML/cmm/m/it/10 A[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 A[] \OMS/cmsy/m/
+n/10 ^^@ \OML/cmm/m/it/10 A[]\OMS/cmsy/m/n/10 T[]\OML/cmm/m/it/10 A[]\OT1/cmr/m
+/n/10 )[]\OML/cmm/m/it/10 A[]\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 T[]\OML/cmm/m/it
+/10 A[]$
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/eig_comp.png, id=91, 1393.205pt x 618.31pt>
 File: figures/eig_comp.png Graphic file (type png)
 <use figures/eig_comp.png>
-Package pdftex.def Info: figures/eig_comp.png  used on input line 569.
+Package pdftex.def Info: figures/eig_comp.png  used on input line 646.
 (pdftex.def)             Requested size: 310.4979pt x 137.7929pt.
- [12]
-<figures/conv.png, id=95, 1447.4075pt x 333.245pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[13]
+<figures/conv.png, id=96, 1447.4075pt x 333.245pt>
 File: figures/conv.png Graphic file (type png)
 <use figures/conv.png>
-Package pdftex.def Info: figures/conv.png  used on input line 581.
+Package pdftex.def Info: figures/conv.png  used on input line 658.
 (pdftex.def)             Requested size: 327.74895pt x 75.45995pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[13 <./figures/eig_comp.png (PNG copy)>] (./WALL_KATE_paper.bbl [14 <./figures/
-conv.png>]) [15] (./WALL_KATE_paper.aux)
+[14 <./figures/eig_comp.png (PNG copy)>] [15 <./figures/conv.png>]
+(./WALL_KATE_paper.bbl [16]) [17] (./WALL_KATE_paper.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 17033 strings out of 478994
- 330659 string characters out of 5858183
- 614534 words of memory out of 5000000
- 34145 multiletter control sequences out of 15000+600000
- 419822 words of font info for 88 fonts, out of 8000000 for 9000
+ 17137 strings out of 478994
+ 331873 string characters out of 5858183
+ 612834 words of memory out of 5000000
+ 34244 multiletter control sequences out of 15000+600000
+ 418660 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,29n,117p,1554b,853s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 102i,29n,117p,1226b,914s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
@@ -1121,10 +892,10 @@ ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2021/texmf-di
 st/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr/local/texlive/2021/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on WALL_KATE_paper.pdf (15 pages, 421368 bytes).
+Output written on WALL_KATE_paper.pdf (17 pages, 433759 bytes).
 PDF statistics:
- 183 PDF objects out of 1000 (max. 8388607)
- 118 compressed objects within 2 object streams
+ 189 PDF objects out of 1000 (max. 8388607)
+ 122 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  139 words of extra memory for PDF output out of 10000 (max. 10000000)
 

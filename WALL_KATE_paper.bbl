@@ -24,10 +24,20 @@
   constructed from kernels}, SIAM Journal on Numerical Analysis, 29 (1992),
   pp.~1093--1103.
 
+\bibitem{TChan}
+{\sc Tony~F. Chan}, {\em An optimal circulant preconditioner for toeplitz
+  systems}, SIAM Journal on Scientific and Statistical Computing, 9 (1988),
+  pp.~766--771.
+
 \bibitem{schrod}
 {\sc Chao Chen, Xi~Yang, and Fei-Yan Zhang}, {\em Sine-transform-based fast
   solvers for riesz fractional nonlinear schrödinger equations with attractive
   nonlinearities}, Applied Mathematics and Computation, 510 (2026), p.~129674.
+
+\bibitem{app_electrom}
+{\sc N.~Engheta}, {\em On fractional calculus and fractional multipoles in
+  electromagnetism}, IEEE Transactions on Antennas and Propagation, 44 (1996),
+  pp.~554--566.
 
 \bibitem{JZ}
 {\sc Bangti Jin and Zhi Zhou}, {\em A {Finite} {Element} {Method} with
@@ -52,9 +62,18 @@
   adaptive finite element methods: An introduction}, in Multiscale, Nonlinear
   and Adaptive Approximation, 2009, pp.~409--542.
 
+\bibitem{app_signals}
+{\sc Manuel~D. Ortigueira, Clara~M. Ionescu, J.~Tenreiro Machado, and Juan~J.
+  Trujillo}, {\em Fractional signal processing and applications}, Signal
+  Processing, 107 (2015), p.~197.
+
 \bibitem{MINRES_super}
 {\sc Valeria Simoncini and Daniel Szyld}, {\em On the superlinear convergence
   of minres},  (2013).
+
+\bibitem{Strang_original}
+{\sc Gilbert Strang}, {\em A proposal for toeplitz matrix calculations},
+  Studies in Applied Mathematics, 74 (1986), pp.~171--176.
 
 \bibitem{superfast}
 {\sc Hong Wang and Ning Du}, {\em A superfast-preconditioned iterative method

@@ -3,50 +3,50 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: WALL_KATE_paper.aux
 The style file: siamplain.bst
 Database file #1: references.bib
-Repeated entry---line 213 of file references.bib
+Repeated entry---line 264 of file references.bib
  : @inproceedings{MINRES_super
  :                            ,
 I'm skipping whatever remains of this entry
 Warning--empty journal in MINRES_super
-You've used 13 entries,
+You've used 17 entries,
             2030 wiz_defined-function locations,
-            595 strings with 6407 characters,
-and the built_in function-call counts, 5038 in all, are:
-= -- 501
-> -- 203
+            622 strings with 6939 characters,
+and the built_in function-call counts, 6467 in all, are:
+= -- 645
+> -- 247
 < -- 0
-+ -- 83
-- -- 66
-* -- 368
-:= -- 744
-add.period$ -- 13
-call.type$ -- 13
-change.case$ -- 72
++ -- 103
+- -- 80
+* -- 470
+:= -- 953
+add.period$ -- 17
+call.type$ -- 17
+change.case$ -- 91
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 249
-empty$ -- 354
-format.name$ -- 66
-if$ -- 1117
+cite$ -- 18
+duplicate$ -- 323
+empty$ -- 461
+format.name$ -- 80
+if$ -- 1439
 int.to.chr$ -- 0
-int.to.str$ -- 13
-missing$ -- 13
-newline$ -- 42
-num.names$ -- 26
-pop$ -- 58
+int.to.str$ -- 17
+missing$ -- 17
+newline$ -- 54
+num.names$ -- 34
+pop$ -- 70
 preamble$ -- 1
-purify$ -- 59
+purify$ -- 74
 quote$ -- 0
-skip$ -- 244
+skip$ -- 316
 stack$ -- 0
-substring$ -- 359
-swap$ -- 128
+substring$ -- 471
+swap$ -- 166
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 52
+type$ -- 68
 warning$ -- 1
-while$ -- 48
-width$ -- 15
-write$ -- 116
+while$ -- 63
+width$ -- 19
+write$ -- 152
 (There was 1 error message)

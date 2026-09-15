@@ -152,15 +152,21 @@ In this paper we consider fractional differential equations \\ (FDEs) of the for
 where $D^{\alpha}_x$ is the Riesz fractional derivative of order $1 < \alpha < 2$ and $f \in L^2([a,b])$. 
 
 
-Fractional equations find applications in many fields such as fluid mechanics, electromagnetic fluids, image processing, and material science (see for example \cite{app_signals, app_electrom}). However, solving FDEs presents unique difficulties in numerical methods due to the non-locality of the operator resulting in a dense stiffness matrix. Additionally, as part of the fractional derivative the singular kernel, $k(x,s) = |x-s|^{1-\alpha}$, is integrated, resulting in end-point singularities which make Galerkin finite-element methods sub-optimal \cite{hierarch,superfast}. To address this, Jin and Zhou developed a reconstruction technique that isolates the singularity to improve finite-element method (FEM) convergence \cite{JZ}. Alternatively, Wang and Du developed a Toeplitz preconditioner that reduces iteration cost to $\bigOh(n \log n)$ using the preconditioned conjugate gradient squared method \cite{superfast}. 
+Fractional equations find applications in many fields such as fluid mechanics, electromagnetic fluids, image processing, and material science (see for example \cite{app_signals, app_electrom}). However, solving FDEs presents unique difficulties in numerical methods due to the non-locality of the operator resulting in a dense stiffness matrix, $A$. Additionally, as part of the fractional derivative the singular kernel, $k(x,s) = |x-s|^{1-\alpha}$, is integrated, resulting in end-point singularities which make Galerkin finite-element methods sub-optimal \cite{hierarch,superfast}. To address this, Jin and Zhou developed a reconstruction technique that isolates the singularity to improve finite-element method (FEM) convergence \cite{JZ}. Alternatively, Wang and Du developed a Toeplitz preconditioner that reduces iteration cost to $\bigOh(m \log m)$, where $m$ is the size of $A$, using the preconditioned conjugate gradient squared method \cite{superfast}. 
 
 The above methods require uniform meshes. On a uniform mesh the FEM discretization results in a stiffness matrix that is Toeplitz. All methods on a uniform mesh leverage this structure for efficient linear solves. However, these methods fail to address high error near singularities, and instead the size of the mesh must grow. An optimal mesh would have the $L^{\infty}$ error equally distributed on each interval, but a uniform mesh does not, in general, satisfy this condition. Indeed, the singularities of FDEs force higher error in the intervals near the boundary and thus require very fine meshes to achieve uniform error below a given threshold. Alternatively, to achieve desired accuracy across the whole domain we use an adaptive mesh and adaptive finite-element method (AFEM) \cite{AFEM, Xiaozhe}. The usual AFEM algorithm iterates through the process 
 \begin{equation} \label{AFEM}
 	\texttt{SOLVE} \rightarrow \texttt{ESTIMATE} \rightarrow \texttt{MARK} \rightarrow \texttt{REFINE},
 \end{equation} 
-but the computational cost is dominated by the \texttt{SOLVE} step \cite{Xiaozhe}. 
+but the computational cost is dominated by the \texttt{SOLVE} step.
 
-Our aim is to build a preconditioner for the stiffness matrix, $\A$, from an AFEM discretization of Equation (\ref{FDE}) that will reduce this work. We investigate what structure the adaptive mesh retains and how that is reflected in the structure of $\A$. Then, using preconditioning techniques formulated for Toeplitz matrices \cite{Chan_Strang, Chan_Yeung, precond_review, schrod}, we build a preconditioner, show the preconditioned system has eigenvalues clustered around 1, and demonstrate numerical results with superlinear convergence. 
+Zhao et al. used AFEM to solved FDEs using hierarchical matrices and geometric multigrid (GMG) \cite{Xiaozhe}. This method is done in $\bigOh(k N \log N)$ where $k$ is a parameter for low-rank approximations and $N$ is the degrees of freedom at the finest level. Numerical tests show this technique attains optimal convergence order, but there are no proofs guaranteeing such.  
+
+In this paper, we construct a preconditioner, $\precond$, for the stiffness matrix, $\A$, from an AFEM discretization of Equation (\ref{FDE}). We show that the cost of solving the preconditioned linear system with a Krylov method is competitive with the GMG approach and furthermore prove that the preconditioned spectrum is clustered around 1, guaranteeing convergence. Our approach also has the advantage of avoiding hierarchical matrices and their sometimes cumbersome implementation. 
+
+In the next section we present background information about structured matrices and preconditioning Toeplitz matrices. Then in Section (\ref{sec: precond}) we investigate what structure the adaptive mesh retains and how that is reflected in the structure of $\A$. We leverage this structure to apply preconditioning techniques formulated for Toeplitz matrices \cite{Chan_Strang, Chan_Yeung, precond_review, schrod}. This is followed by theoretical results about eigenvalue clustering of the preconditioned system in Section($\ref{sec: theory})$. Numerical results to validate any of our assumptions about the stiffness matrix and compare performance to the Zhao et al.'s GMG method are presented in Section (\ref{sec: numerical results}). 
+
+
 % We leverage this idea to build a preconditioner for stiffness matrices generated from the adaptive finite-element method (AFEM) for FDEs. In this setting the problem is discretized on a nonuniform mesh, and the resulting stiffness matrix is dense. In the usual finite-element method (FEM) setting an uniform mesh results in a Toeplitz stiffness matrix. In the adaptive setting, after an initial solve on a uniform grid, the error on each element is estimated and the elements with largest error are refined via bisection. 
 
 % application for FDEs
@@ -176,7 +182,7 @@ Our aim is to build a preconditioner for the stiffness matrix, $\A$, from an AFE
 
 % overview of subsequent sections?
 
-\section{Background}
+\section{Background} \label{sec: background}
 \subsection{Properties of Structured Matrices}
 \label{sec:matrix_props}
 There has long been interest in solving Toeplitz linear systems efficiently. A matrix $A$ is called Toeplitz if $a_{ij} = a_{i-j}$. Arbitrary $n \times n$ matrices have up to $n^2$ entries and are solved directly in $\bigOh(n^3)$ FLOPS. Since a Toeplitz matrix has at most $2n-1$ unique entries, we expect to solve Toeplitz systems with $\bigOh (n^2)$ FLOPS, (see for example Levinson's algorithm, Trench's algorithm). Even with these improvements, however, fast Toeplitz algorithms are unstable in general and infeasible for large systems that arise in application \cite{stable}. Infinite or periodic Toeplitz matrices can be solved via a transformation to Fourier space and a discrete convolution in TODO time. On the other hand, finite Toeplitz systems are much more difficult to solve due to the boundaries of the mesh or matrix. To solve these systems, we turn to iterative Krylov and multigrid methods \cite{schrod, hierarch, Xiaozhe}. For these methods we take advantage of Toeplitz structure by using structured preconditioners. 
@@ -220,7 +226,7 @@ Toeplitz matrices have many special properties, here we focus on their connectio
 			\toe_{m-1} & \toe_{m-2} & \cdots & \toe_0 
 		\end{pmatrix}.
 	\end{equation*}
-	Assume $\sum_{k=-\infty}^{\infty} |\toe_k| <\infty$, then the matrices induce functions $\toef(z) = \sum_{k=-\infty}^{\infty} \toe_k z^k$ and $\toef_m(z) = \sum_{k=-(m-1)}^{m-1} \toe_k z^k$ are real, positive, and in the Wiener class for $|z| = 1$.
+	Assume $\sum_{k=-\infty}^{\infty} |\toe_k| <\infty$, then the matrices induce functions $\toef(z) = \sum_{k=-\infty}^{\infty} \toe_k z^k$ and $\toef_n(z) = \sum_{k=-(n-1)}^{n-1} \toe_k z^k$ are real, positive, and in the Wiener class for $|z| = 1$.
 \end{definition}
 
 % Classical results on the eigenvalue distribution of Toeplitz matrices indicate that we cannot expect, in general, any clustering, and that the convergence of the method will be slow.
@@ -234,7 +240,7 @@ Although their construction differs, they are all diagonalized by some trigonome
 The $\lilpre$ preconditioner is not itself circulant, but is diagonalized by the type-I discrete sine transform (DST) matrix. Kailath and Olshevsky used a displacement operator kernel framework to unify the circulant preconditioners, $\lilpre$, and other preconditioners diagonalized by other discrete trigonometric matrices. Together these form a class of discrete-trigonometric-based preconditioners. Though our construction could be generalized to circulant preconditioners, we use $\lilpre$ because it does not require complex arithmetic needed for the FFT. 
 
 \begin{definition} \label{tau_def}
-Following \cite{Bini}, given a symmetric Toeplitz matrix $\Toe$ we build a Hankel correction matrix, $H$, where 
+Following \cite{Bini}, given a symmetric $n \times n$ Toeplitz matrix $\Toe$, we build a Hankel correction matrix, $H$, where 
 \begin{align*}
 	\Toe &= 
 	\begin{pmatrix}
@@ -254,7 +260,7 @@ Following \cite{Bini}, given a symmetric Toeplitz matrix $\Toe$ we build a Hanke
 		0 & 0 & 0 & \cdots & \toe_5 & \toe_4 & \toe_3 \\
 		0 & 0 & \toe_{n-1} & \cdots & \toe_4 & \toe_3 & \toe_2
 	\end{pmatrix}. 
-	\end{align*}. 
+	\end{align*}
 	We can additionally define $\lilpre := \Toe - H. $
 \end{definition}
 
@@ -268,7 +274,7 @@ The following lemma summarizes properties of $\lilpre$.
 	\item $\lilpre$ can be applied in $\bigOh(n \log n)$ FLOPS.
 	\item Let $\Toe_1$ be the first column of $\Toe$. Then, the $k$-th eigenvalue of $\lilpre$ is proportional to the $k$-th entry of $S\Toe_1$. Specifically, 
 	\begin{equation} \label{eigs} \lambda_k(\lilpre) = c_k [S\Toe_1]_k, \ \text{where } c_k := \sqrt{\frac{n+1}{2}} \frac{1}{\sin(\frac{\pi k }{n+1})}.\end{equation}
-	\item Each eigenvalue of $\lilpre$ is written as the truncated function $\toef_m$ evaluated somewhere on the unit circle, $\lambda_k(\lilpre) = \toef_m(z_k)$, where $|z_k| = 1$.
+	\item Each eigenvalue of $\lilpre$ is written as the truncated function $\toef_n$ evaluated somewhere on the unit circle, $\lambda_k(\lilpre) = \toef_n(z_k)$, where $|z_k| = 1$.
 \end{enumerate}
 \end{lemma}
 % These preconditioner can also be thought of as coming from the kernel of a displacement operator. This framework is useful for generating yet other circulant preconditioners, (see \cite{Kailath}). 
@@ -280,7 +286,7 @@ The following lemma summarizes properties of $\lilpre$.
 \subsection{AFEM stiffness matrix} \label{stiffness}
 Again, let $\A$ be the stiffness matrix resulting from AFEM applied to (\ref{FDE}). During the $\texttt{MARK}$ module of AFEM (\ref{AFEM}), it is often the case that adjacent elements have similar error estimates, and are either both marked or both not marked for refinement. As a result, after several refinements there are still subsections of the domain that have been refined to the same level. We refer to these subdomains as \emph{locally uniform}.  Since uniform meshes give rise to SPD Toeplitz systems, wherever there are adjacent elements of the same size we find a corresponding Toeplitz block on the main diagonal of our stiffness matrix, $\A$. The size of this block depends on how many adjacent elements are the same size. In practice we have observed the greatest level of refinement is required near the boundary of the domain. In general we have larger Toeplitz blocks from locally uniform subdomains in the middle of the matrix, and smaller blocks---or indeed $1 \times 1$ blocks---near the boundary. 
 
-These $1 \times 1$ blocks, along with their corresponding rows and columns, can be viewed as additional boundaries imposed onto the system. As mentioned earlier, it is the boundaries of a Toeplitz system that necessitate more computation while solving, so we can anticipate that wise handling of these $1 \times 1$ block disruptions to the Toeplitz structure will be the key to making a good preconditioner. In order to better handle these $1 \times 1$ blocks, we solve the a permuted system, $\perm$, shifting the rows and columns associated with these blocks to the upper left corner of the matrix, constituting $V, W$ and $W^{\top}$, as shown in Figure (\ref{fig:perm}). Thus along the diagonal of the lower right block, $T$, remains Toeplitz blocks of size at least two. 
+These $1 \times 1$ blocks, along with their corresponding rows and columns, can be viewed as additional boundaries imposed onto the system. As mentioned earlier, it is the boundaries of a Toeplitz system that necessitate more computation while solving, so we can anticipate that wise handling of these $1 \times 1$ block disruptions to the Toeplitz structure will be the key to making a good preconditioner. In order to better handle these $1 \times 1$ blocks, we solve the a permuted system, $\perm$, shifting the rows and columns associated with these blocks to the upper left corner of the matrix, constituting $V, W$ and $W^{\top}$, as shown in Figure (\ref{fig:perm}). Thus along the diagonal of the lower right block, $T$, remain Toeplitz blocks of size at least two. 
 
 \begin{figure}[h]
 	\centering
@@ -291,17 +297,39 @@ These $1 \times 1$ blocks, along with their corresponding rows and columns, can 
 	\label{fig:perm}
 \end{figure}
 
- Let $k$ denote the size of $\upleft$, that is the number of $1 \times 1$ blocks. It is natural to ask, and will indeed be important in constructing a preconditioner, how big $k$ is relative to $n = \text{size}(\A)$? It is difficult to get an exact handle on this theoretically, since it depends on how AFEM routines are implemented. However, in our numerical experiments we found that $k \approx \log(m)$ (see sec TODO), and $k$ never grew faster than $n$. 
+ Let $k$ denote the size of $\upleft$, that is the number of $1 \times 1$ blocks. It is natural to ask, and will indeed be important in constructing a preconditioner, how big is $k$ relative to $m = \text{size}(\A)$? It is difficult to get an exact handle on this theoretically, since it depends on how AFEM routines are implemented. However, in our numerical experiments we found that $k \approx \log(m)$ (see Section (\ref{validate})), and $k$ never grew faster than $m$. 
 
 
 We wish to further break down the structure of $\lowright$. Due to the permutation, $\lowright$ has Toeplitz blocks of size at least 2 along its diagonal. We use $\toediag$ to denote the block diagonal with Toeplitz blocks. 
 
-The fractional derivative results in a dense matrix, but we observe off-diagonal decay, as elements that are physically separated in the domain have weaker interaction. The rate of decay depends on the fractional order $\alpha$. Blocks that are most distant from the diagonal contain less information and we assume they have small-norm. We denote these blocks in $\lowright$ as $\offoff$. We call the blocks that are either directly below or to the right of the Toeplitz blocks ``blocks adjacent to the diagonal", together they are denoted $\offd$. 
+The fractional derivative results in a dense matrix, but we observe off-diagonal decay, the strength of which depends on the fractional index $\alpha$. Elements far from the diagonal are psychically separated and have weak interaction. So parts of the matrix that are sufficiently far from the diagonal 
+
+
+Thus most information is contained in the parts of the matrix closest to the diagonal, where interaction between less-separated 
+
+
+
+ As visualized in Figure (\ref{fig:split}), outside of the Toeplitz blocks, the entries closest to the diagonal occur at the boundary between Toeplitz blocks. 
+
+
+
+
+lements that are physically separated in the domain have weaker interaction. The rate of decay depends on the fractional order $\alpha$
+
+
+
+Blocks that are most distant from the diagonal contain less information and we assume they have small-norm. We denote these blocks in $\lowright$ as $\offoff$. 
+
+
+
+We call the blocks that are either directly below or to the right of the Toeplitz blocks ``blocks adjacent to the diagonal", together they are denoted $\offd$. 
+
+
 These blocks are not in general small-norm, but due to the weaker interaction, are well-suited for low-rank approximation, (see \cite{Xiaozhe} for more details).  
 These assumptions are made precise in section \ref{proof} and numerically validated in section \ref{validate}. 
 Using this notation, we write our stiffness matrix as the sum of the Toeplitz blocks, blocks adjacent to the diagonal, and blocks further removed from the diagonal, $\lowright = \toediag + \offd + \offoff$ (see Figure (\ref{fig:split})). 
 
-\begin{figure}[h]
+\begin{figure}[h] 
 	\centering
 	\begin{tikzcd}[column sep=.005 in, row sep= 2pt]
 		\adjincludegraphics[valign=c,width=.18\textwidth]{figures/A.png} & =  &\adjincludegraphics[valign=c,width=.18\textwidth]{figures/AD.png}   & + & \adjincludegraphics[valign=c,width=.18\textwidth]{figures/AE.png}  & + & \adjincludegraphics[valign=c,width=.18\textwidth]{figures/AF.png} \\
@@ -316,10 +344,7 @@ Using this notation, we write our stiffness matrix as the sum of the Toeplitz bl
 %\todo[inline]{good spot to mention Toeplitz compression RNLA solvers?} 
 
 
-To build $\bigpre$, assume the stiffness matrix has $k$ Toeplitz blocks $\Toe_1, \Toe_2, \dots, \Toe_k$ of respective sizes $m_1, m_2, \dots, m_k$. Assume additionally these are ordered as they appear along the main diagonal. Each block has a corresponding singly infinite matrix with a corresponding generating function, $\toe_1(z), \toe_2(z), \dots \toe_k(z)$. Assume that for all $1 \leq i \leq k, \toe_i(z)  \sum_{j=-\infty}^{\infty} |t_j| <\infty$ and $\toe_i(z) > 0$ for $z$ on the unit circle. 
-% Common assumptions for proof on one block 
-
-\section{The Adaptive Preconditioner} \label{precond} 
+\section{The Adaptive Preconditioner} \label{sec: precond} 
 In this section we set forth the properties we require from a preconditioner. Using $\lilpre$ for its efficient inversion and good approximation of Toeplitz blocks, we construct our preconditioner, $\precond$, as an approximation to the LU decomposition of the permuted stiffness matrix.  
 
 \subsection{Preconditioner Requirements} \label{sec: criteria}
@@ -355,8 +380,9 @@ It is straightforward to verify the inverses of the two factor matrices are,
 
 Recalling that $k = \text{size}(\upleft)$ is much smaller and slower-growing than $n$, inverting $\upleft$ will not contribute to our overall costs. Next, we can invert $\Schur$ using the Sherman-Woodbury-Morris formula, $\Schur^{-1} = \lowright^{-1} + \lowright^{-1}\upright^{\top}(\upleft-\upright\lowright^{-1}\upright^{\top})^{-1}\upright\lowright^{-1}$. Notice, however, it requires the prohibitively expensive inversion of $\lowright$. Here, we must leverage the Toeplitz blocks to build an adequate approximation to $\lowright^{-1}$. 
 
+
 \subsubsection{Approximating  $\lowright^{-1}$}
-Let the Toeplitz blocks in $\toediag$ be $\Toe_1, \Toe_2, \dots, \Toe_p$, with respective sizes $m_1, m_2, \dots, m_p$. Then for each $\Toe_i$ we construct $\lilpre_i$ as in Definition (\ref{tau_def}). Stacking these blocks we build a block $\lilpre$ matrix as $\bigpre := \text{diag}(\lilpre_1, \lilpre_2, \dots, \lilpre_p)$. By application of Lemma \ref{lemma:tau} on each $\lilpre_i$, we can  apply $\bigpre^{-1}$ implicitly in $\bigOh \left( \sum_{j=1}^k m_j \log(m_j) \right) \leq \bigOh \left( k m \log ( m) \right) $,  where $m:= \max_j m_j$. Let $S_{m_i}$ denote the type-I DST matrix of size $m_i$.  Using Equation (\ref{eigs}) to calculate the eigenvalues of $\lilpre_i$, we write $\lilpre_i =  S_{m_i} \Lambda_i S_{m_i}$. 
+Let $\Toe_1, \Toe_2, \dots, \Toe_p$ be the Toeplitz blocks ordered as they appear along the diagonal of $\toediag$, with respective sizes $m_1, m_2, \dots, m_p$. Then for each $\Toe_i$ we construct $\lilpre_i$ as in Definition (\ref{tau_def}). Stacking these blocks we build a block $\lilpre$ matrix as $\bigpre := \text{diag}(\lilpre_1, \lilpre_2, \dots, \lilpre_p)$. By application of Lemma \ref{lemma:tau} on each $\lilpre_i$, we can  apply $\bigpre^{-1}$ implicitly in $\bigOh \left( \sum_{j=1}^k m_j \log(m_j) \right) \leq \bigOh \left( k m \log ( m) \right) $,  where $m:= \max_j m_j$. Let $S_{m_i}$ denote the type-I DST matrix of size $m_i$.  Using Equation (\ref{eigs}) to calculate the eigenvalues of $\lilpre_i$, we write $\lilpre_i =  S_{m_i} \Lambda_i S_{m_i}$. 
 \begin{equation} \label{diag}
 	\bigpre^{-1} = 
 	\begingroup % keep the change local
@@ -397,7 +423,7 @@ Our preconditioner is given by
 	\end{pmatrix}.
 \end{align*}
 
-The cost of applying $\precond^{-1}$ is dominated by application of the biggest block, $\hat{\Schur}^{-1}$. However, by using $\bigpre$ in place of $\lowright$, and consequently $\hat{\Schur}$ in place of $\Schur$, this can be done in $\bigOh(m \log m)$ FLOPS, as explained above. Therefore $\precond$ also satisfies Criteria (\ref{crit1}) and (\ref{crit2}). 
+The cost of applying $\precond^{-1}$ is dominated by application of the biggest block, $\hat{\Schur}^{-1}$. However, by using $\bigpre$ in place of $\lowright$, and consequently $\hat{\Schur}$ in place of $\Schur$, we use the Sherman-Morrison-Woodbury formula to calculate $\hat{\Schur}^{-1} = (\bigpre - \tilde{\upright^{\top}}\tilde{\upleft}^{-1}\tilde{\upright} )^{-1} = (\bigpre^{-1} + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}$. Thus, using that fast application of $\bigpre$, as explained above, $\precond^{-1}$ can be applied in $\bigOh(m \log m)$ FLOPS. Therefore $\precond$ also satisfies Criteria (\ref{crit1}) and (\ref{crit2}). 
 
 
 %The use of circulant preconditioners for Toeplitz systems originates from \cite{Chan_Strang}. Kailath showed how both Strang and Chan type preconditioners come from the kernel of displacement operators, they further detail eight specific preconditioners for each form of the discrete sine and cosine transforms. \todo[inline]{apply in n log n time}
@@ -446,15 +472,16 @@ The following lemma will be of use to us throughout the section.
 \end{proof}
 
 \subsection{Spectral Clustering of a Toeplitz Block} 
-Proofs demonstrating the eigenvalue clustering of a circulant or trigonometric-based preconditioners on a Toeplitz matrices can follow a few strategies, here we briefly give our version, which utilizes the infinite matrix framework set forth in Section (\ref{sec:matrix_props}). Proofs in \cite{Bini} and \cite{Kailath} follow a similar technique, see \cite{Chan_Strang} for an approach relying on the infinite matrix framework and theory of collectively compact operators. 
+Proofs demonstrating the eigenvalue clustering of a circulant or trigonometric-based preconditioners on a Toeplitz matrices can follow a few strategies, here we briefly give our version, which utilizes the infinite matrix framework set forth in Section (\ref{sec:matrix_props}). Proofs in \cite{Bini} and \cite{Kailath} follow a similar technique, see \cite{Chan_Strang} for an approach relying on the infinite matrix framework and theory of collectively compact operators. In keeping with these proofs, we assume the generating function $\toef^{(i)}(z)$ induced by each Toeplitz block $\Toe_i$ is in the Wiener class and positive on the unit circle. That is, for all $1 \leq i \leq p, \toef^{(i)}(z) =  \sum_{j=-\infty}^{\infty} |\toe_j| <\infty$ and $\toe^{(i)}(z) > 0$ for $|z|=1$. 
 
+\subsubsection{Approximating  $\lowright^{-1}$}
 \begin{lemma}[Uniform positivity on the unit circle] \label{lemma: positive}
 	Let $\Toe$ be a singly infinite, symmetric, Toeplitz matrix with diagonals $\toe_0, \toe_1, \dots$, and $\Toe_m$ is its $m \times m$ truncation. Assume the generating function $\toef(z)$ is in the Wiener class and positive on the unit circle. Then for $|z| = 1$, $\toef_m(z) > \varepsilon$ .
 \end{lemma}
 \begin{proof}
 	Since $\toef(z) > 0$ for $|z|=1$, compactness of the unit circle implies that for some $\varepsilon > 0$, $\toef(z) > 2 \varepsilon$ for $|z|= 1$. By the Wiener class assumption, choose $N$ such that $\sum_{j=N}^{\infty} \toe_j z^j \leq \sum_{j=N}^{\infty} |\toe_j| < \varepsilon$. So for all $m \geq N$, 
 	$$ 2 \varepsilon < \toe(z) = \toef_m(z) + \sum_{j=m}^{\infty} \toe_j z^j < \toef_m(z) + \varepsilon.$$
-	Thus $\toef_m(z) > \varepsilon$ on the unit circle. 
+	% Thus $\toef_m(z) > \varepsilon$ on the unit circle. 
 \end{proof}
 
 \begin{lemma}[Eigenvalue Clustering on a Toeplitz Block, \cite{Bini, Kailath}] \label{block}
@@ -570,7 +597,7 @@ The strength of this bound depends on $\lambda_{\min} (\bigpre)$, but can be wri
 
 In practice the block size, $m_i$, is determined by the AFEM algorithm, which in turn dictates the actual size $\varepsilon$ and hence the strength of clustering. Thus bigger Toeplitz blocks in $\A$ result in tighter eigenvalue clustering.
  
-Notice that extending the proof from one Toeplitz block to the adaptive stiffness matrix relies only on being able to split the block into a small-norm and a low-rank piece. Thus, nothing about this proof is overly-specific to $\lilpre$ and the methods could easily be extended to the other types of circulant preconditioners in \cite{Chan_Strang, Chan_Yeung}. 
+Notice that extending the proof from one Toeplitz block to the adaptive stiffness matrix relies only on being able to split the block into a small-norm and a low-rank piece. Thus, nothing about this proof is overly-specific to the $\lilpre$ preconditioner and the methods could easily be extended to the other types of circulant preconditioners given in \cite{Chan_Strang, Chan_Yeung}. 
 
 % \todo[inline]{Lemma: summarize properties of $\bigpre$ like we did for $\lilpre$}
 %\begin{lemma}
@@ -628,8 +655,7 @@ We set aside the terms $I + \bigpre^{-1} \SN + \bigpre^{-1} \LR + ( \bigpre^{-1}
 	& \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright - \bigpre^{-1}\upright^{\top}\upleft^{-1} \upright - \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}\upright^{\top}\upleft^{-1}\upright \\ 
 	&=  [ - \bigpre^{-1}\upright^{\top}\upleft^{-1}  + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1} (I - \upright\bigpre^{-1}\upright^{\top}\upleft^{-1})]\upright \\
 	&= [ - \bigpre^{-1}\upright^{\top}\upleft^{-1}  + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1} (\upleft - \upright\bigpre^{-1}\upright^{\top})\upleft^{-1}]\upright \\
-	&= [ - \bigpre^{-1}\upright^{\top}\upleft^{-1}  + \bigpre^{-1}\upright^{\top}\upleft^{-1}]\upright \\
-	&= 0.
+	&= [ - \bigpre^{-1}\upright^{\top}\upleft^{-1}  + \bigpre^{-1}\upright^{\top}\upleft^{-1}]\upright = 0.
 \end{align*} 
 
 	
@@ -638,7 +664,7 @@ So the clustering depends on the spectrum of $I + \bigpre^{-1} \SN + \bigpre^{-1
 
 We have now shown that $\precond$ satisfies all three criteria we sought in a preconditioner, as set forth in Section (\ref{sec: criteria}). 
 
-\section{Numerical Results}
+\section{Numerical Results} \label{sec: numerical results}
 \subsection{Validating Assumptions}\label{validate}
 In order to prove the spectral clustering, we made two assumptions about the structure of $\A$: the blocks adjacent to the diagonal are well-approximated by low-rank matrices and the other off-diagonal blocks are small-norm. Table (\ref{table:validate_rk}) displays the  maximum and average (median) rank needed to achieve an approximation under $\varepsilon$ on each block. Table (\ref{table:validate_norm}) shows the norm and relative norm of $\offoff$. Both tables include results for $\alpha = 1.3, 1.5, 1.9$, after 7 levels of refinement, but similar trends were seen across all fractional orders and refinement levels. In the case of $1 \times 1$ Toeplitz blocks we found that including the entry to the right and underneath in $\offd$ was not sufficient to capture all the low-rank information. Instead, the corresponding block in $\offd$ was extended to dimensions $5 \times 5$ such that the original entry is the center of that block. In terms of spectral clustering, this could increase the number of outliers, but better characterizes the size of the cluster. 
 

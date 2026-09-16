@@ -43,8 +43,7 @@
 \newcommand{\f}{{\vec  f }}
 \newcommand{\zero}{{\vec  0 }}
 \newcommand{\A}{{A }}
-\newcommand{\SN}{{T^{SN} }}
-\newcommand{\LR}{{T^{LR}}}
+
 \newcommand{\perm}{{ \tilde{A} }}
 
 \newcommand{\off}{{E}}
@@ -54,11 +53,12 @@
 \newcommand{\precond}{{ M }}
 \newcommand{\upleft}{{ V }}
 \newcommand{\upright}{{ W }}
-\newcommand{\lowright}{{ T }}
+\newcommand{\lowright}{{ Q }}
 
-\newcommand{\toediag}{{\lowright_D}}
-\newcommand{\offd}{{\lowright_E}}
-\newcommand{\offoff}{{\lowright_F}}
+\newcommand{\toediag}{{\lowright^D}}
+\newcommand{\offd}{{\lowright^{LR}}}
+\newcommand{\offoff}{{\lowright^{SN}}}
+\newcommand{\smallsize}{{ s }}
 
 
 \newcommand{\Schur}{{ B }}
@@ -284,60 +284,20 @@ The following lemma summarizes properties of $\lilpre$.
 % discrete convolution for exact solution and the boundary problem 
 
 \subsection{AFEM stiffness matrix} \label{stiffness}
-Again, let $\A$ be the stiffness matrix resulting from AFEM applied to (\ref{FDE}). During the $\texttt{MARK}$ module of AFEM (\ref{AFEM}), it is often the case that adjacent elements have similar error estimates, and are either both marked or both not marked for refinement. As a result, after several refinements there are still subsections of the domain that have been refined to the same level. We refer to these subdomains as \emph{locally uniform}.  Since uniform meshes give rise to SPD Toeplitz systems, wherever there are adjacent elements of the same size we find a corresponding Toeplitz block on the main diagonal of our stiffness matrix, $\A$. The size of this block depends on how many adjacent elements are the same size. In practice we have observed the greatest level of refinement is required near the boundary of the domain. In general we have larger Toeplitz blocks from locally uniform subdomains in the middle of the matrix, and smaller blocks---or indeed $1 \times 1$ blocks---near the boundary. 
+Again, let $\A$ be the stiffness matrix resulting from AFEM applied to (\ref{FDE}). During the $\texttt{MARK}$ module of AFEM (\ref{AFEM}), it is often the case that adjacent elements have similar error estimates, and are either both marked or both not marked for refinement. As a result, after several refinements there are still subsections of the domain that have been refined to the same level. We refer to these subdomains as \emph{locally uniform}.  Since uniform meshes give rise to SPD Toeplitz systems, wherever there are adjacent elements of the same size we find a corresponding Toeplitz block on the main diagonal of our stiffness matrix, $\A$. The size of this block depends on how many adjacent elements are the same size. In practice we have observed the greatest level of refinement is required near the boundary of the domain. In general we have larger Toeplitz blocks from locally uniform subdomains in the middle of the matrix, and smaller blocks near the boundary. At the extremes of the locally uniform intervals we always have interaction between elements of different sizes. This interaction means that Toeplitz blocks are never adjacent along the diagonal, instead there is at least one $1 \times 1$ `block' separating them. 
 
 These $1 \times 1$ blocks, along with their corresponding rows and columns, can be viewed as additional boundaries imposed onto the system. As mentioned earlier, it is the boundaries of a Toeplitz system that necessitate more computation while solving, so we can anticipate that wise handling of these $1 \times 1$ block disruptions to the Toeplitz structure will be the key to making a good preconditioner. In order to better handle these $1 \times 1$ blocks, we solve the a permuted system, $\perm$, shifting the rows and columns associated with these blocks to the upper left corner of the matrix, constituting $V, W$ and $W^{\top}$, as shown in Figure (\ref{fig:perm}). Thus along the diagonal of the lower right block, $T$, remain Toeplitz blocks of size at least two. 
 
 \begin{figure}[h]
 	\centering
 	\begin{tikzcd}
-		PAP^{\top}  =  \tilde{A}  =  \begin{bmatrix} V & W \\ W^{\top} & T \end{bmatrix}
+		PAP^{\top}  =  \tilde{A}  =  \begin{bmatrix} V & W \\ W^{\top} & \lowright \end{bmatrix}
 	\end{tikzcd}
-	\caption{The stiffness matrix $A$ is permuted and partitioned so that $T$ contains all Toeplitz blocks along its diagonal. }
+	\caption{The stiffness matrix $A$ is permuted and partitioned so that $\lowright$ contains all Toeplitz blocks along its diagonal. }
 	\label{fig:perm}
 \end{figure}
 
- Let $k$ denote the size of $\upleft$, that is the number of $1 \times 1$ blocks. It is natural to ask, and will indeed be important in constructing a preconditioner, how big is $k$ relative to $m = \text{size}(\A)$? It is difficult to get an exact handle on this theoretically, since it depends on how AFEM routines are implemented. However, in our numerical experiments we found that $k \approx \log(m)$ (see Section (\ref{validate})), and $k$ never grew faster than $m$. 
-
-
-We wish to further break down the structure of $\lowright$. Due to the permutation, $\lowright$ has Toeplitz blocks of size at least 2 along its diagonal. We use $\toediag$ to denote the block diagonal with Toeplitz blocks. 
-
-The fractional derivative results in a dense matrix, but we observe off-diagonal decay, the strength of which depends on the fractional index $\alpha$. Elements far from the diagonal are psychically separated and have weak interaction. So parts of the matrix that are sufficiently far from the diagonal 
-
-
-Thus most information is contained in the parts of the matrix closest to the diagonal, where interaction between less-separated 
-
-
-
- As visualized in Figure (\ref{fig:split}), outside of the Toeplitz blocks, the entries closest to the diagonal occur at the boundary between Toeplitz blocks. 
-
-
-
-
-lements that are physically separated in the domain have weaker interaction. The rate of decay depends on the fractional order $\alpha$
-
-
-
-Blocks that are most distant from the diagonal contain less information and we assume they have small-norm. We denote these blocks in $\lowright$ as $\offoff$. 
-
-
-
-We call the blocks that are either directly below or to the right of the Toeplitz blocks ``blocks adjacent to the diagonal", together they are denoted $\offd$. 
-
-
-These blocks are not in general small-norm, but due to the weaker interaction, are well-suited for low-rank approximation, (see \cite{Xiaozhe} for more details).  
-These assumptions are made precise in section \ref{proof} and numerically validated in section \ref{validate}. 
-Using this notation, we write our stiffness matrix as the sum of the Toeplitz blocks, blocks adjacent to the diagonal, and blocks further removed from the diagonal, $\lowright = \toediag + \offd + \offoff$ (see Figure (\ref{fig:split})). 
-
-\begin{figure}[h] 
-	\centering
-	\begin{tikzcd}[column sep=.005 in, row sep= 2pt]
-		\adjincludegraphics[valign=c,width=.18\textwidth]{figures/A.png} & =  &\adjincludegraphics[valign=c,width=.18\textwidth]{figures/AD.png}   & + & \adjincludegraphics[valign=c,width=.18\textwidth]{figures/AE.png}  & + & \adjincludegraphics[valign=c,width=.18\textwidth]{figures/AF.png} \\
-		\lowright && \toediag  &   & \offd &   & \offoff   
-	\end{tikzcd}
-	\caption{Illustration of the splitting of $T$: $\toediag$ is block diagonal with Toeplitz blocks, blocks in $\offd$ are assumed to be well-approximated by low-rank matrices, and $\offoff$ is assumed to be small-norm due to weak interaction between elements.  }
-	\label{fig:split}
-\end{figure}
+ Let $k$ denote the size of $\upleft$, that is the number of $1 \times 1$ blocks. It is natural to ask, and will indeed be important in constructing a preconditioner, how big is $k$ relative to $m = \text{size}(\A)$? It is difficult to get an exact handle on this theoretically, since it depends on how AFEM routines are implemented. However, in our numerical experiments we found that $k \approx \log(m)$ (see Section (\ref{validate})), and $k$ never grew faster than $m$. Let $p$ denote the number of Toeplitz blocks in $\lowright$. We might expect that $p$ is exactly one more than $k$. However, the adaptive refinement carried out in AFEM will occasionally create a few consecutive $1 \times 1$ blocks. So while we cannot guarantee an exact relationship between $k$ and $p$, it is true that $k \approx p$. 
 
 % brief proof uniform mesh gives toeplitz?
 % If the mesh is not fine enough to give the desired accuracy, one approach is to increase the number of elements, $n$. While this approach preserves uniformity, it usually requires recomputing the stiffness matrix entirely. Alternatively, if the level of refinement gives sufficiently small error for some parts of the domain, we can leave those unchanged and only refine in areas of larger error. This approach allows us to take advantage of computations that have already been performed, but the mesh is no longer uniform. 
@@ -388,19 +348,18 @@ Let $\Toe_1, \Toe_2, \dots, \Toe_p$ be the Toeplitz blocks ordered as they appea
 	\begingroup % keep the change local
 	\setlength\arraycolsep{3.5pt}
 	\begin{pmatrix}
-		S_{m_1} &&& \\ & S_{m_2} && \\ && \ddots & \\ &&& S_{m_k}
+		S_{m_1} &&& \\ & S_{m_2} && \\ && \ddots & \\ &&& S_{m_p}
 	\end{pmatrix}
 	\begin{pmatrix}
-		\Lambda_1^{-1} &&& \\ & \Lambda_2^{-1} && \\ && \ddots & \\ &&& \Lambda_m^{-1}
+		\Lambda_1^{-1} &&& \\ & \Lambda_2^{-1} && \\ && \ddots & \\ &&& \Lambda_p^{-1}
 	\end{pmatrix}
 	\begin{pmatrix}
-		S_{m_1} &&& \\ & S_{m_2} && \\ && \ddots & \\ &&& S_{m_k}
+		S_{m_1} &&& \\ & S_{m_2} && \\ && \ddots & \\ &&& S_{m_p}
 	\end{pmatrix}.
 	\endgroup
 \end{equation}
-The DST blocks in the outside matrices can be applied via the fast sine transform (FST) to do matrix multiplication in $\bigOh(m \log m)$ FLOPS. The eigenvalue matrix is diagonal and inverted in $m$ operations, and can be multiplied against a Toeplitz matrix embedded in a $2m \times 2m$ circulant matrix in $ \bigOh(m \log m)$ FLOPS. Moreover, both the FST and block arithmetic are highly parallelizable for more efficient implementation. This establishes Criteria (\ref{crit1}) and (\ref{crit2}) for $\bigpre$. 
+The DST blocks in the outside matrices can be applied via the fast sine transform (FST) to do matrix multiplication in $\bigOh(m \log m)$ FLOPS. The eigenvalue matrix is diagonal and inverted in $m$ operations, and can be multiplied against a Toeplitz matrix embedded in a $2m \times 2m$ circulant matrix in $ \bigOh(m \log m)$ FLOPS. Moreover, both the FST and block arithmetic are highly parallelizable for more efficient implementation. This establishes Criteria (\ref{crit1}) and (\ref{crit2}) for $\bigpre$. Therefore $\bigpre^{-1}$ is fast to compute, and in Section (\ref{sec: theory}) we will show it is a good spectral approximation to $\lowright^{-1}$. 
 
-Therefore $\bigpre^{-1}$ is fast to compute, and in Section (\ref{sec: theory}) we will show it is a good spectral approximation to $\lowright^{-1}$. 
 \subsubsection{Defining the Adaptive Preconditioner, $\precond^{-1}$} \label{precond_def}
 Let $\hat{\Schur} = \bigpre - \upright^{\top} \upleft^{-1}\upright$. Then define 
 \begin{equation*}
@@ -503,97 +462,77 @@ Thus, the clustering of the spectrum of $\Hank$ around 0 implies the same for $\
 Equation (\ref{eq:gen_bound}) shows that the bigger $\lambda_{\min}(\lilpre)$, the stronger the bound. We can calculate this eigenvalue exactly using Lemma (\ref{lemma:tau}), and equation (\ref{eigs}). It can also be bounded in terms independent of $\lilpre$, using the generating function $\toef(z)$, as above. 
 
 \subsection{Spectral Clustering of the Block System} \label{proof}
-We now prove the spectral clustering of $\bigpre^{-1} \lowright = \bigpre^{-1}(\toediag + \offd + \offoff)$.
-It is easy to generalize the lemmas above to the block diagonal $\bigpre^{-1}$ acting only on the Toeplitz blocks, $\toediag$. The work in this section is in showing that $\bigpre^{-1}(\offd  + \offoff)$ can also be split small-norm and low-rank pieces. 
+We now prove the spectral clustering of $\bigpre^{-1} \lowright$. 
+
+\begin{figure}[h] 
+	\centering
+	\begin{tikzcd}[column sep=.005 in, row sep= 2pt]
+		\adjincludegraphics[valign=c,width=.18\textwidth]{figures/A.png} & =  &\adjincludegraphics[valign=c,width=.18\textwidth]{figures/AD.png}   & + & \adjincludegraphics[valign=c,width=.18\textwidth]{figures/AE.png}  & + & \adjincludegraphics[valign=c,width=.18\textwidth]{figures/AF.png} \\
+		\lowright && \toediag  &   & \offd &   & \offoff   
+	\end{tikzcd}
+	\caption{Illustration of the splitting of $\lowright$: $\toediag$ is block diagonal with Toeplitz blocks, blocks in $\offd$ are small and together form a low-rank matrix, and $\offoff$ is assumed to be small-norm due to weak interaction between elements.  }
+	\label{fig:split}
+\end{figure}
+
 \begin{lemma} \label{lemma: block}
-	Let $\A$ be the stiffness matrix as described in Section (\ref{stiffness}) and $\bigpre$ as described in Section (\ref{precond}). Then the spectrum of $\bigpre^{-1} \lowright$ is clustered around 1. 
+	Let $\A$ be the stiffness matrix as described in Section (\ref{stiffness}) and $\bigpre$ as described in Section (\ref{sec: precond}). Then the spectrum of $\bigpre^{-1} \lowright$ is clustered around 1. 
 \end{lemma}
 
 \begin{proof}
-% First notice that $\bigpre^{-1} \Hank$ is block diagonal and the spectrum of each block can be characterized using the former proof on each block. 
-
-Recall that the $\lowright$ block of the permuted stiffness matrix is dense with Toeplitz blocks on the diagonal (denoted $\toediag$), low-rank blocks adjacent to the diagonal (denoted $\offd$), and small-norm blocks elsewhere (denoted $\offoff$), so that $\lowright = \toediag + \offd + \offoff$. Let $\Hank$ be the block diagonal Hankel correction matrix, observing then that $ \toediag = \bigpre + \Hank$ we see that $\lowright = \bigpre + \Hank + \offd + \offoff$. Our approach is to split $\Hank + \offd + \offoff$ into a small-norm term $\SN$ and a low-rank term $\LR$. Then
-\begin{equation}
-		\bigpre^{-1} \lowright = \bigpre^{-1}(\bigpre + \SN + \LR ) = I + \bigpre^{-1}\SN  + \bigpre^{-1}\LR.
+		It is easy to generalize the lemmas above to the block diagonal $\bigpre^{-1}$ acting only on the Toeplitz blocks, $\toediag$. The work in this proof is in showing that $\bigpre^{-1}(\offd  + \offoff)$ can also be split small-norm and low-rank pieces. 
+		To begin we must further breakdown $\lowright$ into three summands, $\lowright = \toediag + \offd + \offoff$, where $\toediag$ contains the Toeplitz blocks, $\offd$ is low-rank ,and $\offoff$ is small-norm. 
+	
+	Due to the permutation, $\lowright$ has Toeplitz blocks of size at least 2 along its diagonal. We use $\toediag$ to denote the block diagonal with Toeplitz blocks. 
+	
+	The fractional derivative results in a dense matrix, but we observe off-diagonal decay, the strength of which depends on the fractional index $\alpha$. Elements sufficiently far from the diagonal are psychically separated and have weak interaction. However, merely excluding the Toeplitz blocks is not enough to get a small-norm matrix. As visualized in Figure (\ref{fig:split}), outside of the Toeplitz blocks, the entries closest to the diagonal occur at the boundary between Toeplitz blocks. We form small blocks from these adjacent-to-the-diagonal entries, comprising our low-rank term, $\offd$. The rank of which is bounded by the size of the block we take, $\smallsize$, times the number of blocks, which is the same as the number of $1 \times 1$ blocks, $k$. That is, $\text{rank}(\offd) \leq \smallsize k $. 
+	Finally, the remaining entries makeup our small-norm matrix $\offoff$. We might naturally ask how big $\smallsize$ should be? The rank of $\offd$ contributes to the number of eigenvalue outliers, while the norm of $\offoff$ determines the strength of the clustering around 1. So a bigger $\smallsize$ would indicate more outliers but a tighter cluster, and a smaller $\smallsize$ indicates less outliers but a broader cluster. This is discussed more in Section (\ref{sec: numerical results}), but numerical tests indicate a good estimate for $\smallsize$ falls around 4. 
+	
+	Now we show the eigenvalues of $\bigpre^{-1} \lowright = \bigpre^{-1}(\toediag + \offd + \offoff)$ are clustered around 1. 
+Let $\Hank$ be the block diagonal Hankel correction matrix, constructed as above but for each block in $\toediag$. Then that $ \toediag = \bigpre + \Hank$ we see that $\lowright = \bigpre + \Hank + \offd + \offoff$. So
+\begin{equation} \label{eq: decomp1}
+		\bigpre^{-1} \lowright  =
+		 \bigpre^{-1}(\bigpre + H +\offd + \offoff) =
+		 I + \bigpre^{-1}(H +  \offd + \offoff).
 \end{equation}
-Then it will suffice to show that the spectrum of $\bigpre^{-1}\SN$ is clustered around 0 and that $\bigpre^{-1}\LR$ contributes a bounded number of eigenvalue outliers. 
+
+%Our approach is to split $\Hank + \offd + \offoff$ into a small-norm term $\SN$ and a low-rank term $\LR$. Then
+%Then it will suffice to show that the spectrum of $\bigpre^{-1}\SN$ is clustered around 0 and that $\bigpre^{-1}\LR$ contributes a bounded number of eigenvalue outliers. 
 
 Splitting $\Hank$ is done via application of the splitting in the proof of Lemma (\ref{lemma: block}) to each block. As before, we have $\varepsilon > 0$ and choose $N_i$ smaller than each $m_i$ so that for every Toeplitz block the truncated function satisfies $a_{m_i} (z) > \varepsilon$ on the unit circle and $\sum_{i = N_i}^{\infty} |a_i| < \varepsilon$. 
 Then $\Hank = \Hank^{LR} + \Hank ^{SN}$,  by separating into $\Hank^{LR}$ the anti-diagonals from block $i$ with coefficients $a_0, \dots, a_{N_i}$ and into $\Hank^{SN}$ the anti-diagonals comprising of $a_{N_i+1}, \dots a_{m_i}$ for each block. We note two important bounds: $||\Hank^{SN}||_2 < \varepsilon$ and $\text{rank}(\Hank^{LR}) \leq 2 p (N-1) $ where $p$ is the number of Toeplitz blocks and $N := \max_i N_i$. 
+Equation (\ref{eq: decomp1}) can now be written as
+\begin{equation}
+	\bigpre^{-1} \lowright =   I + \bigpre^{-1}(\Hank^{LR}  + \offd)  + \bigpre^{-1}(\Hank^{SN} + \offoff). 
+\end{equation}
 
-We now form a splitting of 
+This is ostensibly the low-rank plus small-norm representation we sought, but we finish the proof by giving explicit bounds on the rank and norm of these terms. 
+
+Since $\bigpre$ is full-rank $\text{rank}(\bigpre^{-1} (\Hank^{LR}  + \offd)) = \text{rank}(\Hank^{LR}  + \offd)$. 
+Now using each term's individual bounds, 
+$$\text{rank}(H^{LR} + \offd) \leq \text{rank}(H^{LR}) + \text{rank}()\offd) \leq 2p(N-1) + \smallsize k. $$
+
+It remains to show $ \bigpre^{-1} (\Hank^{SN} + \offoff) $ is small norm.
 \begin{equation*}
-	A_E = \begin{pmatrix}
-		0 & E_1^{\top} & && & \\
-		E_1 & 0 & E_2^{\top} &&& \\
-		& \ddots & \ddots & \ddots && \\
-		&& E_{p-2} & 0 & E_{p-1}^{\top}\\
-		&&& E_{p-1} & 0 
-	\end{pmatrix}.
- \end{equation*}
-
-Recall that each block, $\off_i$, is well-approximated as a low-rank matrix. So for $1 \leq i \leq p-1$, we can write $E_i = E_i^{LR} + E_i^{SN}$ such that $||E_i^{SN}||_2 < \varepsilon$ and $r_i := \text{rank}(E_i)$. To use these block splittings to decompose $\offd$, we split each $E_i$ in place and collect the small-norm terms into $\offd^{SN}$ and similarly form $\offd^{LR}$ with the $\off_i^{LR}$ blocks in place. 
-%\begin{align*}
-%	A_E &= \begin{pmatrix}
-%		0 & E_1^{\top} & && & \\
-%		E_1 & 0 & E_2^{\top} &&& \\
-%		& \ddots & \ddots & \ddots && \\
-%		&& E_{p-2} & 0 & E_{p-1}^{\top}\\
-%		&&& E_{p-1} & 0 
-%	\end{pmatrix} \\ 
-%	&= 
-%	\begin{pmatrix}
-%		0 & E_1^{(SN) \top} & && & \\
-%		E_1^{(SN)}& 0 & E_2^{(SN) \top} &&& \\
-%		& \ddots & \ddots & \ddots && \\
-%		&& E_{p-2}^{(SN)} & 0 & E_{p-1}^{(SN) \top}\\
-%		&&& E_{p-1}^{(SN)} & 0 
-%		\end{pmatrix}
-%		+ 
-%			\begin{pmatrix}
-%			0 & E_1^{(LR) \top} & && & \\
-%			E_1^{(LR)}& 0 & E_2^{(LR) \top} &&& \\
-%			& \ddots & \ddots & \ddots && \\
-%			&& E_{p-2}^{(LR)} & 0 & E_{p-1}^{(LR) \top}\\
-%			&&& E_{p-1}^{(LR)} & 0 
-%		\end{pmatrix}.
-%\end{align*}
-Observe that $||\offd^{SN}||_2 \leq 2 \varepsilon$ and  $\text{rank}(\offd^{LR}) \leq (p-1)r$ where $r := \max_i r_i$. 
-
-
-Finally, we make the splitting $\lowright = \bigpre + \SN + \LR$, where
-\begin{equation*}
-	\SN = \Hank^{SN}+ \offd^{SN} +A_F, \quad
-	\LR = \Hank^{LR} + \offd^{LR}. 
+		|| \bigpre^{-1} ( \Hank^{SN} + \offoff) ||_2  \leq 	|| \bigpre^{-1}  \Hank^{SN} ||_2 + 	|| \bigpre^{-1}  \offoff ||_2. 
 \end{equation*}
 
-So $\bigpre^{-1} \lowright  = I + \bigpre^{-1}\SN  + \bigpre^{-1}\LR.$ Now $s := \text{rank}(\bigpre^{-1}\LR) \leq \text{rank}(\LR) \leq 2p(N-1) + (p-1)r$ bounds the number of outlier eigenvalues. It remains to show $ \bigpre^{-1}\SN $ is indeed small norm.
-\begin{align*}
-	|| \bigpre^{-1}\SN||_2 &\leq ||\bigpre^{-1} \Hank^{SN}||_2 + ||\bigpre^{-1} \offd^{SN}||_2 +||\bigpre^{-1} \offoff ||_2.
-\end{align*}
-Since the block multiplication $\bigpre^{-1} \Hank^{SN}$ is each $\lilpre$ acting on its corresponding Hankel correction, it is bounded by Lemma (\ref{block}). 
+The block multiplication $\bigpre^{-1} \Hank^{SN}$ is each $\lilpre$ acting on its corresponding Hankel correction. Since the matrices are SPD, $||\bigpre^{-1} \Hank^{SN}||_2 = \lambda_{\max} (\bigpre^{-1} \Hank^{SN}) \leq \frac{1}{\varepsilon} \lambda_{\max}(H)$, by Lemma (\ref{block}). 
+
 Next, 
 \begin{equation*}
 	||\bigpre^{-1} \offoff||_2 \leq ||\bigpre^{-1}||_2 ||\offoff||_2 =\sigma_{\max}(\bigpre^{-1}) \sigma_{\max}(\offoff) = \frac{ \sigma_{\max}(\offoff)}{\lambda_{\min}(\bigpre)}.
 \end{equation*}
-Since $\offoff$ are small-norm this value is small. 
-Using Lemma (\ref{eig_lemma}) we bound $||\bigpre^{-1} \offd^{SN}||_2$:
-\begin{equation} \label{eq:gen_bound_ad}
-	\lambda_k ( \bigpre^{-1} \offd^{SN}) \leq  \frac{\lambda_k(\offd^{SN}) }{\lambda_{\min}(\bigpre)} 
-	= \lambda_k (  \offd^{SN}) \min_{i} \left( \toef_i (z_{\min}) \right) \leq 
-	 \lambda_k (  \offd^{SN}) \frac{1}{\varepsilon}.
-\end{equation}
-% \todo[inline]{Where to stop with $\lambda_{\min}\bigpre$? can take it to generating function or bound on gen func or expression for eigs (like above) or leave as is} 
-To finish the proof, we utilize the fact that the matrices are SPD and relate the $k$-th eigenvalue of the preconditioned matrices to their 2-norm, 
+Since $\offoff$ is small-norm this value is small. 
+
 \begin{align*}
-	|| \bigpre^{-1}\SN||_2 &\leq ||\bigpre^{-1} \Hank^{SN}||_2 + ||\bigpre^{-1} \offd^{SN} ||_2 +||\bigpre^{-1} \offoff ||_2 \\
-	&= \lambda_{\max}(\bigpre^{-1} \Hank^{SN}) + \lambda_{\max}(\bigpre^{-1} \offd^{SN}) + \lambda_{\max}(\bigpre^{-1} \offoff) \\
-	&\leq \frac{1}{\lambda_{\min}(\bigpre)} \left( \lambda_{\max}(\Hank^{SN}) +  \lambda_{\max}(\offd^{SN}) + \lambda_{\max}(\offoff) \right). 
+	|| \bigpre^{-1} ( \Hank^{SN} + \offoff) ||_2  &\leq 	|| \bigpre^{-1}  \Hank^{SN} ||_2 + 	|| \bigpre^{-1}  \offoff ||_2 \\
+	& \leq \frac{1}{\varepsilon} \lambda_{\max}(H) +  \frac{ \sigma_{\max}(\offoff)}{\lambda_{\min}(\bigpre)}.
 \end{align*}
+
 %Since $\offd^{SN}$ made of blocks that have form $\sum_{i=r_{\offd}+1}^{n_{\offd}} \sigma_i \u_i \v_i*$ what can we say about $\lambda_k$?  
 \end{proof}
 
-The strength of this bound depends on $\lambda_{\min} (\bigpre)$, but can be written independently of $\bigpre$ in terms of the generating functions as in Equation (\ref{eq:gen_bound_ad}). This dependence is the same for the single block case, and appears in similar proofs for discrete-trigonometric preconditioners (see for example \cite{Kailath}). 
+The strength of this bound depends on $\lambda_{\min} (\bigpre)$, but can be written independently of $\bigpre$ in terms of the generating functions as in Equation (\ref{eq:gen_bound}). This dependence is the same for the single block case, and appears in similar proofs for discrete-trigonometric preconditioners (see for example \cite{Kailath}). 
 
 In practice the block size, $m_i$, is determined by the AFEM algorithm, which in turn dictates the actual size $\varepsilon$ and hence the strength of clustering. Thus bigger Toeplitz blocks in $\A$ result in tighter eigenvalue clustering.
  
@@ -614,7 +553,7 @@ Notice that extending the proof from one Toeplitz block to the adaptive stiffnes
 \subsection{Spectral Clustering of the Preconditioned System}
 \begin{theorem}
 	Following the established notation, 
-	assume $\bigpre^{-1} \SN < \varepsilon$ and define $s := \text{rank}(\bigpre^{-1}\LR)$. Then the spectrum of $\precond^{-1}A$ is clustered around 1, with at most $s$ outliers. 
+	assume $\bigpre^{-1} ( \Hank^{SN} + \offoff)  < \varepsilon$ and define $s := \text{rank}(\bigpre^{-1} (\Hank^{LR}  + \offd))$. Then the spectrum of $\precond^{-1}A$ is clustered around 1, with at most $s$ outliers. 
 \end{theorem}
 
 %Assumption $\bigpre^{-1}\lowright = I + \varepsilon + N$, $N$ is low-rank 
@@ -641,16 +580,14 @@ Since this is an upper-triangular system with a $k \times k$ identity block on t
 
 We examine this matrix block more closely. By the Sherman-Morrison-Woodbury formula $\hat{\Schur}^{-1} = (\bigpre - \tilde{\upright^{\top}}\tilde{\upleft}^{-1}\tilde{\upright} )^{-1} = (\bigpre^{-1} + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}$, which we apply against $\lowright-\upright^{\top}\upleft^{-1}\upright$ to get 
 \begin{align*}
-\hat{\Schur}^{-1}(\lowright-\upright^{\top}\upleft^{-1}\upright) &= \bigpre^{-1}\lowright + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}\lowright\\ &\ - \bigpre^{-1}\upright^{\top}\upleft^{-1}\upright  - \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}\upright^{\top}\upleft^{-1}\upright. 		
+\hat{\Schur}^{-1}(\lowright-\upright^{\top}\upleft^{-1}\upright) &= \bigpre^{-1}\lowright + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}\lowright \\ &\ - \bigpre^{-1}\upright^{\top}\upleft^{-1}\upright  - \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}\upright^{\top}\upleft^{-1}\upright. 		
 \end{align*}
-We previously showed $\bigpre^{-1}\lowright = I + \bigpre^{-1} \SN + \bigpre^{-1} \LR$, so now
+We previously showed $\bigpre^{-1}\lowright = I + \bigpre^{-1} (\Hank^{SN} + \offoff)  + \bigpre^{-1} (\Hank^{LR}  + \offd)$, so now
 \begin{align*}
-	\hat{\Schur}^{-1}(\lowright-\upright^{\top}\upleft^{-1}\upright) &=  I +  \bigpre^{-1} \SN + \bigpre^{-1} \LR +  \big[   \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright  (I + \bigpre^{-1} \SN + \bigpre^{-1} \LR) \\
-	&\ - \bigpre^{-1}\upright^{\top}\upleft^{-1}\upright   -\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1} \upright \bigpre^{-1}\upright^{\top}\upleft^{-1}\upright  \big].
+	\hat{\Schur}^{-1}(\lowright-\upright^{\top}\upleft^{-1}\upright) &=  I +  \bigpre^{-1} (\Hank^{SN} + \offoff)  + \bigpre^{-1} (\Hank^{LR}  + \offd) \\ &\quad +  \big[   \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright  (I + \bigpre^{-1} (\Hank^{SN} + \offoff) + \bigpre^{-1} (\Hank^{LR}  + \offd)) \\
+	&\quad - \bigpre^{-1}\upright^{\top}\upleft^{-1}\upright   -\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1} \upright \bigpre^{-1}\upright^{\top}\upleft^{-1}\upright  \big].
 \end{align*}
-
-We set aside the terms $I + \bigpre^{-1} \SN + \bigpre^{-1} \LR + ( \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)( \bigpre^{-1} \SN + \bigpre^{-1} \LR)$, and show the remaining terms cancel out. 
-
+We set aside the terms $I + \bigpre^{-1} ( \Hank^{SN} + \offoff)  + \bigpre^{-1} (\Hank^{LR}  + \offd) + ( \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)( \bigpre^{-1} ( \Hank^{SN} + \offoff) + \bigpre^{-1} (\Hank^{LR}  + \offd))$, and show the remaining terms cancel out:
 \begin{align*}
 	& \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright - \bigpre^{-1}\upright^{\top}\upleft^{-1} \upright - \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright\bigpre^{-1}\upright^{\top}\upleft^{-1}\upright \\ 
 	&=  [ - \bigpre^{-1}\upright^{\top}\upleft^{-1}  + \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1} (I - \upright\bigpre^{-1}\upright^{\top}\upleft^{-1})]\upright \\
@@ -659,7 +596,7 @@ We set aside the terms $I + \bigpre^{-1} \SN + \bigpre^{-1} \LR + ( \bigpre^{-1}
 \end{align*} 
 
 	
-So the clustering depends on the spectrum of $I + \bigpre^{-1} \SN + \bigpre^{-1} \LR + ( \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)(\bigpre^{-1} \SN + \bigpre^{-1} \LR)$. Most of the non-identity terms here are easily characterized using the previous results as either low-rank or small-norm. However, we must assume $(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} \SN$ is small-norm. Numerical validation of this assumption is found in Section (\ref{validate}). 
+So the clustering depends on the spectrum of $I + \bigpre^{-1} (\Hank^{SN} + \offoff) + \bigpre^{-1} (\Hank^{LR}  + \offd) + ( \bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)(\bigpre^{-1} (\Hank^{SN} + \offoff) + \bigpre^{-1} (\Hank^{LR}  + \offd))$. Most of the non-identity terms here are easily characterized using the previous results as either low-rank or small-norm. However, we must assume $(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} (\Hank^{SN} + \offoff) $ is small-norm. Numerical validation of this assumption is found in Section (\ref{validate}). 
 \end{proof}
 
 We have now shown that $\precond$ satisfies all three criteria we sought in a preconditioner, as set forth in Section (\ref{sec: criteria}). 

@@ -39,16 +39,13 @@
 \newlabel{eigs}{{4}{5}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}AFEM stiffness matrix}{5}{}\protected@file@percent }
 \newlabel{stiffness}{{2.2}{5}}
-\citation{Xiaozhe}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The stiffness matrix $A$ is permuted and partitioned so that $T$ contains all Toeplitz blocks along its diagonal. \relax }}{6}{}\protected@file@percent }
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:perm}{{1}{6}}
 \citation{Kailath}
 \citation{Bini}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Illustration of the splitting of $T$: ${{ T }_D}$ is block diagonal with Toeplitz blocks, blocks in ${{ T }_E}$ are assumed to be well-approximated by low-rank matrices, and ${{ T }_F}$ is assumed to be small-norm due to weak interaction between elements. \relax }}{7}{}\protected@file@percent }
-\newlabel{fig:split}{{2}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}The Adaptive Preconditioner}{7}{}\protected@file@percent }
-\newlabel{sec: precond}{{3}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The stiffness matrix $A$ is permuted and partitioned so that ${ Q }$ contains all Toeplitz blocks along its diagonal. \relax }}{6}{}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:perm}{{1}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}The Adaptive Preconditioner}{6}{}\protected@file@percent }
+\newlabel{sec: precond}{{3}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Preconditioner Requirements}{7}{}\protected@file@percent }
 \newlabel{sec: criteria}{{3.1}{7}}
 \newlabel{crit1}{{1}{7}}
@@ -57,28 +54,30 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Constructing our Preconditioner}{7}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}LU Decomposition of ${ \tilde  {A} }$}{7}{}\protected@file@percent }
 \newlabel{LU}{{5}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Approximating ${ T }^{-1}$}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Approximating ${ Q }^{-1}$}{7}{}\protected@file@percent }
 \newlabel{diag}{{6}{8}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Defining the Adaptive Preconditioner, ${ M }^{-1}$}{8}{}\protected@file@percent }
 \newlabel{precond_def}{{3.2.3}{8}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Theoretical Results}{9}{}\protected@file@percent }
-\newlabel{sec: theory}{{4}{9}}
-\newlabel{eig_lemma}{{2}{9}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Theoretical Results}{8}{}\protected@file@percent }
+\newlabel{sec: theory}{{4}{8}}
 \citation{Bini}
 \citation{Kailath}
 \citation{Chan_Strang}
+\newlabel{eig_lemma}{{2}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Spectral Clustering of a Toeplitz Block}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Approximating ${ Q }^{-1}$}{9}{}\protected@file@percent }
+\newlabel{lemma: positive}{{3}{9}}
 \citation{Bini}
 \citation{Kailath}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Spectral Clustering of a Toeplitz Block}{10}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Approximating ${ T }^{-1}$}{10}{}\protected@file@percent }
-\newlabel{lemma: positive}{{3}{10}}
 \newlabel{block}{{4}{10}}
-\newlabel{eq:gen_bound}{{7}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Spectral Clustering of the Block System}{11}{}\protected@file@percent }
-\newlabel{proof}{{4.2}{11}}
-\newlabel{lemma: block}{{5}{11}}
+\newlabel{eq:gen_bound}{{7}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Spectral Clustering of the Block System}{10}{}\protected@file@percent }
+\newlabel{proof}{{4.2}{10}}
+\newlabel{lemma: block}{{5}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Illustration of the splitting of ${ Q }$: ${{ Q }^D}$ is block diagonal with Toeplitz blocks, blocks in ${{ Q }^{LR}}$ are small and together form a low-rank matrix, and ${{ Q }^{SN}}$ is assumed to be small-norm due to weak interaction between elements. \relax }}{11}{}\protected@file@percent }
+\newlabel{fig:split}{{2}{11}}
+\newlabel{eq: decomp1}{{8}{11}}
 \citation{Kailath}
-\newlabel{eq:gen_bound_ad}{{9}{12}}
 \citation{Chan_Strang}
 \citation{Chan_Yeung}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Spectral Clustering of the Preconditioned System}{13}{}\protected@file@percent }
@@ -87,16 +86,16 @@
 \newlabel{sec: numerical results}{{5}{14}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Validating Assumptions}{14}{}\protected@file@percent }
 \newlabel{validate}{{5.1}{14}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces  The approximation rank needed for the error to be less than $\varepsilon $ for varying fractional indices $\alpha $. Table entries are displayed as $\texttt  {median (max)}$. \relax }}{14}{}\protected@file@percent }
+\newlabel{table:validate_rk}{{1}{14}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces The norm of $||{{ Q }^{SN}}||_2$ and $||{{ Q }^{SN}}||_2 / ||A||_2$ across values of $\alpha $. \relax }}{14}{}\protected@file@percent }
+\newlabel{table:validate_norm}{{2}{14}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Improved Convergence}{14}{}\protected@file@percent }
 \citation{MINRES_super}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces  The approximation rank needed for the error to be less than $\varepsilon $ for varying fractional indices $\alpha $. Table entries are displayed as $\texttt  {median (max)}$. \relax }}{15}{}\protected@file@percent }
-\newlabel{table:validate_rk}{{1}{15}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces The norm of $||{{ T }_F}||_2$ and $||{{ T }_F}||_2 / ||A||_2$ across values of $\alpha $. \relax }}{15}{}\protected@file@percent }
-\newlabel{table:validate_norm}{{2}{15}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Eigenvalue clustering before and after preconditioning. Each column represent a different matrix size. The first row shows the spectrum before preconditioning, the second shows the spectrum, on a smaller interval, after preconditioning.\relax }}{15}{}\protected@file@percent }
 \newlabel{fig:eigen_clusters}{{3}{15}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparing the residual vector norm across PCG iterations. The blue line uses a Jacobi preconditioner and the orange line uses the ${ \Phi }$ preconditioner. \relax }}{16}{}\protected@file@percent }
-\newlabel{fig:conv}{{4}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparing the residual vector norm across PCG iterations. The blue line uses a Jacobi preconditioner and the orange line uses the ${ \Phi }$ preconditioner. \relax }}{15}{}\protected@file@percent }
+\newlabel{fig:conv}{{4}{15}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{16}{}\protected@file@percent }
 \bibstyle{siamplain}
 \bibdata{references}

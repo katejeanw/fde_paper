@@ -20,8 +20,8 @@
 \usepackage{adjustbox}
 \usepackage{multirow}
 \usepackage{makecell}
-\usepackage{subfig}
 \usepackage{tikz-cd}
+\usepackage{subcaption} 
 
 \newtheorem{lemma}{Lemma}
 \newtheorem{rmk}{Remark}
@@ -542,7 +542,6 @@ Notice that extending the proof from one Toeplitz block to the adaptive stiffnes
 %\begin{lemma}
 %	The adaptive preconditioner $\bigpre \in \R^{m \times m}$ has the following properties:
 %	\begin{enumerate}
-%		%	\item $\lilpre$ is a circulant matrix.
 %		\item $\bigpre$ is block diagonalized by the type-I discrete sine transform (DST) blocks, see Equation (\ref{diag}).  
 %		\item $\bigpre$ can be applied in $m \log m$ time.
 %		\item The eigenvalues of $\bigpre^{-1} \A$ are clustered around 1. 
@@ -602,58 +601,81 @@ So the clustering depends on the spectrum of $I + \bigpre^{-1} (\Hank^{SN} + \of
 We have now shown that $\precond$ satisfies all three criteria we sought in a preconditioner, as set forth in Section (\ref{sec: criteria}). 
 
 \section{Numerical Results} \label{sec: numerical results}
-\subsection{Validating Assumptions}\label{validate}
-In order to prove the spectral clustering, we made two assumptions about the structure of $\A$: the blocks adjacent to the diagonal are well-approximated by low-rank matrices and the other off-diagonal blocks are small-norm. Table (\ref{table:validate_rk}) displays the  maximum and average (median) rank needed to achieve an approximation under $\varepsilon$ on each block. Table (\ref{table:validate_norm}) shows the norm and relative norm of $\offoff$. Both tables include results for $\alpha = 1.3, 1.5, 1.9$, after 7 levels of refinement, but similar trends were seen across all fractional orders and refinement levels. In the case of $1 \times 1$ Toeplitz blocks we found that including the entry to the right and underneath in $\offd$ was not sufficient to capture all the low-rank information. Instead, the corresponding block in $\offd$ was extended to dimensions $5 \times 5$ such that the original entry is the center of that block. In terms of spectral clustering, this could increase the number of outliers, but better characterizes the size of the cluster. 
+To validate assumptions we made in our proofs and test the performance of our preconditioner, we ran tests to solve Equation (\ref{FDE}) with different right hand sides. In each case, we tested fractional indices $\alpha = 1.1, 1.2, \dots, 1.9$, paying special attention to $\alpha = 1.9$ since the condition number of the problem worsens as $\alpha$ approaches two. 
 
-\begin{table}[h]
-		\centering
-		\begin{tabular}{|l||c|c|c|}
-			\hline
-			\diaghead{\theadfont longer te}{$\varepsilon$}{$\alpha$}&
-			\thead{$1.3$}&\thead{$1.5$}&\thead{$1.9$}\\ \hline
-			$10^{-3}$ &4(5)&4(6)&5(6) \\ \hline
-			$10^{-4}$ &5(7)&5(7)&6(8) \\ \hline
-			$10^{-5}$ &6(8)&6(9)&7(9) \\ \hline
-		\end{tabular}
-		\caption{ The approximation rank needed for the error to be less than $\varepsilon$ for varying fractional indices $\alpha$. Table entries are displayed as $\texttt{median (max)}$. }
-	\label{table:validate_rk}
-\begin{tabular}{|l||c|c|c|}
-	\hline
-	\diaghead{\theadfont longer te}{}{$\alpha$}&
-	\thead{$1.3$}&\thead{$1.5$}&\thead{$1.9$}\\ \hline
-	$||\offoff||_2$ &0.6138 &1.528 &4.479 \\ \hline
-	$\frac{||\offoff||_2}{||A||_2}$ & $4.893 \times 10^{-2}$ &$2.368 \times 10^{-2}$ & $2.533 \times 10^{-3} $\\ \hline
-\end{tabular}
-		\caption{The norm of $||\offoff||_2$ and $||\offoff||_2 / ||A||_2$ across values of $\alpha$. }
-		\label{table:validate_norm}
+\subsection{Validating Assumptions}\label{validate}
+In building our preconditioner, we claimed that inverting $\upleft$ is relatively cheap since its size $k$, the number of $1 \times 1$ blocks , is smaller and grows more slowly than $m$. In pursuit of validating this assumption we must consider the mechanism by which AFEM refines the mesh. If AFEM is run to a set level of refinement, sufficient accuracy may be attained several levels before termination. Successive refinements will inflate $k$, with little return in improved accuracy. Thus to best measure how $k$ grows relative to $m$, we solved Equation (\ref{FDE}) with a known solution, $u(x) = 10x^2 (1-x^2)$ (see \cite{Xiaozhe} example 6.1 for more details) across values of $\alpha$, each time refining only until the $L^2$ error was below $\varepsilon = 10^{-7}$. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=  \textwidth]{figures/SN_vs_LR.png} \\
+	\caption{The relative norm of $\offoff$ is plotted against $\smallsize$, the size of blocks in $\offd$. Initially, increasing $\smallsize$ drastically lowers $|| \offoff||_2$, but then levels off.}
+	\label{fig:SN_vs_LR}
+\end{figure}
+
+
+In order to prove the spectral clustering, we made two assumptions about the structure of $\lowright$: the blocks adjacent to the diagonal are well-approximated by low-rank matrices and the other off-diagonal blocks are small-norm. The size of the blocks in $\offd$ has an inverse relationship to $|| \offoff||_2$.  The results in Figure (\ref{fig:SN_vs_LR}) visualize this relationship for solving Equation (\ref{FDE}) to a tolerance of $\varepsilon = 10^{-7}$, across various fractional indices, $\alpha$. The exact solution on this example is $u(x) = 10x^2 (1-x^2)$ (see \cite{Xiaozhe} example 6.1 for more details). Recall that $\text{rank}(\offd)$ bounds the number of outliers and $|| \offoff||_2$ relates to a bound on the clustering radius. We can interpret a larger $\smallsize$ as classifying more eigenvalues as outliers and a very tight cluster around 1, whereas a smaller $\smallsize$ and consequently larger $|| \offoff||_2$ would mean more eigenvalues are considered part of the cluster, but the cluster itself is bigger. This choice is a matter of interpretation for the theoretical proofs and not necessary for using the preconditioner, so it suffices to demonstrate that $\smallsize$ and $|| \offoff||_2$ can simultaneously be sufficiently small, as seen in Figure (\ref{fig:SN_vs_LR}). 
+
+
+In our final step of the proof we assumed $(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} (\Hank^{SN} + \offoff) $ was small-norm. In the theoretical section we demonstrated that $||\Hank^{SN} + \offoff||_2$ is small, though it's exact value depends on how $\varepsilon$ is chosen in the proof of Lemma (\ref{lemma: block}). Here we demonstrate that the other part of this term, $||(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} ||_2$ is small. 
+
+\begin{table}[]
+	\begin{tabular}{llllllllllllll}
+	1.42437497286036	& 5.84723651325532	& 3.86354067151099&	64.6010348441585&	32.1375135417646&	12.4066120236829&	28.1475661979899&	60.0105063103893&	117.666058757218&	139.189361434260&	1678.64679516386&	2924.29269183861&	408.120487737924&	7102.25127865163 \\
+	0.846094086611549&	6.30679940283718&	8.17136658991165&	95.9492179294962&	136.146634219680&	66.5261247601743&	35.8820761275535&	15.1179346887060&	120.614354498734&	70.0568763657305&	773.586543460694&	1463.03421363006&	676.244309706660&	0 \\
+	0.551550603256270&	9.45316248195481&	5.19818906602741&	2.45529475353504	&24.1425058709863&	118.868618011251&	76.5939343750628&	10.3049800994186&	6.87280626595311&	6.49233142655183&	518.419368835770&	93.7966262001925&	292.362603999713&	3861.68409341704 \\
+	0.442701418438165&	2.24543241964578&	6.99731340383335&	1.51508584355143&	154.893825558787&	95.7064130942261&	2.80750608730329&	2.47406540893924&	26.6555414017475&	2.94355528378118&	6918.52230415649&	41.7725557206427&	1.26729921034381&	3029.43653945815 \\
+ 	0.769414614851375& 	0.913921026706536& 	1.57115053098490& 	10.0854820021996& 	23.4415788414098& 	1.19355736552353& 	1.27092087992326& 	16.4384664993405 &&&&&& \\
+	0.390574108692443&	0.553733837596974&	0.464012842077502&	7.02067023529044&	25840.5995588361&	1.20546492073509&	1.93649007481419&	27.2747157905415&	4.03708614357255&	193.684807517011&	3116.97799350019& &&\\
+	0.194762374093760	&0.502655213477898&	0.123870985979808&	0.419873788772778&	0.285759611173568&	0.431417217852462&	137.485850600654&	873.738612535060&	3.14099136138110&	723.636872874508&	4512.75545042413& &&\\
+	0.115569971324249&	0.102994030324302&	0.0102475931270909&	0.0111643892784063&	0.0261564298854156&	13.7961617543849&	1.34530538158285&	4152.50582418480&&&&&& \\
+	0.00852901248808787	&0.0336914297782977	&0.00670734527808048&	0.00920846281537991	&0.0100571802576979	&1.07292597078793&	0.0521359526474577	&132.311807871346&	0.00735142842361104&	0.0101635352172327&	2157.08916434962 &&&
+	\end{tabular}
 \end{table}
 
-\subsection{Improved Convergence}
+
+\subsection{Performance Results}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width= .9 \textwidth]{figures/eig_comp.png} \\
-	\caption{Eigenvalue clustering before and after preconditioning. Each column represent a different matrix size. The first row shows the spectrum before preconditioning, the second shows the spectrum, on a smaller interval, after preconditioning.}
+	\includegraphics[width= \textwidth]{figures/eigs_4417_alpha9.png} \\
+	\caption{Eigenvalue clustering before and after preconditioning for $m = 4417$ and $\alpha = 1.9$, notice the scale on the top plot. The bottom plot truncates the $p$ eigenvalues furthest from one, suggesting the number of Toeplitz blocks bounds the number of outliers in practice. }
 	\label{fig:eigen_clusters}
 \end{figure}
-Example results of the spectrum before and after preconditioning are in Figure (\ref{fig:eigen_clusters}). These tests are for the problem (\ref{FDE}) with $\alpha = 1.7$ and exact solution $u(x) = 10x^2 (1-x^2)$ on $[0,1]$ (see \cite{Xiaozhe} example 6.1 for more details). The three matrix sizes are $n = 31, 71, 2795$ and reflect 0, 3, and 11 levels of refinement respectively. Note that zero levels of refinement is a uniform mesh. 
 
-The left-most column represents a matrix that consists of a single Toeplitz block, so the preconditioner reduces to the case of $\lilpre$. In this case the clustering of the spectrum around 1 is very strong. In the $n = 71$ case, the biggest Toeplitz blocks are size $11$, and there are two such blocks. The eigenvalue clustering around 1 is still observable, but the size of the cluster has grown. Finally for $n=2795$, the preconditioner reduces the spectral radius by several orders of magnitude. The spectrum is concentrated around 1, but the distribution of eigenvalues between 0 and 2 is more uniform. For this matrix, the biggest Toeplitz block is size $939$ and there are two other blocks just bigger than $200$. On the other hand, there are $245$ $1 \times 1$ blocks. For all cases, the strength of the clustering is explained by the amount of smaller Toeplitz blocks in $\A$. Notice that although the proof allows for eigenvalue outliers beyond the cluster, in practice everything remains within the interval $(0,2)$. 
 
-% todo would love to be able to show error for PDE for the three different matrices
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width= .95 \textwidth]{figures/conv.png}
-	\caption{Comparing the residual vector norm across PCG iterations. The blue line uses a Jacobi preconditioner and the orange line uses the $\bigpre$ preconditioner. }
+\begin{figure}
+	\begin{subfigure}[h]{0.45\linewidth}
+		\includegraphics[width=\linewidth]{figures/iters_conv.png}
+		\caption{Image A}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.45\linewidth}
+		\includegraphics[width=\linewidth]{figures/iters_conv_ex2.png}
+		\caption{Image B}
+	\end{subfigure}%
+	\caption{Iterations to convergence below a tolerance of $\varepsilon = 10^{-7}$ for $\alpha = 1.9$, plotted with the number of Toeplitz blocks across increasing matrix size $m$. Their approximate equality further supports the interpretation of $1 \times 1$ blocks acting as additional boundaries imposed on the problem, requiring roughly one iteration for each outlier eigenvalue these boundaries cause.}
 	\label{fig:conv}
 \end{figure}
-Next, we see how the clustered spectrum translates to accelerated convergence. In Figure (\ref{fig:conv}) the same matrices are used for preconditioned conjugate gradient (PCG), comparing the adaptive $\lilpre$ preconditioner and a Jacobi preconditioner with a tolerance of $10^{-8}$. For the two smaller matrices, the preconditioner clearly accelerates the point of superlinear convergence \cite{MINRES_super}. For the final matrix, the Jacobi-preconditioned system fails to converge within the maximum of $600$ iterations, but with the $\bigpre$ preconditioner converges in about $300$ iterations. 
-% todo ? behavior for different $\alpha$ 
 
+Example results of the spectrum before and after preconditioning are in Figure (\ref{fig:eigen_clusters}). These tests are for the problem (\ref{FDE}) with $\alpha = 1.9$ and exact solution $u(x) = 10x^2 (1-x^2)$ , as before. 
+ Notice that although the proof allows for eigenvalue outliers far beyond the cluster, in practice everything remains within the interval $(0,2)$. 
+
+
+
+Next, we see how the clustered spectrum translates to accelerated convergence. In Figure (\ref{fig:conv}) the same matrices are used for preconditioned conjugate gradient (PCG), comparing the adaptive $\lilpre$ preconditioner and a Jacobi preconditioner with a tolerance of $10^{-8}$. For the two smaller matrices, the preconditioner clearly accelerates the point of superlinear convergence \cite{MINRES_super}. For the final matrix, the Jacobi-preconditioned system fails to converge within the maximum of $600$ iterations, but with the $\bigpre$ preconditioner converges in about $300$ iterations. 
+
+Hierarchical GMG comparison.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width= .9\textwidth]{figures/L2_err.png} \\
+	\caption{$L^2$ error comparison with Hierachical GMG method. }
+	\label{fig:L2_err}
+\end{figure}
 
 \section{Conclusion}
-We have shown how to build a preconditioner for FDEs discretized by AFEM. The spectrum of the preconditioned system is clustered around 1 and accelerates convergence of iterative methods. In the future, we will investigate how to customize the AFEM \texttt{MARK} module to build bigger Toeplitz blocks and thus get tighter clusters. Finally, we will investigate how to use these techniques to build preconditioners for FDEs discretized with AFEM on higher dimensional meshes. 
+We have shown how to build an effective preconditioner for FDEs discretized by AFEM. The spectrum of the preconditioned system is clustered around 1 and in tests was shown to accelerate convergence of Krylov methods. Future work could extend these ideas to FDEs in higher dimensions. 
 
+% In the future, we will investigate how to customize the AFEM \texttt{MARK} module to build bigger Toeplitz blocks and thus get tighter clusters. 
 \newpage
 \bibliographystyle{siamplain}
 \bibliography{references}

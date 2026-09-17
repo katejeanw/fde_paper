@@ -82,20 +82,17 @@
 \citation{Chan_Yeung}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Spectral Clustering of the Preconditioned System}{13}{}\protected@file@percent }
 \citation{Xiaozhe}
+\citation{Xiaozhe}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Numerical Results}{14}{}\protected@file@percent }
 \newlabel{sec: numerical results}{{5}{14}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Validating Assumptions}{14}{}\protected@file@percent }
 \newlabel{validate}{{5.1}{14}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces  The approximation rank needed for the error to be less than $\varepsilon $ for varying fractional indices $\alpha $. Table entries are displayed as $\texttt  {median (max)}$. \relax }}{14}{}\protected@file@percent }
-\newlabel{table:validate_rk}{{1}{14}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces The norm of $||{{ Q }^{SN}}||_2$ and $||{{ Q }^{SN}}||_2 / ||A||_2$ across values of $\alpha $. \relax }}{14}{}\protected@file@percent }
-\newlabel{table:validate_norm}{{2}{14}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Improved Convergence}{14}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The relative norm of ${{ Q }^{SN}}$ is plotted against ${ s }$, the size of blocks in ${{ Q }^{LR}}$. Initially, increasing ${ s }$ drastically lowers $|| {{ Q }^{SN}}||_2$, but then levels off.\relax }}{14}{}\protected@file@percent }
+\newlabel{fig:SN_vs_LR}{{3}{14}}
 \citation{MINRES_super}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Eigenvalue clustering before and after preconditioning. Each column represent a different matrix size. The first row shows the spectrum before preconditioning, the second shows the spectrum, on a smaller interval, after preconditioning.\relax }}{15}{}\protected@file@percent }
-\newlabel{fig:eigen_clusters}{{3}{15}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparing the residual vector norm across PCG iterations. The blue line uses a Jacobi preconditioner and the orange line uses the ${ \Phi }$ preconditioner. \relax }}{15}{}\protected@file@percent }
-\newlabel{fig:conv}{{4}{15}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Performance Results}{15}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Eigenvalue clustering before and after preconditioning for $m = 4417$ and $\alpha = 1.9$, notice the scale on the top plot. The bottom plot truncates the $p$ eigenvalues furthest from one, suggesting the number of Toeplitz blocks bounds the number of outliers in practice. \relax }}{16}{}\protected@file@percent }
+\newlabel{fig:eigen_clusters}{{4}{16}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{16}{}\protected@file@percent }
 \bibstyle{siamplain}
 \bibdata{references}
@@ -106,6 +103,8 @@
 \bibcite{Chan_Yeung}{5}
 \bibcite{TChan}{6}
 \bibcite{schrod}{7}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Iterations to convergence below a tolerance of $\varepsilon = 10^{-7}$ for $\alpha = 1.9$, plotted with the number of Toeplitz blocks across increasing matrix size $m$. Their approximate equality further supports the interpretation of $1 \times 1$ blocks acting as additional boundaries imposed on the problem, requiring roughly one iteration for each outlier eigenvalue these boundaries cause.\relax }}{17}{}\protected@file@percent }
+\newlabel{fig:conv}{{5}{17}}
 \bibcite{app_electrom}{8}
 \bibcite{JZ}{9}
 \bibcite{Kailath}{10}
@@ -113,7 +112,9 @@
 \bibcite{AFEM}{12}
 \bibcite{app_signals}{13}
 \bibcite{MINRES_super}{14}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces $L^2$ error comparison with Hierachical GMG method. \relax }}{18}{}\protected@file@percent }
+\newlabel{fig:L2_err}{{6}{18}}
 \bibcite{Strang_original}{15}
 \bibcite{superfast}{16}
 \bibcite{Xiaozhe}{17}
-\gdef \@abspage@last{18}
+\gdef \@abspage@last{19}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.17)  16 SEP 2026 14:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.17)  17 SEP 2026 15:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -649,22 +649,6 @@ Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
 \c@nlinenum=\count305
 \TeXr@lab=\toks45
 )
-(/usr/local/texlive/2021/texmf-dist/tex/latex/subfig/subfig.sty
-Package: subfig 2005/06/28 ver: 1.3 subfig package
-\c@KVtest=\count306
-\sf@farskip=\skip64
-\sf@captopadj=\dimen296
-\sf@capskip=\skip65
-\sf@nearskip=\skip66
-\c@subfigure=\count307
-\c@subfigure@save=\count308
-\c@lofdepth=\count309
-\c@subtable=\count310
-\c@subtable@save=\count311
-\c@lotdepth=\count312
-\sf@top=\skip67
-\sf@bottom=\skip68
-)
 (/usr/local/texlive/2021/texmf-dist/tex/latex/tikz-cd/tikz-cd.sty
 Package: tikz-cd 2018/11/19 v0.9f Commutative diagrams with TikZ
 
@@ -680,16 +664,21 @@ File: tikzlibraryquotes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/local/texlive/2021/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
 meta.code.tex
 File: pgflibraryarrows.meta.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfarrowinset=\dimen297
-\pgfarrowlength=\dimen298
-\pgfarrowwidth=\dimen299
-\pgfarrowlinewidth=\dimen300
+\pgfarrowinset=\dimen296
+\pgfarrowlength=\dimen297
+\pgfarrowwidth=\dimen298
+\pgfarrowlinewidth=\dimen299
 )))
-\c@lemma=\count313
-\c@rmk=\count314
-\c@theorem=\count315
-\c@cor=\count316
-\c@definition=\count317
+(/usr/local/texlive/2021/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
+\c@subfigure=\count306
+\c@subtable=\count307
+)
+\c@lemma=\count308
+\c@rmk=\count309
+\c@theorem=\count310
+\c@cor=\count311
+\c@definition=\count312
 Package caption Info: Option `declare type' requires the `newfloat' package on 
 input line 32.
 
@@ -697,13 +686,13 @@ input line 32.
 Package: newfloat 2019/09/02 v1.1l Defining new floating environments (AR)
 )
 Package newfloat Info: New float `equ' with options `' on input line 32.
-\c@equ=\count318
+\c@equ=\count313
 Package newfloat Info: float type `equ'=4 on input line 32.
-\c@loequdepth=\count319
+\c@subequ=\count314
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count320
+\l__color_backend_stack_int=\count315
 \l__pdf_internal_box=\box66
 )
 (./WALL_KATE_paper.aux)
@@ -726,20 +715,19 @@ LaTeX Font Info:    ... okay on input line 123.
 
 (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count321
-\scratchdimen=\dimen301
+\scratchcounter=\count316
+\scratchdimen=\dimen300
 \scratchbox=\box67
-\nofMPsegments=\count322
-\nofMParguments=\count323
+\nofMPsegments=\count317
+\nofMParguments=\count318
 \everyMPshowfont=\toks46
-\MPscratchCnt=\count324
-\MPscratchDim=\dimen302
-\MPnumerator=\count325
-\makeMPintoPDFobject=\count326
+\MPscratchCnt=\count319
+\MPscratchDim=\dimen301
+\MPnumerator=\count320
+\makeMPintoPDFobject=\count321
 \everyMPtoPDFconversion=\toks47
 )
 Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 Package newfloat Info: `float' package detected.
@@ -809,7 +797,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [10] [11 <./figures/A.png (PNG copy)> <./figures/AD.png (PNG copy)> <./figures/
 AE.png (PNG copy)> <./figures/AF.png (PNG copy)>] [12]
-Overfull \hbox (42.33736pt too wide) in paragraph at lines 581--582
+Overfull \hbox (42.33736pt too wide) in paragraph at lines 580--581
 \OT1/cmr/m/n/10 Woodbury for-mula $[] = (^^H \OMS/cmsy/m/n/10 ^^@ [][][]\OT1/cm
 r/m/n/10 )[] = (^^H[] + ^^H[]\OML/cmm/m/it/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it
 /10 V \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 W\OT1/cmr/m/n/10 ^^H[]\OML/cmm/m/it
@@ -817,22 +805,22 @@ r/m/n/10 )[] = (^^H[] + ^^H[]\OML/cmm/m/it/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it
  []
 
 
-Overfull \hbox (39.70091pt too wide) detected at line 584
+Overfull \hbox (39.70091pt too wide) detected at line 583
 []
  []
 
 
-Overfull \hbox (104.09584pt too wide) detected at line 589
+Overfull \hbox (104.09584pt too wide) detected at line 588
 []
  []
 
 
-Overfull \hbox (72.86142pt too wide) detected at line 596
+Overfull \hbox (72.86142pt too wide) detected at line 595
 []
  []
 
 
-Overfull \hbox (11.05312pt too wide) in paragraph at lines 599--600
+Overfull \hbox (11.05312pt too wide) in paragraph at lines 598--599
 \OT1/cmr/m/n/10 ^^H[](\OML/cmm/m/it/10 H[] \OT1/cmr/m/n/10 + []) + (^^H[]\OML/c
 mm/m/it/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 V \OMS/cmsy/m/n/10 ^^@ \OML/cmm
 /m/it/10 W\OT1/cmr/m/n/10 ^^H[]\OML/cmm/m/it/10 W[]\OT1/cmr/m/n/10 )[]\OML/cmm/
@@ -841,59 +829,90 @@ m/it/10 W\OT1/cmr/m/n/10 )(^^H[](\OML/cmm/m/it/10 H[] \OT1/cmr/m/n/10 + []) + ^
  []
 
 [13]
-<figures/eig_comp.png, id=94, 1393.205pt x 618.31pt>
-File: figures/eig_comp.png Graphic file (type png)
-<use figures/eig_comp.png>
-Package pdftex.def Info: figures/eig_comp.png  used on input line 634.
-(pdftex.def)             Requested size: 310.4979pt x 137.7929pt.
+<figures/SN_vs_LR.png, id=94, 2019.545pt x 803.0pt>
+File: figures/SN_vs_LR.png Graphic file (type png)
+<use figures/SN_vs_LR.png>
+Package pdftex.def Info: figures/SN_vs_LR.png  used on input line 611.
+(pdftex.def)             Requested size: 345.0pt x 137.16985pt.
+ [14 <./figures/SN_vs_LR.png>]
+Overfull \hbox (29.78116pt too wide) in paragraph at lines 620--621
+[]\OT1/cmr/m/n/10 In our fi-nal step of the proof we as-sumed $(^^H[]\OML/cmm/m
+/it/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 V \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/i
+t/10 W\OT1/cmr/m/n/10 ^^H[]\OML/cmm/m/it/10 W[]\OT1/cmr/m/n/10 )[]\OML/cmm/m/it
+/10 W\OT1/cmr/m/n/10 )^^H[](\OML/cmm/m/it/10 H[] \OT1/cmr/m/n/10 +
+ []
 
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 622.
+
+
+Overfull \hbox (1016.89275pt too wide) in paragraph at lines 623--634
+[][] 
+ []
+
+<figures/eigs_4417_alpha9.png, id=98, 1371.1225pt x 965.6075pt>
+File: figures/eigs_4417_alpha9.png Graphic file (type png)
+<use figures/eigs_4417_alpha9.png>
+Package pdftex.def Info: figures/eigs_4417_alpha9.png  used on input line 640.
+(pdftex.def)             Requested size: 345.0pt x 242.96307pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[14]
-<figures/conv.png, id=101, 1447.4075pt x 333.245pt>
-File: figures/conv.png Graphic file (type png)
-<use figures/conv.png>
-Package pdftex.def Info: figures/conv.png  used on input line 646.
-(pdftex.def)             Requested size: 327.74895pt x 75.45995pt.
- [15 <./figures/eig_comp.png (PNG copy)> <./figures/conv.png>] [16]
-(./WALL_KATE_paper.bbl [17]) [18] (./WALL_KATE_paper.aux) ) 
+<figures/iters_conv.png, id=99, 940.51375pt x 829.0975pt>
+File: figures/iters_conv.png Graphic file (type png)
+<use figures/iters_conv.png>
+Package pdftex.def Info: figures/iters_conv.png  used on input line 648.
+(pdftex.def)             Requested size: 155.24895pt x 136.85844pt.
+<figures/iters_conv_ex2.png, id=100, 932.48375pt x 833.1125pt>
+File: figures/iters_conv_ex2.png Graphic file (type png)
+<use figures/iters_conv_ex2.png>
+Package pdftex.def Info: figures/iters_conv_ex2.png  used on input line 653.
+(pdftex.def)             Requested size: 155.24895pt x 138.70343pt.
+<figures/L2_err.png, id=101, 1124.2pt x 672.5125pt>
+File: figures/L2_err.png Graphic file (type png)
+<use figures/L2_err.png>
+Package pdftex.def Info: figures/L2_err.png  used on input line 670.
+(pdftex.def)             Requested size: 310.4979pt x 185.73679pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[15] [16 <./figures/eigs_4417_alpha9.png (PNG copy)>] (./WALL_KATE_paper.bbl
+[17 <./figures/iters_conv.png> <./figures/iters_conv_ex2.png>] [18 <./figures/L
+2_err.png (PNG copy)>]) [19] (./WALL_KATE_paper.aux) ) 
 Here is how much of TeX's memory you used:
- 18165 strings out of 478994
- 364023 string characters out of 5858183
- 640392 words of memory out of 5000000
- 35254 multiletter control sequences out of 15000+600000
+ 18108 strings out of 478994
+ 363317 string characters out of 5858183
+ 637551 words of memory out of 5000000
+ 35196 multiletter control sequences out of 15000+600000
  418660 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,29n,117p,1298b,1242s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/
-2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2
-021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/20
-21/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2021
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2021
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2021/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2021/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2021/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2021/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2021/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1
+ 102i,21n,117p,1341b,1242s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2021/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2021/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2021/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2021/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2021/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2021/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2021/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmti10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmtt10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/
-amsfonts/latxfont/line10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pu
-blic/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type
-1/public/amsfonts/symbols/msbm7.pfb>
-Output written on WALL_KATE_paper.pdf (18 pages, 408537 bytes).
+amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pub
+lic/amsfonts/symbols/msbm7.pfb>
+Output written on WALL_KATE_paper.pdf (19 pages, 499466 bytes).
 PDF statistics:
- 188 PDF objects out of 1000 (max. 8388607)
- 121 compressed objects within 2 object streams
+ 183 PDF objects out of 1000 (max. 8388607)
+ 115 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 139 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 154 words of extra memory for PDF output out of 10000 (max. 10000000)
 

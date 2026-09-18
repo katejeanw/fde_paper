@@ -11,6 +11,7 @@
 \citation{AFEM}
 \citation{Xiaozhe}
 \citation{Xiaozhe}
+\citation{Glusa}
 \citation{Chan_Strang}
 \citation{Chan_Yeung}
 \citation{precond_review}
@@ -87,34 +88,41 @@
 \newlabel{sec: numerical results}{{5}{14}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Validating Assumptions}{14}{}\protected@file@percent }
 \newlabel{validate}{{5.1}{14}}
+\@writefile{tdo}{\contentsline {todo}{ In building our preconditioner, we claimed that inverting ${ V }$ is relatively cheap since its size $k$, the number of $1 \times 1$ blocks , is smaller and grows more slowly than $m$. In pursuit of validating this assumption we must consider the mechanism by which AFEM refines the mesh. If AFEM is run to a set level of refinement, sufficient accuracy may be attained several levels before termination. Successive refinements will inflate $k$, with little return in improved accuracy. Thus to best measure how $k$ grows relative to $m$, we solved Equation (1\hbox {}) with a known solution, $u(x) = 10x^2 (1-x^2)$ (see \cite  {Xiaozhe} example 6.1 for more details) across values of $\alpha $, each time refining only until the $L^2$ error was below $\varepsilon = 10^{-7}$. }{14}{}\protected@file@percent }
+\pgfsyspdfmark {pgfid3}{20088094}{25544396}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The relative norm of ${{ Q }^{SN}}$ is plotted against ${ s }$, the size of blocks in ${{ Q }^{LR}}$. Initially, increasing ${ s }$ drastically lowers $|| {{ Q }^{SN}}||_2$, but then levels off.\relax }}{14}{}\protected@file@percent }
 \newlabel{fig:SN_vs_LR}{{3}{14}}
-\citation{MINRES_super}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces $||({ \Phi }^{-1}{ W }^{\top }({ V }-{ W }{ \Phi }^{-1}{ W }^{\top })^{-1}{ W }){ \Phi }^{-1} ||_2$ for various $\alpha $, up to the refinement necessary for a solution with $L^2$ error below $\varepsilon = 10^{-7}$. Refinement level 1 is not included since it represents a uniform grid, where our preconditioner reduces to the Bini and de Benedetto preconditioner.\relax }}{15}{}\protected@file@percent }
+\newlabel{table: norm}{{1}{15}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Performance Results}{15}{}\protected@file@percent }
+\citation{Xiaozhe}
+\citation{Xiaozhe}
+\citation{Glusa}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Eigenvalue clustering before and after preconditioning for $m = 4417$ and $\alpha = 1.9$, notice the scale on the top plot. The bottom plot truncates the $p$ eigenvalues furthest from one, suggesting the number of Toeplitz blocks bounds the number of outliers in practice. \relax }}{16}{}\protected@file@percent }
 \newlabel{fig:eigen_clusters}{{4}{16}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{16}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Iterations to convergence below a tolerance of $\varepsilon = 10^{-7}$ for $\alpha = 1.9$, plotted with the number of Toeplitz blocks across increasing matrix size $m$. \relax }}{17}{}\protected@file@percent }
+\newlabel{fig:conv}{{5}{17}}
 \bibstyle{siamplain}
 \bibdata{references}
-\bibcite{Bini}{1}
-\bibcite{stable}{2}
-\bibcite{precond_review}{3}
-\bibcite{Chan_Strang}{4}
-\bibcite{Chan_Yeung}{5}
-\bibcite{TChan}{6}
-\bibcite{schrod}{7}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Iterations to convergence below a tolerance of $\varepsilon = 10^{-7}$ for $\alpha = 1.9$, plotted with the number of Toeplitz blocks across increasing matrix size $m$. Their approximate equality further supports the interpretation of $1 \times 1$ blocks acting as additional boundaries imposed on the problem, requiring roughly one iteration for each outlier eigenvalue these boundaries cause.\relax }}{17}{}\protected@file@percent }
-\newlabel{fig:conv}{{5}{17}}
-\bibcite{app_electrom}{8}
-\bibcite{JZ}{9}
-\bibcite{Kailath}{10}
-\bibcite{hierarch}{11}
-\bibcite{AFEM}{12}
-\bibcite{app_signals}{13}
-\bibcite{MINRES_super}{14}
+\bibcite{Glusa}{1}
+\bibcite{Bini}{2}
+\bibcite{stable}{3}
+\bibcite{precond_review}{4}
+\bibcite{Chan_Strang}{5}
+\bibcite{Chan_Yeung}{6}
+\bibcite{TChan}{7}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces $L^2$ error comparison with Hierachical GMG method. \relax }}{18}{}\protected@file@percent }
 \newlabel{fig:L2_err}{{6}{18}}
-\bibcite{Strang_original}{15}
-\bibcite{superfast}{16}
-\bibcite{Xiaozhe}{17}
+\bibcite{schrod}{8}
+\bibcite{app_electrom}{9}
+\bibcite{JZ}{10}
+\bibcite{Kailath}{11}
+\bibcite{hierarch}{12}
+\bibcite{AFEM}{13}
+\bibcite{app_signals}{14}
+\bibcite{MINRES_super}{15}
+\bibcite{Strang_original}{16}
+\bibcite{superfast}{17}
+\bibcite{Xiaozhe}{18}
 \gdef \@abspage@last{19}

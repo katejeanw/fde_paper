@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.17)  17 SEP 2026 15:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.17)  17 SEP 2026 17:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -832,10 +832,10 @@ m/it/10 W\OT1/cmr/m/n/10 )(^^H[](\OML/cmm/m/it/10 H[] \OT1/cmr/m/n/10 + []) + ^
 <figures/SN_vs_LR.png, id=94, 2019.545pt x 803.0pt>
 File: figures/SN_vs_LR.png Graphic file (type png)
 <use figures/SN_vs_LR.png>
-Package pdftex.def Info: figures/SN_vs_LR.png  used on input line 611.
+Package pdftex.def Info: figures/SN_vs_LR.png  used on input line 613.
 (pdftex.def)             Requested size: 345.0pt x 137.16985pt.
  [14 <./figures/SN_vs_LR.png>]
-Overfull \hbox (29.78116pt too wide) in paragraph at lines 620--621
+Overfull \hbox (29.78116pt too wide) in paragraph at lines 622--623
 []\OT1/cmr/m/n/10 In our fi-nal step of the proof we as-sumed $(^^H[]\OML/cmm/m
 /it/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 V \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/i
 t/10 W\OT1/cmr/m/n/10 ^^H[]\OML/cmm/m/it/10 W[]\OT1/cmr/m/n/10 )[]\OML/cmm/m/it
@@ -844,17 +844,17 @@ t/10 W\OT1/cmr/m/n/10 ^^H[]\OML/cmm/m/it/10 W[]\OT1/cmr/m/n/10 )[]\OML/cmm/m/it
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 622.
+               Default added (so using `tbp') on input line 624.
 
 
-Overfull \hbox (1016.89275pt too wide) in paragraph at lines 623--634
+Overfull \hbox (43.52863pt too wide) in paragraph at lines 625--641
 [][] 
  []
 
 <figures/eigs_4417_alpha9.png, id=98, 1371.1225pt x 965.6075pt>
 File: figures/eigs_4417_alpha9.png Graphic file (type png)
 <use figures/eigs_4417_alpha9.png>
-Package pdftex.def Info: figures/eigs_4417_alpha9.png  used on input line 640.
+Package pdftex.def Info: figures/eigs_4417_alpha9.png  used on input line 649.
 (pdftex.def)             Requested size: 345.0pt x 242.96307pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -862,57 +862,63 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <figures/iters_conv.png, id=99, 940.51375pt x 829.0975pt>
 File: figures/iters_conv.png Graphic file (type png)
 <use figures/iters_conv.png>
-Package pdftex.def Info: figures/iters_conv.png  used on input line 648.
+Package pdftex.def Info: figures/iters_conv.png  used on input line 657.
 (pdftex.def)             Requested size: 155.24895pt x 136.85844pt.
 <figures/iters_conv_ex2.png, id=100, 932.48375pt x 833.1125pt>
 File: figures/iters_conv_ex2.png Graphic file (type png)
 <use figures/iters_conv_ex2.png>
-Package pdftex.def Info: figures/iters_conv_ex2.png  used on input line 653.
+Package pdftex.def Info: figures/iters_conv_ex2.png  used on input line 662.
 (pdftex.def)             Requested size: 155.24895pt x 138.70343pt.
-<figures/L2_err.png, id=101, 1124.2pt x 672.5125pt>
+[15]
+<figures/L2_err.png, id=105, 1124.2pt x 672.5125pt>
 File: figures/L2_err.png Graphic file (type png)
 <use figures/L2_err.png>
-Package pdftex.def Info: figures/L2_err.png  used on input line 670.
+Package pdftex.def Info: figures/L2_err.png  used on input line 677.
 (pdftex.def)             Requested size: 310.4979pt x 185.73679pt.
+
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[15] [16 <./figures/eigs_4417_alpha9.png (PNG copy)>] (./WALL_KATE_paper.bbl
-[17 <./figures/iters_conv.png> <./figures/iters_conv_ex2.png>] [18 <./figures/L
-2_err.png (PNG copy)>]) [19] (./WALL_KATE_paper.aux) ) 
+[16 <./figures/eigs_4417_alpha9.png (PNG copy)>] [17 <./figures/iters_conv.png>
+ <./figures/iters_conv_ex2.png>] (./WALL_KATE_paper.bbl [18 <./figures/L2_err.p
+ng (PNG copy)>]) [19] (./WALL_KATE_paper.aux) ) 
 Here is how much of TeX's memory you used:
- 18108 strings out of 478994
- 363317 string characters out of 5858183
- 637551 words of memory out of 5000000
- 35196 multiletter control sequences out of 15000+600000
- 418660 words of font info for 83 fonts, out of 8000000 for 9000
+ 18153 strings out of 478994
+ 364269 string characters out of 5858183
+ 638613 words of memory out of 5000000
+ 35236 multiletter control sequences out of 15000+600000
+ 420519 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,21n,117p,1341b,1242s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2021/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2021/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2021/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2021/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2021/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2021/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2021/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmti10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/
-amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pub
-lic/amsfonts/symbols/msbm7.pfb>
-Output written on WALL_KATE_paper.pdf (19 pages, 499466 bytes).
+</usr/local/texlive/2021/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2021/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2021/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2021/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2021/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2021/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
+i10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt
+10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/
+msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symb
+ols/msbm7.pfb>
+Output written on WALL_KATE_paper.pdf (19 pages, 532270 bytes).
 PDF statistics:
- 183 PDF objects out of 1000 (max. 8388607)
- 115 compressed objects within 2 object streams
+ 199 PDF objects out of 1000 (max. 8388607)
+ 127 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  154 words of extra memory for PDF output out of 10000 (max. 10000000)
 

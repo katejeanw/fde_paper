@@ -1,5 +1,13 @@
 \begin{thebibliography}{10}
 
+\bibitem{Glusa}
+{\sc Mark Ainsworth and Christian Glusa}, {\em Aspects of an adaptive finite
+  element method for the fractional laplacian: A priori and a posteriori error
+  estimates, efficient implementation and multigrid solver}, Computer Methods
+  in Applied Mechanics and Engineering, 327 (2017), pp.~4--35.
+\newblock Advances in Computational Mechanics and Scientific Computation—the
+  Cutting Edge.
+
 \bibitem{Bini}
 {\sc Dario Bini and Fabio Di~Benedetto}, {\em A new preconditioner for the
   parallel solution of positive definite toeplitz systems}, Association for

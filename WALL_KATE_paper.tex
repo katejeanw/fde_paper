@@ -160,7 +160,7 @@ The above methods require uniform meshes. On a uniform mesh the FEM discretizati
 \end{equation} 
 but the computational cost is dominated by the \texttt{SOLVE} step.
 
-Zhao et al. used AFEM to solved FDEs using hierarchical matrices and geometric multigrid (GMG) \cite{Xiaozhe}. This method is done in $\bigOh(k N \log N)$ where $k$ is a parameter for low-rank approximations and $N$ is the degrees of freedom at the finest level. Numerical tests show this technique attains optimal convergence order, but there are no proofs guaranteeing such.  
+Zhao et al. used AFEM to solved FDEs using hierarchical matrices and geometric multigrid (GMG) \cite{Xiaozhe}. This method is done in $\bigOh(k N \log N)$ where $k$ is a parameter for low-rank approximations and $N$ is the degrees of freedom at the finest level. Numerical tests show this technique attains optimal convergence order, but there are no proofs guaranteeing such. Ainsworth and Glusa have detailed construction of the hierarchical representation in higher dimensions \cite{Glusa}.
 
 In this paper, we construct a preconditioner, $\precond$, for the stiffness matrix, $\A$, from an AFEM discretization of Equation (\ref{FDE}). We show that the cost of solving the preconditioned linear system with a Krylov method is competitive with the GMG approach and furthermore prove that the preconditioned spectrum is clustered around 1, guaranteeing convergence. Our approach also has the advantage of avoiding hierarchical matrices and their sometimes cumbersome implementation. 
 
@@ -601,10 +601,12 @@ So the clustering depends on the spectrum of $I + \bigpre^{-1} (\Hank^{SN} + \of
 We have now shown that $\precond$ satisfies all three criteria we sought in a preconditioner, as set forth in Section (\ref{sec: criteria}). 
 
 \section{Numerical Results} \label{sec: numerical results}
-To validate assumptions we made in our proofs and test the performance of our preconditioner, we ran tests to solve Equation (\ref{FDE}) with different right hand sides. In each case, we tested fractional indices $\alpha = 1.1, 1.2, \dots, 1.9$, paying special attention to $\alpha = 1.9$ since the condition number of the problem worsens as $\alpha$ approaches two. 
+To validate assumptions we made in our proofs and test the performance of our preconditioner, we ran tests to solve Equation (\ref{FDE}) with different right hand sides. We used preconditioned GMRES and solved to a tolerance of $\varepsilon = 10^{-7}$. In each case, we tested fractional indices $\alpha = 1.1, 1.2, \dots, 1.9$, paying special attention to $\alpha = 1.9$ since the condition number of the problem worsens as $\alpha$ approaches two. 
 
 \subsection{Validating Assumptions}\label{validate}
-In building our preconditioner, we claimed that inverting $\upleft$ is relatively cheap since its size $k$, the number of $1 \times 1$ blocks , is smaller and grows more slowly than $m$. In pursuit of validating this assumption we must consider the mechanism by which AFEM refines the mesh. If AFEM is run to a set level of refinement, sufficient accuracy may be attained several levels before termination. Successive refinements will inflate $k$, with little return in improved accuracy. Thus to best measure how $k$ grows relative to $m$, we solved Equation (\ref{FDE}) with a known solution, $u(x) = 10x^2 (1-x^2)$ (see \cite{Xiaozhe} example 6.1 for more details) across values of $\alpha$, each time refining only until the $L^2$ error was below $\varepsilon = 10^{-7}$. 
+
+\todo[inline]{
+In building our preconditioner, we claimed that inverting $\upleft$ is relatively cheap since its size $k$, the number of $1 \times 1$ blocks , is smaller and grows more slowly than $m$. In pursuit of validating this assumption we must consider the mechanism by which AFEM refines the mesh. If AFEM is run to a set level of refinement, sufficient accuracy may be attained several levels before termination. Successive refinements will inflate $k$, with little return in improved accuracy. Thus to best measure how $k$ grows relative to $m$, we solved Equation (\ref{FDE}) with a known solution, $u(x) = 10x^2 (1-x^2)$ (see \cite{Xiaozhe} example 6.1 for more details) across values of $\alpha$, each time refining only until the $L^2$ error was below $\varepsilon = 10^{-7}$. }
 
 \begin{figure}[h]
 	\centering
@@ -617,20 +619,27 @@ In building our preconditioner, we claimed that inverting $\upleft$ is relativel
 In order to prove the spectral clustering, we made two assumptions about the structure of $\lowright$: the blocks adjacent to the diagonal are well-approximated by low-rank matrices and the other off-diagonal blocks are small-norm. The size of the blocks in $\offd$ has an inverse relationship to $|| \offoff||_2$.  The results in Figure (\ref{fig:SN_vs_LR}) visualize this relationship for solving Equation (\ref{FDE}) to a tolerance of $\varepsilon = 10^{-7}$, across various fractional indices, $\alpha$. The exact solution on this example is $u(x) = 10x^2 (1-x^2)$ (see \cite{Xiaozhe} example 6.1 for more details). Recall that $\text{rank}(\offd)$ bounds the number of outliers and $|| \offoff||_2$ relates to a bound on the clustering radius. We can interpret a larger $\smallsize$ as classifying more eigenvalues as outliers and a very tight cluster around 1, whereas a smaller $\smallsize$ and consequently larger $|| \offoff||_2$ would mean more eigenvalues are considered part of the cluster, but the cluster itself is bigger. This choice is a matter of interpretation for the theoretical proofs and not necessary for using the preconditioner, so it suffices to demonstrate that $\smallsize$ and $|| \offoff||_2$ can simultaneously be sufficiently small, as seen in Figure (\ref{fig:SN_vs_LR}). 
 
 
-In our final step of the proof we assumed $(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} (\Hank^{SN} + \offoff) $ was small-norm. In the theoretical section we demonstrated that $||\Hank^{SN} + \offoff||_2$ is small, though it's exact value depends on how $\varepsilon$ is chosen in the proof of Lemma (\ref{lemma: block}). Here we demonstrate that the other part of this term, $||(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} ||_2$ is small. 
+In our final step of the proof we assumed $(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} (\Hank^{SN} + \offoff) $ was small-norm. In the theoretical section we demonstrated that $||\Hank^{SN} + \offoff||_2$ is small, though it's exact value depends on how $\varepsilon$ is chosen in the proof of Lemma (\ref{lemma: block}). Here we demonstrate that the other part of this term, $||(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} ||_2$ is small. Example results of this value are given in Table (\ref{table: norm}).
 
 \begin{table}[]
-	\begin{tabular}{llllllllllllll}
-	1.42437497286036	& 5.84723651325532	& 3.86354067151099&	64.6010348441585&	32.1375135417646&	12.4066120236829&	28.1475661979899&	60.0105063103893&	117.666058757218&	139.189361434260&	1678.64679516386&	2924.29269183861&	408.120487737924&	7102.25127865163 \\
-	0.846094086611549&	6.30679940283718&	8.17136658991165&	95.9492179294962&	136.146634219680&	66.5261247601743&	35.8820761275535&	15.1179346887060&	120.614354498734&	70.0568763657305&	773.586543460694&	1463.03421363006&	676.244309706660&	0 \\
-	0.551550603256270&	9.45316248195481&	5.19818906602741&	2.45529475353504	&24.1425058709863&	118.868618011251&	76.5939343750628&	10.3049800994186&	6.87280626595311&	6.49233142655183&	518.419368835770&	93.7966262001925&	292.362603999713&	3861.68409341704 \\
-	0.442701418438165&	2.24543241964578&	6.99731340383335&	1.51508584355143&	154.893825558787&	95.7064130942261&	2.80750608730329&	2.47406540893924&	26.6555414017475&	2.94355528378118&	6918.52230415649&	41.7725557206427&	1.26729921034381&	3029.43653945815 \\
- 	0.769414614851375& 	0.913921026706536& 	1.57115053098490& 	10.0854820021996& 	23.4415788414098& 	1.19355736552353& 	1.27092087992326& 	16.4384664993405 &&&&&& \\
-	0.390574108692443&	0.553733837596974&	0.464012842077502&	7.02067023529044&	25840.5995588361&	1.20546492073509&	1.93649007481419&	27.2747157905415&	4.03708614357255&	193.684807517011&	3116.97799350019& &&\\
-	0.194762374093760	&0.502655213477898&	0.123870985979808&	0.419873788772778&	0.285759611173568&	0.431417217852462&	137.485850600654&	873.738612535060&	3.14099136138110&	723.636872874508&	4512.75545042413& &&\\
-	0.115569971324249&	0.102994030324302&	0.0102475931270909&	0.0111643892784063&	0.0261564298854156&	13.7961617543849&	1.34530538158285&	4152.50582418480&&&&&& \\
-	0.00852901248808787	&0.0336914297782977	&0.00670734527808048&	0.00920846281537991	&0.0100571802576979	&1.07292597078793&	0.0521359526474577	&132.311807871346&	0.00735142842361104&	0.0101635352172327&	2157.08916434962 &&&
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+	\hline
+	Refinement  &&&&&&&& \\
+	level &\thead{2}&\thead{3}&\thead{4}&\thead{5}&\thead{6}&\thead{7}&\thead{8}&\thead{9} \\
+	\hline 
+	$\alpha = 1.1$ & 1.42& 5.85& 3.86&	64.6&	32.137&	12.406&	28.14& N/A \\
+	$\alpha = 1.2$ & 0.85&	6.31&	8.17&	95.9&	136.14&	66.526&	35.88& N/A \\
+	$\alpha = 1.3$ & 0.55&	9.45&	5.19&	2.45	&24.142&	118.86&	76.59&	10.304  \\
+	$\alpha = 1.4$ & 0.44&	2.25&	6.99&	1.51&	154.89&	95.706&	2.807&	2.474 \\
+ 	$\alpha = 1.5$ & 0.77&	0.91 &	1.57 &	10.085&	23.44157	&1.19&	1.270&16.43  \\
+	$\alpha = 1.6$ & 0.39&	0.55&	0.46&	7.02&	25840.&	1.205&	1.936&	27.274 \\
+	$\alpha = 1.7$ & 0.19	&0.50&	0.12&	0.419&	0.28575&	0.431&	137.48&	873.738 \\
+	$\alpha = 1.8$ & 0.12&	0.10&	0.01&	0.011&	0.0261&	13.796&	1.345&	4152.50 \\
+	$\alpha = 1.9$ & 0.01	&0.03	&0.00670&	0.00921	&0.01006&1.07&	0.05	&132.311 \\
+	\hline
 	\end{tabular}
+	\caption{$||(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} ||_2$ for various $\alpha$, up to the refinement necessary for a solution with $L^2$ error below $\varepsilon = 10^{-7}$. Refinement level 1 is not included since it represents a uniform grid, where our preconditioner reduces to the Bini and de Benedetto preconditioner.}
+	\label{table: norm}
 \end{table}
 
 
@@ -646,25 +655,23 @@ In our final step of the proof we assumed $(\bigpre^{-1}\upright^{\top}(\upleft-
 \begin{figure}
 	\begin{subfigure}[h]{0.45\linewidth}
 		\includegraphics[width=\linewidth]{figures/iters_conv.png}
-		\caption{Image A}
+		\caption{Solving Equation (\ref{FDE}), where the exact solution is $u(x) = 10x^2 (1-x^2)$.}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.45\linewidth}
 		\includegraphics[width=\linewidth]{figures/iters_conv_ex2.png}
-		\caption{Image B}
+		\caption{Solving Equation (\ref{FDE}), with $f(x) = -(1+ \sin(x))$.}
 	\end{subfigure}%
-	\caption{Iterations to convergence below a tolerance of $\varepsilon = 10^{-7}$ for $\alpha = 1.9$, plotted with the number of Toeplitz blocks across increasing matrix size $m$. Their approximate equality further supports the interpretation of $1 \times 1$ blocks acting as additional boundaries imposed on the problem, requiring roughly one iteration for each outlier eigenvalue these boundaries cause.}
+	\caption{Iterations to convergence below a tolerance of $\varepsilon = 10^{-7}$ for $\alpha = 1.9$, plotted with the number of Toeplitz blocks across increasing matrix size $m$. }
 	\label{fig:conv}
 \end{figure}
 
 Example results of the spectrum before and after preconditioning are in Figure (\ref{fig:eigen_clusters}). These tests are for the problem (\ref{FDE}) with $\alpha = 1.9$ and exact solution $u(x) = 10x^2 (1-x^2)$ , as before. 
  Notice that although the proof allows for eigenvalue outliers far beyond the cluster, in practice everything remains within the interval $(0,2)$. 
 
+Figure (\ref{fig:conv}) shows that the number of iterations required to converge closely follows the number of Toeplitz blocks in our stiffness matrix. Their approximate equality further supports the interpretation of $1 \times 1$ blocks acting as additional boundaries imposed on the problem, requiring roughly one iteration for each outlier eigenvalue these boundaries cause.
 
-
-Next, we see how the clustered spectrum translates to accelerated convergence. In Figure (\ref{fig:conv}) the same matrices are used for preconditioned conjugate gradient (PCG), comparing the adaptive $\lilpre$ preconditioner and a Jacobi preconditioner with a tolerance of $10^{-8}$. For the two smaller matrices, the preconditioner clearly accelerates the point of superlinear convergence \cite{MINRES_super}. For the final matrix, the Jacobi-preconditioned system fails to converge within the maximum of $600$ iterations, but with the $\bigpre$ preconditioner converges in about $300$ iterations. 
-
-Hierarchical GMG comparison.
+Finally, we compare our preconditioner to the hierarchical GMG method in \cite{Xiaozhe}. Figure (\ref{fig:L2_err}) shows that our estimated error closely follows that of the GMG method. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width= .9\textwidth]{figures/L2_err.png} \\
@@ -673,7 +680,7 @@ Hierarchical GMG comparison.
 \end{figure}
 
 \section{Conclusion}
-We have shown how to build an effective preconditioner for FDEs discretized by AFEM. The spectrum of the preconditioned system is clustered around 1 and in tests was shown to accelerate convergence of Krylov methods. Future work could extend these ideas to FDEs in higher dimensions. 
+The singularities inherent to FDEs require adaptive meshes to even approximately distribute error across intervals. The stiffness matrix resulting from AFEM is ill-conditioned. Previous work allows for hierarchical representation of $A$, enabling faster computation for solving with GMG \cite{Xiaozhe, Glusa}. We have offered an alternative approach, leveraging remaining structure in $A$ and utilizing well-known preconditioners for Toeplitz matrices. We have shown our preconditioner to be efficient to build, apply, and effective at reducing the number of Krylov iterations needed to solve the linear system. In numerical tests, we perform competitively against the GMG and additionally have theoretic proof of accelerated convergence. Future work could extend these ideas to FDEs in higher dimensions. 
 
 % In the future, we will investigate how to customize the AFEM \texttt{MARK} module to build bigger Toeplitz blocks and thus get tighter clusters. 
 \newpage

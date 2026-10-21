@@ -5,13 +5,11 @@
   element method for the fractional laplacian: A priori and a posteriori error
   estimates, efficient implementation and multigrid solver}, Computer Methods
   in Applied Mechanics and Engineering, 327 (2017), pp.~4--35.
-\newblock Advances in Computational Mechanics and Scientific Computation—the
-  Cutting Edge.
 
 \bibitem{Bini}
 {\sc Dario Bini and Fabio Di~Benedetto}, {\em A new preconditioner for the
   parallel solution of positive definite toeplitz systems}, Association for
-  Computing Machinery,  (1990), p.~220–223.
+  Computing Machinery,  (1990), pp.~220--223.
 
 \bibitem{stable}
 {\sc James~R. Bunch}, {\em Stability of methods for solving toeplitz systems of
@@ -40,7 +38,7 @@
 \bibitem{schrod}
 {\sc Chao Chen, Xi~Yang, and Fei-Yan Zhang}, {\em Sine-transform-based fast
   solvers for riesz fractional nonlinear schrödinger equations with attractive
-  nonlinearities}, Applied Mathematics and Computation, 510 (2026), p.~129674.
+  nonlinearities}, Applied Mathematics and Computation, 510 (2026).
 
 \bibitem{app_electrom}
 {\sc N.~Engheta}, {\em On fractional calculus and fractional multipoles in
@@ -67,17 +65,17 @@
 
 \bibitem{AFEM}
 {\sc Ricardo Nochetto, Kunibert Siebert, and Andreas Veeser}, {\em Theory of
-  adaptive finite element methods: An introduction}, in Multiscale, Nonlinear
-  and Adaptive Approximation, 2009, pp.~409--542.
+  adaptive finite element methods: An introduction}, Multiscale, Nonlinear and
+  Adaptive Approximation,  (2009), pp.~409--542.
 
 \bibitem{app_signals}
 {\sc Manuel~D. Ortigueira, Clara~M. Ionescu, J.~Tenreiro Machado, and Juan~J.
   Trujillo}, {\em Fractional signal processing and applications}, Signal
-  Processing, 107 (2015), p.~197.
+  Processing, 107 (2015), pp.~2285--2286.
 
-\bibitem{MINRES_super}
-{\sc Valeria Simoncini and Daniel Szyld}, {\em On the superlinear convergence
-  of minres},  (2013).
+\bibitem{fractional}
+{\sc S.~Samko, A.A. Kilbas, and O.~Marichev}, {\em Fractional Integrals and
+  Derivatives}, Taylor \& Francis, 1993.
 
 \bibitem{Strang_original}
 {\sc Gilbert Strang}, {\em A proposal for toeplitz matrix calculations},

@@ -3,44 +3,44 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: WALL_KATE_paper.aux
 The style file: siamplain.bst
 Database file #1: references.bib
-You've used 18 entries,
+You've used 19 entries,
             2030 wiz_defined-function locations,
-            625 strings with 6944 characters,
-and the built_in function-call counts, 6745 in all, are:
-= -- 661
-> -- 265
+            631 strings with 7051 characters,
+and the built_in function-call counts, 6984 in all, are:
+= -- 678
+> -- 278
 < -- 0
-+ -- 110
-- -- 86
-* -- 509
-:= -- 1014
-add.period$ -- 18
-call.type$ -- 18
-change.case$ -- 96
++ -- 115
+- -- 90
+* -- 525
+:= -- 1055
+add.period$ -- 19
+call.type$ -- 19
+change.case$ -- 100
 chr.to.int$ -- 0
-cite$ -- 18
-duplicate$ -- 318
-empty$ -- 489
-format.name$ -- 86
-if$ -- 1490
+cite$ -- 19
+duplicate$ -- 331
+empty$ -- 512
+format.name$ -- 90
+if$ -- 1539
 int.to.chr$ -- 0
-int.to.str$ -- 18
-missing$ -- 19
-newline$ -- 57
-num.names$ -- 36
-pop$ -- 71
+int.to.str$ -- 19
+missing$ -- 21
+newline$ -- 60
+num.names$ -- 38
+pop$ -- 80
 preamble$ -- 1
-purify$ -- 79
+purify$ -- 83
 quote$ -- 0
-skip$ -- 304
+skip$ -- 310
 stack$ -- 0
-substring$ -- 511
-swap$ -- 154
+substring$ -- 516
+swap$ -- 156
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 70
+type$ -- 72
 warning$ -- 0
-while$ -- 66
-width$ -- 20
-write$ -- 161
+while$ -- 68
+width$ -- 21
+write$ -- 169

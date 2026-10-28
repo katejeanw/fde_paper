@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.17)  20 OCT 2026 22:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.17)  27 OCT 2026 22:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1042,54 +1042,54 @@ line 396.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 409.
+(hyperref)                removing `math shift' on input line 404.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 409.
+(hyperref)                removing `superscript' on input line 404.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 409.
+(hyperref)                removing `math shift' on input line 404.
 
 [7]
-<figures/A.png, id=260, 344.487pt x 344.487pt>
+<figures/A.png, id=262, 344.487pt x 344.487pt>
 File: figures/A.png Graphic file (type png)
 <use figures/A.png>
-Package pdftex.def Info: figures/A.png  used on input line 442.
+Package pdftex.def Info: figures/A.png  used on input line 437.
 (pdftex.def)             Requested size: 344.48615pt x 344.48615pt.
-<figures/AD.png, id=261, 344.487pt x 344.487pt>
+<figures/AD.png, id=263, 344.487pt x 344.487pt>
 File: figures/AD.png Graphic file (type png)
 <use figures/AD.png>
-Package pdftex.def Info: figures/AD.png  used on input line 442.
+Package pdftex.def Info: figures/AD.png  used on input line 437.
 (pdftex.def)             Requested size: 344.48615pt x 344.48615pt.
-<figures/AE.png, id=262, 344.487pt x 344.487pt>
+<figures/AE.png, id=264, 344.487pt x 344.487pt>
 File: figures/AE.png Graphic file (type png)
 <use figures/AE.png>
-Package pdftex.def Info: figures/AE.png  used on input line 442.
+Package pdftex.def Info: figures/AE.png  used on input line 437.
 (pdftex.def)             Requested size: 344.48615pt x 344.48615pt.
-<figures/AF.png, id=263, 344.487pt x 344.487pt>
+<figures/AF.png, id=265, 344.487pt x 344.487pt>
 File: figures/AF.png Graphic file (type png)
 <use figures/AF.png>
-Package pdftex.def Info: figures/AF.png  used on input line 442.
+Package pdftex.def Info: figures/AF.png  used on input line 437.
 (pdftex.def)             Requested size: 344.48615pt x 344.48615pt.
  [8 <./figures/A.png (PNG copy)> <./figures/AD.png (PNG copy)> <./figures/AE.pn
 g (PNG copy)> <./figures/AF.png (PNG copy)>] [9]
 Package hyperref Info: bookmark level for unknown remark defaults to 0 on input
- line 509.
+ line 504.
 Package hyperref Info: bookmark level for unknown theorem defaults to 0 on inpu
-t line 524.
+t line 519.
  [10]
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 597.
+ine 592.
  [11]
-<figures/SN_vs_LR.png, id=327, 1732.4725pt x 797.98125pt>
+<figures/SN_vs_LR.png, id=328, 1732.4725pt x 797.98125pt>
 File: figures/SN_vs_LR.png Graphic file (type png)
 <use figures/SN_vs_LR.png>
-Package pdftex.def Info: figures/SN_vs_LR.png  used on input line 601.
+Package pdftex.def Info: figures/SN_vs_LR.png  used on input line 596.
 (pdftex.def)             Requested size: 370.38374pt x 170.6007pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 611--628
+Underfull \hbox (badness 10000) in paragraph at lines 606--623
 
  []
 
@@ -1097,48 +1097,51 @@ Underfull \hbox (badness 10000) in paragraph at lines 611--628
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [12 <./figures/SN_vs_LR.png>]
-<figures/eigs_4417_alpha9.png, id=340, 1371.1225pt x 965.6075pt>
+<figures/eigs_4417_alpha9.png, id=342, 1371.1225pt x 965.6075pt>
 File: figures/eigs_4417_alpha9.png Graphic file (type png)
 <use figures/eigs_4417_alpha9.png>
-Package pdftex.def Info: figures/eigs_4417_alpha9.png  used on input line 636.
+Package pdftex.def Info: figures/eigs_4417_alpha9.png  used on input line 633.
 (pdftex.def)             Requested size: 370.38374pt x 260.83537pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/iters_conv.png, id=341, 993.7125pt x 835.12pt>
+<figures/iters_conv.png, id=343, 993.7125pt x 835.12pt>
 File: figures/iters_conv.png Graphic file (type png)
 <use figures/iters_conv.png>
-Package pdftex.def Info: figures/iters_conv.png  used on input line 644.
+Package pdftex.def Info: figures/iters_conv.png  used on input line 641.
 (pdftex.def)             Requested size: 166.67154pt x 140.06982pt.
-<figures/iters_conv_ex2.png, id=344, 997.7275pt x 839.135pt>
+<figures/iters_conv_ex2.png, id=346, 997.7275pt x 839.135pt>
 File: figures/iters_conv_ex2.png Graphic file (type png)
 <use figures/iters_conv_ex2.png>
-Package pdftex.def Info: figures/iters_conv_ex2.png  used on input line 649.
+Package pdftex.def Info: figures/iters_conv_ex2.png  used on input line 646.
 (pdftex.def)             Requested size: 166.67154pt x 140.16705pt.
-<figures/L2_err.png, id=353, 1124.2pt x 672.5125pt>
+<figures/L2_err.png, id=355, 1124.2pt x 672.5125pt>
 File: figures/L2_err.png Graphic file (type png)
 <use figures/L2_err.png>
-Package pdftex.def Info: figures/L2_err.png  used on input line 662.
+Package pdftex.def Info: figures/L2_err.png  used on input line 659.
 (pdftex.def)             Requested size: 296.30812pt x 177.25035pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[13] (./WALL_KATE_paper.bbl [14 <./figures/eigs_4417_alpha9.png (PNG copy)>]
-[15 <./figures/iters_conv.png> <./figures/iters_conv_ex2.png> <./figures/L2_err
-.png (PNG copy)>])
+[13] (./WALL_KATE_paper.bbl
+Underfull \vbox (badness 4765) has occurred while \output is active []
+
+ [14 <./figures/eigs_4417_alpha9.png (PNG copy)>] [15 <./figures/iters_conv.png
+> <./figures/iters_conv_ex2.png> <./figures/L2_err.png (PNG copy)>])
 \tf@thm=\write5
 \openout5 = `WALL_KATE_paper.thm'.
 
- [16] (./WALL_KATE_paper.aux)
+ [16]
+(./WALL_KATE_paper.aux)
 Package rerunfilecheck Info: File `WALL_KATE_paper.out' has not changed.
-(rerunfilecheck)             Checksum: F965C6C7FC33C777FCF4C935974B68D6;3656.
+(rerunfilecheck)             Checksum: 8BD8056DD304224FC97CC024C9EFA192;3656.
  ) 
 Here is how much of TeX's memory you used:
- 28125 strings out of 478994
- 517903 string characters out of 5858183
- 795780 words of memory out of 5000000
- 43445 multiletter control sequences out of 15000+600000
+ 28130 strings out of 478994
+ 517975 string characters out of 5858183
+ 795858 words of memory out of 5000000
+ 43448 multiletter control sequences out of 15000+600000
  417803 words of font info for 80 fonts, out of 8000000 for 9000
  2715 hyphenation exceptions out of 8191
  102i,19n,131p,1334b,1257s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1163,12 +1166,11 @@ dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2021/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2021/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2021/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2021/texmf-dist/f
-onts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-di
-st/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on WALL_KATE_paper.pdf (16 pages, 564414 bytes).
+onts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on WALL_KATE_paper.pdf (16 pages, 561024 bytes).
 PDF statistics:
  477 PDF objects out of 1000 (max. 8388607)
- 404 compressed objects within 5 object streams
- 95 named destinations out of 1000 (max. 500000)
+ 405 compressed objects within 5 object streams
+ 97 named destinations out of 1000 (max. 500000)
  314 words of extra memory for PDF output out of 10000 (max. 10000000)
 

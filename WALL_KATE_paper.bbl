@@ -45,6 +45,10 @@
   electromagnetism}, IEEE Transactions on Antennas and Propagation, 44 (1996),
   pp.~554--566.
 
+\bibitem{HJ_1991}
+{\sc Roger~A. Horn and Charles~R. Johnson}, {\em Topics in Matrix Analysis},
+  Cambridge University Press, 1991.
+
 \bibitem{JZ}
 {\sc Bangti Jin and Zhi Zhou}, {\em A {Finite} {Element} {Method} with
   {Singularity} {Reconstruction} for {Fractional} {Boundary} {Value}

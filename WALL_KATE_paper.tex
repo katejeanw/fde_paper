@@ -123,7 +123,7 @@
 	\begin{equation} \label{AFEM}
 		\texttt{SOLVE} \rightarrow \texttt{ESTIMATE} \rightarrow \texttt{MARK} \rightarrow \texttt{REFINE}.
 	\end{equation} 
-	Here, the computational cost is dominated by the \texttt{SOLVE} step. The stiffness matrix, $\A$, produced by AFEM is dense, ill-conditioned, and has lost its general Toeplitz-like structure. 
+	Here, the computational cost is dominated by the \texttt{SOLVE} step. The stiffness matrix, $\A$, produced by AFEM is SPD, but also dense, ill-conditioned, and has lost its general Toeplitz-like structure. 
 	
 	Various techniques have been developed to address these complications on a uniform mesh. In \cite{JZ}, the authors use a reconstruction technique that isolates the singularity to improve finite-element method (FEM) convergence. Alternatively, in \cite{superfast}, a Toeplitz preconditioner for fractional diffusion equations reduces iteration cost to $\bigOh(m \log m)$, where $m$ is the size of $A$, using the preconditioned conjugate gradient squared method. 
 	
@@ -255,7 +255,7 @@ These $1 \times 1$ blocks, along with their corresponding rows and columns, can 
 \begin{equation} \label{eq:perm}
 	PAP^{\top}  =  \tilde{A}  =  \begin{bmatrix} V & W \\ W^{\top} & \lowright \end{bmatrix}.
 \end{equation}
-Consequently, along the diagonal of the lower right block, $\lowright$, remain Toeplitz blocks of size at least two. 
+Consequently, along the diagonal of the lower right block, $\lowright$, remain Toeplitz blocks of size at least two.  Since $\A$ was SPD, the permuted $\perm$ is also SPD. 
 
 
 Let $k$ denote the size of $\upleft$, that is the number of $1 \times 1$ blocks. It is natural to ask, how big is $k$ relative to $m = \text{size}(\A)$? It is difficult to get an exact handle on this theoretically, since it depends on how AFEM routines are implemented. However, in our numerical experiments we find that $k \approx \log(m)$ (see Section \ref{validate}), and $k$ never grows faster than $m$. With $p$ denoting the number of $1 \times 1$ blocks in $\lowright$,  we might expect that $p$ is exactly one more than $k$. However, the adaptive refinement carried out in AFEM will occasionally create a few consecutive $1 \times 1$ blocks. So while we cannot guarantee an exact relationship between $k$ and $p$, it is true that $k \approx p$. 
@@ -390,16 +390,11 @@ We build up to the clustering of the final preconditioned system in several step
 
 The following lemma will be of use to us throughout the section. 
 \begin{lemma} \label{eig_lemma}
-	Let $T \in \R^{n \times n}$ be an invertible matrix. Let $A \in \R^{n \times n}$, then $$\lambda_k(T^{-1}A) \leq \frac{\lambda_k(A)}{\lambda_{\min}(T)}.$$ 
+	Let $T \in \R^{n \times n}$ be symmetric positive definite. Let $A \in \R^{n \times n}$ also be symmetric positive definite, then $$\lambda_k(T^{-1}A) \leq \frac{\lambda_k(A)}{\lambda_{\min}(T)}.$$ 
 \end{lemma}
 \begin{proof}
-	Using the min-max theorem, 
-	\begin{align*}
-		\lambda_k ( T^{-1} A) &= \min_{\dim V=k} \max_{x \in V} \left(  \frac{(Ax,x)}{(T x,x)}\right) \\
-		&\leq   \min_{\dim V =k} \left[ \max_{x \in V} \left( \frac{(A x,x)}{(x,x)} \right)  \max_{x \in V} \left( \frac{(x,x)}{(T x,x)} \right) \right] \\
-		&\leq \left[  \min_{\dim V =k}  \max_{x \in V} \left( \frac{(A x,x)}{(x,x)} \right)  \right] \max_{x \in \R^n} \left( \frac{(x,x)}{(T x,x)} \right)  \\
-		&= \lambda_k(A)   \max_{x \in \R^n} \left( \frac{(x,x)}{(T x,x)} \right) \leq \lambda_k(A)  \frac{1}{\lambda_{\min}(T)}. 
-	\end{align*}
+	Recalling that $\lambda_k(T^{-1}A) = \lambda_k(A T^{-1})$, and that since both matrices are SPD the singular values and eigenvalues coincide. Then we apply Theorem 3.3.16 (d) from \cite{HJ_1991}, 
+	$$ \lambda_k(A T^{-1}) \leq \lambda_k(A) \lambda_{\max}(T) = \frac{\lambda_k(A)}{\lambda_{\min}(T)}. $$
 \end{proof}
 
 \subsection{Spectral Clustering of a Toeplitz Block} 
@@ -628,6 +623,8 @@ In order to prove the spectral clustering, we made two assumptions about the str
 	\caption*{$||(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} ||_2$ for various $\alpha$, up to the refinement necessary for a solution with $L^2$ error below $\varepsilon = 10^{-7}$. Refinement level 1 is not included since it represents a uniform grid, where our preconditioner reduces to the Bini and de Benedetto preconditioner.}
 	\label{table: norm}
 \end{table}
+\todo[inline]{update table with fixed numbers}
+
 In the proof of Theorem \ref{thrm:main}, we needed $(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} (\Hank^{SN} + \offoff)$ to be small-norm, which depended on the assumption that $||(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} ||_2$ was bounded. Since $||\Hank^{SN} + \offoff||_2$ is small (though its exact value depends on how $\varepsilon$ is chosen in the proof of Lemma \ref{lemma: block}), we need only demonstrate that the other part of this term, $||(\bigpre^{-1}\upright^{\top}(\upleft-\upright\bigpre^{-1}\upright^{\top})^{-1}\upright)\bigpre^{-1} ||_2$ doesn't blow-up. Example results of this value are given in Table \ref{table: norm}. Though the norm of this term can vary somewhat, it never jumps orders of magnitude, and is often below 1. This also supports a tight eigenvalue cluster, since this term is part of the small-norm matrix that determines the clustering radius. 
 
 \subsection{Performance Results}
